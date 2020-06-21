@@ -1,12 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="{{ asset('scss/styles.css') }}">
+
+        <script src="https://kit.fontawesome.com/7c475d1e01.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" defer></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" defer></script>
+
+        <link rel="shortcut icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+        <title>{% block title %}{% endblock %}</title> 
     </head>
     <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block body %}
+            
+        {% endblock %}
+
+        {% block javascripts %}
+        
+        {% endblock %}
     </body>
 </html>

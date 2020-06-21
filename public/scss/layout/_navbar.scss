@@ -1,0 +1,24 @@
+.menu {
+    font-size: 1.5em;
+    padding: 5px 20px;
+    border-bottom: 4px solid nth($border-colors,1);
+    position: relative;
+    z-index: 1;
+    font-weight: bold;
+    &::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: nth($background-colors,3);
+        opacity: 0.85;
+        z-index: -1;
+    }
+    a.nav-link i {
+        color: nth($text-colors,1);
+        text-shadow: 2px 2px 2px nth($text-colors,2);
+        padding-left: 20px;
+    }
+}

@@ -1,0 +1,54 @@
+<form action="#" method="post" class="form-style">
+    <fieldset>
+        <legend>Type de contenu</legend>
+        <div>
+            <input type="checkbox" id="text" name="type" value="Texte">
+            <label for="text">Textes</label>
+        </div>
+        <div>
+            <input type="checkbox" id="music" name="type" value="Musique">
+            <label for="music">Musique</label>
+        </div>
+        <div>
+            <input type="checkbox" id="image" name="type" value="Images">
+            <label for="image">Images</label>
+        </div>
+        <div>
+            <input type="checkbox" id="video" name="type" value="Vidéos">
+            <label for="video">Vidéos</label>
+        </div>
+    </fieldset>
+    <div class="form-group">
+        <label for="topic" method="POST">Thématique</label>
+        <select name="topic" id="topic" class="form-control">
+            <option value="">Toutes</option>
+            <option value="travels">Voyages</option>
+            <option value="technologies">Technologies</option>
+            <option value="sports">Sports</option>
+            <option value="leisure">Loisirs</option>
+            <option value="work">Monde professionnel</option>
+            <option value="economy">Economie</option>
+            <option value="others">Groupomania</option>
+            <option value="others">Divers</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="author">Autheur</label>
+        <input placeholder="Rechercher un autheur..." type="text" class="form-control" id="author" name="author">
+    </div>
+    <div class="form-group">
+        <label for="sorting:">Trier par:</label>
+        <select name="sorting" id="sorting" class="form-control">
+            <option value="">Ordre d'apparition</option>
+            <option value="travels">Nouveauté</option>
+            <option value="technologies">Ancienneté</option>
+            <option value="sports">Popularité</option>
+            <option value="leisure">Ordre alphabétique</option>
+            <option value="work">Ordre alphabétique inversé</option>
+        </select>
+    </div>
+    <div class="form-style__buttons">
+        <a id="connexion" type="submit" class="btn btn--valid">Rechercher</a>
+        <button id="restore" type="button" class="btn btn--cancel">Rétablir</button>
+    </div>
+</form>

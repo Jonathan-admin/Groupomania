@@ -1,0 +1,40 @@
+.signin {
+    justify-content: center;
+    background-image: url("../../images/background_signin.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    p > a {
+        color: nth($text-colors,2);
+    }
+    & > div {
+        margin-top: 100px;
+    }
+    &__logo {
+        border: 2px solid black;
+        box-shadow: 2px 2px 20px black;
+        border-bottom: none;
+        height: 150px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(9, 31, 67, 0.808);
+        img {
+            width: 60%;  
+        } 
+    }
+    &__form {
+        border: 2px solid black;
+        box-shadow: 2px 2px 20px black;
+        border-top: none;
+        background-color: rgba(255, 255, 255, 0.856);
+        color: nth($text-colors,2);
+        padding: 20px;
+        h1 {
+            border-bottom: 4px solid nth($border-colors,2);
+            font-size: 2.0em;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+    }
+}

@@ -1,0 +1,55 @@
+.footer {
+    height: auto;
+    color: nth($text-colors,1);
+    border-top: 4px solid nth($border-colors,1);
+    background-image: url("../../images/autoroute.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    &::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: nth($background-colors,2);
+        opacity: 0.85;
+    }
+    &--title {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    & > div {
+        padding: 50px 20px;
+        z-index: 1;
+    }
+    &__OC-logo {
+        text-align: center;
+        img {
+            width: 50%; 
+            max-width: 200px; 
+        }
+    }
+    &__Groupomania {
+        text-align: center;
+        img {
+            width: 40%;  
+            margin-bottom: 20px;
+        }
+    }
+    &__projet {
+        ul {
+            & > li {
+                &:nth-child(even) {
+                    list-style-type: none;
+                    padding-left: 50px;
+                }
+                &:nth-child(odd) {
+                    list-style-image: url("../../images/favicon-point.png");
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}

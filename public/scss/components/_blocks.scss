@@ -1,0 +1,12 @@
+.header-nav {
+    background-image: url("../../images/paris-defense.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.error {
+    display: block;
+    font-size: 1em;
+    margin: 10px 0;
+    color: nth($text-colors,3);
+}
