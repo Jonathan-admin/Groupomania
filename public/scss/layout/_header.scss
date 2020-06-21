@@ -1,0 +1,35 @@
+.header {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: nth($text-colors,1);
+    border-bottom: 4px solid nth($border-colors,1);
+    position: relative;
+    img {
+        width: 25%;  
+        z-index: 1;
+    }
+    &::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: nth($background-colors,2);
+        opacity: 0.7;
+    }
+    h1 {
+        font-size: 1.8em;
+        z-index: 1;
+    }
+    div:not(.header-nav) {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+        width: 100%;
+        z-index: 1;
+    }
+}
