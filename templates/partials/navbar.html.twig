@@ -5,13 +5,13 @@
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item active">
-                <a class="nav-link" href="#" aria-label="Accéder au forum"><i class="fas fa-users"> Le forum</i><span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ path('groupomania_home') }}" aria-label="Accéder au forum"><i class="fas fa-users"> Le forum</i><span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" aria-label="Espace personnel"><i class="fas fa-user-lock"> Espace membre</i></a>
+                <a class="nav-link" href="{{ path('groupomania_space_member') }}" aria-label="Espace personnel"><i class="fas fa-user-lock"> Espace membre</i></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#" aria-label="Administration du site"><i class="fas fa-tools"> Administration</i></a>
+                <a class="nav-link" href="{{ path('admin_page') }}" aria-label="Administration du site"><i class="fas fa-tools"> Administration</i></a>
             </li>
         </ul>
     </div>

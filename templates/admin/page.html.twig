@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Groupomania - Espace d'administration{% endblock %}
+
+{% block javascript %}
+    <script src="{{ asset('scripts/admin.js') }}" defer></script>
+{% endblock %}
+
+{% block body %}
+    <div class="header-nav">
+        {{ include("partials/header.html.twig") }}
+        {{ include("partials/navbar.html.twig") }}
+    </div>
+    <main class="space-admin">
+        <h2>Espace administration</h2>
+        <p>Bienvenue dans l'espace d'administration du réseau social Groupomania!</p>
+        <p>Vous pourrez ici gérer tous les contenus enregistrés en base de données et tous les comptes utilisateurs.</p>
+        <section class="space-admin__users">
+            <h3>Gestion des utilisateurs</h3>
+            <p>Dans cette section, vous pourrez:</p>
+            <ul>
+                <li>Consulter les informations utilisateurs telles que la date de son inscription ainsi que son adresse email afin de le contacter rapidemment en cas de besoin.</li>
+                <li>Gérer ses droits afin de garantir un contrôle d'utilisation de l'application.</li>
+            </ul>
+            <div class="row">
+                <section class="col-lg-3">
+                    <h4>Utilisateurs actuellement inscrits ({{allUsers | length}})</h4>
+                     <div id="usersList">
+                        <table>
+                            <tr>
+                                <th>Matricule</th>
+                                <th>Pseudo</th>
+                            </tr>
+                            {% for user in allUsers %} 
+                                <tr class="userInfosLink" data-url="{{ path('admin_userView',{'id':user.id}) }}">
+                                    <td> {{ user.id }} </td>
+                                    <td> {{ user.username }} </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </section>
+                <section class="col-lg-3">
+                    <h4>Informations utilisateur</h4>
+                    <div id="userInfos">
+
+                    </div>
+                    <div id="messageServer">
+
+                    </div>
+                </section>
+                <section class="col-lg-3">
+                    <h4>Informations complémentaires</h4>
+                   
+                </section>
+            </div>
+        </section>
+        <section class="space-admin__contents">
+            <h3>Gestion des contenus</h3>
+            
+        </section>
+
+    </main> 
+    {{ include("partials/footer.html.twig") }}
+{% endblock %}

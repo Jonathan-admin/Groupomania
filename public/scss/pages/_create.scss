@@ -1,26 +1,5 @@
-.header-nav {
-    background-image: url("../../images/paris-defense.jpg");
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
-}
-
-.error {
-    display: block;
-    font-size: 1em;
-    margin: 10px 0;
-    color: nth($text-colors,3);
-}
-
-h2:not(.space-member__pub) {
-    border-bottom: 6px solid nth($border-colors,2);
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-    font-size: 1.5em;
-}
-
-.space-member,
-.space-admin,
-.forum {
+.create {
+    padding: 20px;
     min-height: 500px;
     background-color: nth($background-colors,1);
     position: relative;
@@ -39,5 +18,9 @@ h2:not(.space-member__pub) {
         background-image: url("../../images/arc-triomphe.jpg");
         background-repeat: no-repeat;
         background-size: 100% 100%;
+    }
+    form {
+        width: 50%;
+        margin: auto;
     }
 }

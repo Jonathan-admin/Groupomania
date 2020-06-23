@@ -21,6 +21,17 @@ a:not(.disabled).btn--cancel:hover, button:not(.disabled).btn--cancel:hover {
 a:disabled, button:disabled {
   cursor: none;
 }
+a.btn--action, button.btn--action {
+  background-color: #091f43;
+  opacity: 0.85;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 2rem;
+}
+a.btn--action:hover, button.btn--action:hover {
+  border: 1px solid #d1515a;
+  box-shadow: 2px 2px 2px #d1515a;
+}
 
 .header-nav {
   background-image: url("../../images/paris-defense.jpg");
@@ -33,6 +44,39 @@ a:disabled, button:disabled {
   font-size: 1em;
   margin: 10px 0;
   color: #d1515a;
+}
+
+h2:not(.space-member__pub) {
+  border-bottom: 6px solid #d1515a;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+
+.space-member,
+.space-admin,
+.forum {
+  min-height: 500px;
+  background-color: white;
+  position: relative;
+  color: #091f43;
+  padding: 20px;
+  z-index: 1;
+}
+.space-member::before,
+.space-admin::before,
+.forum::before {
+  z-index: -1;
+  position: absolute;
+  opacity: 0.15;
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("../../images/arc-triomphe.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 .form-style input, .form-style select {
@@ -218,38 +262,24 @@ a:disabled, button:disabled {
   margin-bottom: 20px;
 }
 
-.forum {
-  min-height: 500px;
-  background-color: white;
-  position: relative;
-  color: #091f43;
-  padding: 20px;
-  z-index: 1;
-}
-.forum::before {
-  z-index: -1;
-  position: absolute;
-  opacity: 0.15;
-  content: "";
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("../../images/arc-triomphe.jpg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
-.forum h2 {
-  border-bottom: 6px solid #d1515a;
-  padding-bottom: 15px;
-  margin-bottom: 20px;
-  font-size: 1.5em;
-}
 .forum__search {
   min-width: 250px;
 }
 
-.space-member {
+.space-member > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 6px solid #d1515a;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+.space-member > div h2 {
+  font-size: 1.5em;
+}
+
+.create {
+  padding: 20px;
   min-height: 500px;
   background-color: white;
   position: relative;
@@ -257,7 +287,7 @@ a:disabled, button:disabled {
   padding: 20px;
   z-index: 1;
 }
-.space-member::before {
+.create::before {
   z-index: -1;
   position: absolute;
   opacity: 0.15;
@@ -270,8 +300,29 @@ a:disabled, button:disabled {
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
-.space-member h2 {
-  width: 100%;
+.create form {
+  width: 50%;
+  margin: auto;
+}
+
+.space-admin__users, .space-admin__contents {
+  margin-bottom: 30px;
+  display: block;
+}
+.space-admin__users h3, .space-admin__contents h3 {
+  font-size: 1.3em;
+  border-bottom: 3px solid #d1515a;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+}
+.space-admin__users h4, .space-admin__contents h4 {
+  font-size: 1.15em;
+}
+.space-admin__users section[class*=col-lg], .space-admin__contents section[class*=col-lg] {
+  min-height: 200px;
+}
+.space-admin__users section[class*=col-lg]:nth-child(n+2), .space-admin__contents section[class*=col-lg]:nth-child(n+2) {
+  border-right: 3px solid #d1515a;
 }
 
 body, html {
@@ -291,7 +342,7 @@ a {
 }
 a:hover {
   color: white;
-  text-decoration: underline;
+  text-decoration: none;
   font-style: italic;
 }
 

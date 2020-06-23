@@ -19,32 +19,37 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    // /**
-    //  * @return User[] Returns an array of User objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getAllUsersWidthIdName()
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
+        return $this->createQueryBuilder('user')
+            ->select('user.id','user.username')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getArrayResult();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?User
+    public function deleteUser($id)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $request = "DELETE FROM user WHERE id = '".$id."'";
+        $statement =  $this->getEntityManager()->getConnection()->prepare($request);
+        $statement->execute();
     }
-    */
+
+    public function updateRoles($id,$role)
+    {
+        switch ($role) {
+            case "use":
+                $role = '["ROLE_USER"]';
+                break;
+            case "admin":
+                $role = '["ROLE_USER","ROLE_ADMIN"]';
+                break;
+            case "block":
+                $role = '[]';
+                break;
+        }
+        $request = "UPDATE user SET user.roles = '".$role."' WHERE id = '".$id."'";
+        $statement =  $this->getEntityManager()->getConnection()->prepare($request);
+        $statement->execute();
+    }
+
 }
