@@ -19,10 +19,10 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
-    public function getAllUsersWidthIdName()
+    public function getAllUsersWidthIdNameRole()
     {
         return $this->createQueryBuilder('user')
-            ->select('user.id','user.username')
+            ->select('user.id','user.username','user.roles')
             ->getQuery()
             ->getArrayResult();
     }

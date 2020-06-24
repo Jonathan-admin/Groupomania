@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Groupomania - Espace membre{% endblock %}
+
+{% block body %}
+    <div class="header-nav">
+        {{ include("partials/header.html.twig") }}
+        {{ include("partials/navbar.html.twig") }}
+    </div>
+    <main class="space-infos">
+        <h2>Notes administratives</h2>
+        <p>Cette page est dédié aux explications relevant de l'administration et la gestion du site. Toutes les fonctionnalités de gestion utilisateurs et contenus seront présentées.</p>
+        
+        <section>
+            <h3>La gestion des utilisateurs</h3>
+            <p>Cette application permet à un ensemble d'utilisateurs de faciliter les échanges entre-eux et améliorer leurs conditions de travail. De nombreuses informations véhiculeront au travers ce réseau social inter-service. Quelle que soit leur
+            nature (musique, vidéos, images ou textes), si elles ne sont pas contrôlées, l'utilisation de l'application pourrait probablement être néfaste au sein d'une entreprise et d'alimenter dans certaines circonstances des tensions entre collaborateurs.<br/>
+            Il est donc indispensable de mettre en place certaines protections afin de garantir une condition d'utilisation sereine et de profiter pleinement de ses bénéfices.
+                    
+            <h4>La suppression des utilisateurs</h4>
+            <p>Si toutefois, un utilisateur serait malintentionné, il est possible de procéder à la suppression du compte qui lui ait associé afin qu'il ne diffuse plus aucun contenu.<br/>
+            Pour supprimer un utilisateur, il faut:</p>
+            <ul>
+                <li>Disposer des droits administrateur afin d'accéder aux pages d'administration et de gestion</li>
+                <li>Un utilisateur ne peut pas supprimer son propre compte utilisateur. En cours d'utilisation, les comptes ne pourront ni être supprimés ni être modifiés par tous utilisateurs, y compris les administrateurs.</li>
+            </ul>
+            <p>Un compte générique administrateur a été créé afin de permettre à tout administrateur de gérer ses propres comptes. Pour éviter qu'il ne l'utilise en permanence, les droits d'accès spécifiques qui lui sont attribués ne l'autorisera pas à utiliser l'application 
+            car seule la page de gestion sera accessible.</p>
+
+            <h4>Les droits d'accès</h4>
+            <p>La suppression d'un compte est le pire scénario que peut rencontrer un utilisateur puisqu'il sera banni des membres. En revanche, il est tout à fait possible de restraindre les droits d'accès d'un utilisateur.<br/>
+            Pour modifier les droits d'un compte désigné, il faut:</p>
+            <ul>
+                <li>Disposer des droits d'administrateur de manière à accéder à la page de gestion</li>
+                <li>Encore une fois, un compte utilisateur en cours d'utilisation ne peut pas être modifié.</li>
+            </ul>
+            <p>Voici les droits d'utilisation définis:</p>
+            <ul>
+                <li><strong>Le droit d'utilisation normale</strong><br/> Il s'agit du droit accordé à tout utilisateur s'inscrivant sur le site. Il pourra avec ce type de compte profiter de toutes les fonctionnalités de l'application à l'exeption
+                de toutes configurations ou réglages. Les pages d'administration ne seront pas accessibles.</li>
+                <li><strong>Le droit d'administration et d'utilisation normale</strong><br/> L'utilisateur disposera du status d'administrateur. Il gérera les comptes utilisateurs, les contenus via les pages d'administration et utilisera comme tout autre utilisateur standard l'application.</li>
+                <li><strong>Aucun droit sur le compte</strong><br/> En cas d'enquête, de diffusion illicite, ou non respect des conditions d'utilisation, l'utilisateur ne pourra plus se connecter à l'application puisque que les droits de son compte ont été totalment supprimés. Il faudra alors attendre qu'un administrateur redéfinisse les droits pour que l'utilisateur puisse se reconnecter à nouveau.</li>
+            </ul>
+        </section>   
+        <section>
+            <h3>La gestion des contenus</h3>
+        </section>
+
+    </main> 
+    {{ include("partials/footer.html.twig") }}
+{% endblock %}

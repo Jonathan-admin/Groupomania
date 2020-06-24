@@ -22,4 +22,12 @@ class GroupomaniaController extends AbstractController
     {
         return $this->render('groupomania/space_member.html.twig');
     }
+
+     /**
+     * @Route("/notes", name="groupomania_infos")
+     */
+    public function informationsPage()
+    {
+        return $this->render('groupomania/notes.html.twig');
+    }
 }

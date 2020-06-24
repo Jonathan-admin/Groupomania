@@ -34,3 +34,8 @@ a, button {
         }
     }
 }
+
+i.fa-sync {
+    cursor: pointer;
+    color: nth($text-colors,2);
+}

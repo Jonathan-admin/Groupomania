@@ -19,7 +19,7 @@ class AdministrationController extends AbstractController
     }
 
     /**
-     * @Route("/admin/gestion_utilisateur/{id}", name="admin_userView")
+     * @Route("/admin/gestion_utilisateur/{id}", name="admin_userView", requirements={"id"="\d+"})
      */
     public function userView(UserRepository $userRepo, $id) {
         return $this->render('admin/userInfo.html.twig', [
@@ -28,7 +28,7 @@ class AdministrationController extends AbstractController
     }
 
      /**
-     * @Route("/admin/gestion_utilisateur/{id}/droits", name="admin_modifyRoles")
+     * @Route("/admin/gestion_utilisateur/{id}/droits", name="admin_modifyRoles", requirements={"id"="\d+"})
      */
     public function modifyRules(UserRepository $userRepo, $id, Request $request) {
         $role = $request->request->get('role');
@@ -39,11 +39,19 @@ class AdministrationController extends AbstractController
     }
 
      /**
-     * @Route("/admin/gestion_utilisateur/{id}/suppression", name="admin_deleteUser")
+     * @Route("/admin/gestion_utilisateur/{id}/suppression", name="admin_deleteUser", requirements={"id"="\d+"})
      */
-    public function deleteUser(UserRepository $userRepo, $id, Request $request) {
+    public function deleteUser(UserRepository $userRepo, $id) {
         $users = $userRepo->deleteUser($id);
-        $users = $userRepo->getAllUsersWidthIdName();
+        $users = $userRepo->getAllUsersWidthIdNameRole();
+        return $this->json(['status' => '200','users' => $users]);
+    }
+
+    /**
+     * @Route("/admin/gestion_utilisateur/actualisation_liste_utilisateurs", name="admin_refresh")
+     */
+    public function refreshListUsers(UserRepository $userRepo) {
+        $users = $userRepo->getAllUsersWidthIdNameRole();
         return $this->json(['status' => '200','users' => $users]);
     }
 }

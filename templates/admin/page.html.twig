@@ -22,36 +22,51 @@
                 <li>Consulter les informations utilisateurs telles que la date de son inscription ainsi que son adresse email afin de le contacter rapidemment en cas de besoin.</li>
                 <li>Gérer ses droits afin de garantir un contrôle d'utilisation de l'application.</li>
             </ul>
-            <div class="row">
-                <section class="col-lg-3">
-                    <h4>Utilisateurs actuellement inscrits ({{allUsers | length}})</h4>
-                     <div id="usersList">
+            <div class="row justify-content-center">
+                <section class="col-lg-4">
+                    <h4 id="userCount">Utilisateurs actuellement inscrits ({{ allUsers | length }}) <i class="fas fa-sync" data-url="{{ path('admin_refresh') }}"></i></h4>
+                    <div id="usersList" class="space-admin__usersList">
                         <table>
-                            <tr>
+                            <tr class="bg-blue-head">
                                 <th>Matricule</th>
                                 <th>Pseudo</th>
+                                <th>Status</th>
                             </tr>
                             {% for user in allUsers %} 
-                                <tr class="userInfosLink" data-url="{{ path('admin_userView',{'id':user.id}) }}">
+                                <tr id="userInfosLink{{user.id}}" data-url="{{ path('admin_userView',{'id':user.id}) }}">
                                     <td> {{ user.id }} </td>
                                     <td> {{ user.username }} </td>
+                                    <td>
+                                        {% if user.roles | length == 0 %}
+                                            <i class="fas fa-user-alt-slash"></i>
+                                        {% else %}   
+                                            {% for role in user.roles %} 
+                                                {% if role == "ROLE_USER" %}
+                                                    <i class="fas fa-user-check"> </i>
+                                                {% elseif role == "ROLE_ADMIN" %}
+                                                    <i class="fas fa-user-nurse"> </i>
+                                                {% elseif role == "ROLE_DEL_ADMIN" %}
+                                                    <i class="fas fa-user-times"> </i>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% endif %} 
+                                    </td>
                                 </tr>
                             {% endfor %}
                         </table>
                     </div>
+                    <div id="messageRefresh" class="">
+
+                    </div>
                 </section>
-                <section class="col-lg-3">
+                <section class="col-lg-4">
                     <h4>Informations utilisateur</h4>
-                    <div id="userInfos">
+                    <div id="userInfos" class="space-admin__userInfos">
+                        <p>Veuillez sélectionner un utilisateur dans le tableau des inscrits pour afficher ces informations.</p>
+                    </div>
+                    <div id="messageServer" class="">
 
                     </div>
-                    <div id="messageServer">
-
-                    </div>
-                </section>
-                <section class="col-lg-3">
-                    <h4>Informations complémentaires</h4>
-                   
                 </section>
             </div>
         </section>
