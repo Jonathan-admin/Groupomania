@@ -1,5 +1,6 @@
 .form-style {
     input, select {
+        cursor: pointer;
         border: 1px solid nth($border-input-colors,1);
         &:hover, &:focus {
             border: 2px solid nth($border-input-colors,1);

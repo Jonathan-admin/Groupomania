@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Groupomania - Créer un nouveau contenu{% endblock %}
+{% block javascript %}
+    <script src="{{ asset('scripts/create_content.js') }}" defer></script>
+{% endblock %}
+
+{% block body %}
+    <div class="header-nav">
+        {{ include("partials/header.html.twig") }}
+        {{ include("partials/navbar.html.twig") }}
+    </div>
+    <main class="create">
+        <h2>Création d'un nouveau contenu</h2>
+        <p>Afin de mettre en ligne du contenu sur le réseau, merci de renseigner le formulaire ci-dessous.</p>
+        {{ form_start(form) }}
+            <div class="create__form row">  
+			    <div class="col-md-6">
+                    {{ form_label(form.topic, "Quel est le sujet de votre contenu?", {'label_attr': {'class': 'label'}}) }}
+                    {{ form_widget(form.topic, {'attr': {'class': 'inputButton'}}) }}
+                    {{ form_label(form.title, "Le titre", {'label_attr': {'class': 'label'}}) }}
+                    {{ form_widget(form.title, {'attr': {'class': 'inputButton'}}) }}
+                    {{ form_label(form.type, "Que souhaitez vous partager?", {'label_attr': {'class': 'label'}}) }}
+                    {{ form_widget(form.type, {'attr': {'class': 'inputButton'}}) }}
+                    <div class="create-form__mediaPath" id="mediaPath">
+                    
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    {{ form_label(form.message, "Indiquez votre message ici ...", {'label_attr': {'class': 'label'}}) }}
+                    {{ form_widget(form.message, {'attr': {'class': 'inputButton'}}) }}
+                </div> 
+            </div>
+            <div class="create__buttons">
+                <a id="create" type="submit" class="btn btn--valid">Créer un nouveau contenu</a>
+                <button id="restore" type="button" class="btn btn--cancel">Revenir à mon espace personnel</button>
+            </div>  
+        {{ form_end(form) }}
+    </main> 
+    {{ include("partials/footer.html.twig") }}
+{% endblock %}

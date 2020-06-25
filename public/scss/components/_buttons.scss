@@ -22,4 +22,20 @@ a, button {
     &:disabled {
         cursor: none;
     }
+    &.btn--action {
+        background-color: nth($button-bkg-valid,1);
+        opacity: .85;
+        color: nth($text-colors,1);
+        padding: 5px 15px;
+        border-radius: 2rem;
+        &:hover {
+            border: 1px solid nth($border-colors,2);
+            box-shadow: 2px 2px 2px nth($border-colors,2);
+        }
+    }
+}
+
+i.fa-sync {
+    cursor: pointer;
+    color: nth($text-colors,2);
 }

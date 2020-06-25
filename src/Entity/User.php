@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -68,6 +70,16 @@ class User implements UserInterface
      */
     private $roles = ['ROLE_USER'];
 
+    /**
+     * @ORM\OneToMany(targetEntity=Content::class, mappedBy="user")
+     */
+    private $mediaPath;
+
+    public function __construct()
+    {
+        $this->mediaPath = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -127,5 +139,36 @@ class User implements UserInterface
 
     public function getRoles() {
         return $this->roles;
+    }
+
+    /**
+     * @return Collection|Content[]
+     */
+    public function getMediaPath(): Collection
+    {
+        return $this->mediaPath;
+    }
+
+    public function addMediaPath(Content $mediaPath): self
+    {
+        if (!$this->mediaPath->contains($mediaPath)) {
+            $this->mediaPath[] = $mediaPath;
+            $mediaPath->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMediaPath(Content $mediaPath): self
+    {
+        if ($this->mediaPath->contains($mediaPath)) {
+            $this->mediaPath->removeElement($mediaPath);
+            // set the owning side to null (unless already changed)
+            if ($mediaPath->getUser() === $this) {
+                $mediaPath->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

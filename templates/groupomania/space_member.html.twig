@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Groupomania - Espace membre{% endblock %}
+
+{% block body %}
+    <div class="header-nav">
+        {{ include("partials/header.html.twig") }}
+        {{ include("partials/navbar.html.twig") }}
+    </div>
+    <main class="space-member">
+        {% set admin = 0 %}
+        {% for role in app.user.roles %} 
+            {% if role == "ROLE_DEL_ADMIN" %}
+                 {% set admin = 1 %} 
+            {% endif %}
+        {% endfor %}
+        {% if admin == 1 %}
+            <i class='fas fa-times errorRole'> Les fonctionnalités de cette page ne sont pas accessibles pour les utilisateurs ayant ce type de droit!</i>
+        {% else %}
+            <div>
+                <h2 class="space-member__pub">Mes publications</h2>
+                <a href="{{ path('content_create') }}" class="btn--action">Créer un nouveau contenu</a>
+            </div> 
+            <p>Vous trouverez dans cet espace membre, l'ensemble des publications à votre nom actuellement en ligne sur le réseau social Groupomania.</p>
+        {% endif %}
+    </main> 
+    {{ include("partials/footer.html.twig") }}
+{% endblock %}

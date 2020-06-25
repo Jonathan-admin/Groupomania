@@ -14,7 +14,7 @@ a {
     color: nth($text-colors,1);
     &:hover {
         color: nth($text-colors,1);
-        text-decoration: underline;
+        text-decoration: none;
         font-style: italic;
     }
 }
