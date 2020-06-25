@@ -31,7 +31,7 @@
                                 <th>Matricule</th>
                                 <th>Pseudo</th>
                                 <th>Status</th>
-                            </tr>
+                            </tr> 
                             {% for user in allUsers %} 
                                 <tr id="userInfosLink{{user.id}}" data-url="{{ path('admin_userView',{'id':user.id}) }}">
                                     <td> {{ user.id }} </td>
@@ -70,7 +70,7 @@
                 </section>
             </div>
         </section>
-        <section class="space-admin__contents">
+        <section class="space-admin__contents"> 
             <h3>Gestion des contenus</h3>
             
         </section>

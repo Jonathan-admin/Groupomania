@@ -14,9 +14,12 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(
- *     fields={"username", "email"},
+ *     fields={"username"},
  *     errorPath="username",
- *     message="Le pseudo que vous avez choisi existe déjà!",
+ *     message="Le pseudo que vous avez choisi existe déjà!"
+ * )
+ * @UniqueEntity(
+ *     fields={ "email"},
  *     errorPath="email",
  *     message="Cette adresse email est déjà utilisée!"
  * )
@@ -40,14 +43,14 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Email(
-     *     message = "The email '{{ value }}' is not a valid email."
+     *     message = "L'adresse email '{{ value }}' n'est pas une adresse valide."
      * )
      */
     private $email;
 
    /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Regex("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/",
+     * @Assert\Regex("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,}$/",
      * message="Le mot de passe doit comporter au moins 10 caractères, posséder au moins un chiffre, une lettre majuscule et minuscule et l'un des caractères spéciaux suivants: @$!%*?&.")
      */
     private $password;

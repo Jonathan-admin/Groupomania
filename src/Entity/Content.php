@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ContentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -52,6 +54,22 @@ class Content
      * @ORM\Column(type="string", length=50)
      */
     private $type;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Likes::class, mappedBy="Content")
+     */
+    private $likes;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="Content")
+     */
+    private $comments;
+
+    public function __construct()
+    {
+        $this->likes = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -138,6 +156,68 @@ class Content
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Likes[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Likes $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setContent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Likes $like): self
+    {
+        if ($this->likes->contains($like)) {
+            $this->likes->removeElement($like);
+            // set the owning side to null (unless already changed)
+            if ($like->getContent() === $this) {
+                $like->setContent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comments[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comments $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setContent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comments $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getContent() === $this) {
+                $comment->setContent(null);
+            }
+        }
 
         return $this;
     }

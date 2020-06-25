@@ -18,8 +18,7 @@ class SecurityController extends AbstractController
     /**
      * @Route("/inscription", name="security_registration")
      */
-    public function registration(Request $request, EntityManagerInterface $manager, UserRepository $userRepo, 
-    UserPasswordEncoderInterface $encoder) {
+    public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) {
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
