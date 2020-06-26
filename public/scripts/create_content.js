@@ -6,21 +6,21 @@ $(document).ready(function() {
     });
 });
 
-const displayMediaPathControl = value => {
+const displayMediaPathControl = value => { 
     let result = '<div class="form-group">';
     switch (value) {
-        case 'text':
+        case 'Texte':
             result = "";
             break;
-        case 'music':
+        case 'Musique':
             result += "<label for='music'>Veuillez indiquer une URL ciblant la musique à insérer</label>"
-                   +"<input placeholder='Insérer l'URL ici...' type='text' class='form-control' required />";
+                   +"<input placeholder='Insérer l\'URL ici...' type='text' class='form-control' required />";
             break;
-        case 'video':
+        case 'Vidéo':
             result += "<label for='video'>Veuillez indiquer une URL ciblant la vidéo à partager</label>"
-                   +"<input placeholder='Insérer l'URL ici...' type='text' class='form-control' required />";
+                   +"<input placeholder='Insérer l\'URL ici...' type='text' class='form-control' required />";
             break;
-        case 'image':
+        case 'Image':
             result += "<label for='image'>Image à partager</label>"
             +"<input type='file' id='picture' name='picture_file' accept='image/png, image/jpeg, image/jpg'>";
     break;

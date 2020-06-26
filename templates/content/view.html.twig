@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Groupomania - Créer un nouveau contenu{% endblock %}
+{% block javascript %}
+    <script src="{{ asset('scripts/create_content.js') }}" defer></script>
+{% endblock %}
+
+{% block body %}
+    <div class="header-nav">
+        {{ include("partials/header.html.twig") }}
+        {{ include("partials/navbar.html.twig") }}
+    </div>
+    <main class="view">
+        <div>
+            <h2 class="view__status">Contenu partagé n°{{ content.id}}</h2>
+            {% if content.status == "Vérifié" %} 
+                <span>Statut: <i class="fas fa-check-square">{{ content.status }}</i></span>
+            {% elseif content.status == "En attente de vérifications" %} 
+                <span>Statut: <i class="fas fa-times-circle">{{ content.status }}</i></span>
+            {% elseif content.status == "Contenu illicite" %} 
+                <span>Statut: <i class="fas fa-minus-square">{{ content.status }}</i></span>
+            {% else %}
+                <span>Statut: <i class="fas fa-ban">{{ content.status }}</i></span>
+            {% endif %}
+        </div> 
+        {% if content.status == "blocked" %}
+            <p><i class="fas fa-exclamation-triangle"></i> Pour des raisons de sécurité, ce contenu a été verrouillé par les administrateurs. Il sera visible sur le forum mais ne sera pas consultable par la plupart des utilisateurs.</span>
+        {% endif %}
+        <div class="row">
+            <section class="view__content col-lg-5">
+                <h3>{{ content.title }}</h3>
+                <p>Contenu publié le {{ content.createdAt | date("d/m/Y à h:m:s") }} par {{ content.getUser.username }}</p>
+                <p>Thématique: {{ content.topic }}</p>
+                <p> {{ content.message }} </p>
+            </section>
+            <section class="view__comments col-lg-5">
+                 <h3>Commentaires pour ce contenu</h3>
+            </section>
+        </div>
+    </main> 
+    {{ include("partials/footer.html.twig") }}
+{% endblock %}

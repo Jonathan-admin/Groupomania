@@ -65,6 +65,11 @@ class Content
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $status;
+
     public function __construct()
     {
         $this->likes = new ArrayCollection();
@@ -218,6 +223,18 @@ class Content
                 $comment->setContent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

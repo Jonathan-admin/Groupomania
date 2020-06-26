@@ -89,7 +89,8 @@ h4 {
 .space-member,
 .space-admin,
 .space-infos,
-.forum {
+.forum,
+.create {
   min-height: 500px;
   background-color: white;
   position: relative;
@@ -100,7 +101,8 @@ h4 {
 .space-member::before,
 .space-admin::before,
 .space-infos::before,
-.forum::before {
+.forum::before,
+.create::before {
   z-index: -1;
   position: absolute;
   opacity: 0.15;
@@ -119,11 +121,11 @@ h4 {
   color: white;
 }
 
-.form-style input, .form-style select {
+.form-style input, .form-style select, .form-style textarea {
   cursor: pointer;
   border: 1px solid #091f43;
 }
-.form-style input:hover, .form-style input:focus, .form-style select:hover, .form-style select:focus {
+.form-style input:hover, .form-style input:focus, .form-style select:hover, .form-style select:focus, .form-style textarea:hover, .form-style textarea:focus {
   border: 2px solid #091f43;
 }
 .form-style legend {
@@ -132,8 +134,13 @@ h4 {
   padding: 5px 10px;
   text-align: center;
   font-size: 1em;
-  max-width: 160px;
   border-radius: 1rem;
+}
+.form-style legend.width-sm {
+  max-width: 160px;
+}
+.form-style legend.width-md {
+  max-width: 280px;
 }
 .form-style fieldset {
   padding: 10px 10px 10px 20px;
@@ -319,31 +326,22 @@ h4 {
   font-size: 1.5em;
 }
 
-.create {
-  padding: 20px;
-  min-height: 500px;
-  background-color: white;
-  position: relative;
-  color: #091f43;
-  padding: 20px;
-  z-index: 1;
-}
-.create::before {
-  z-index: -1;
-  position: absolute;
-  opacity: 0.15;
-  content: "";
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("../../images/arc-triomphe.jpg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
 .create form {
   width: 50%;
   margin: auto;
+}
+.create__form div:nth-child(2) {
+  height: auto;
+}
+.create__form div:nth-child(2) .form-group, .create__form div:nth-child(2) .form-control {
+  width: 100%;
+  height: 93%;
+}
+.create-form__mediaPath {
+  margin-top: 10px;
+}
+.create-form__mediaPath input[type=file] {
+  width: 100%;
 }
 
 .space-admin__users, .space-admin__contents {
