@@ -74,13 +74,13 @@ class User implements UserInterface
     private $roles = ['ROLE_USER'];
 
     /**
-     * @ORM\OneToMany(targetEntity=Content::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Content::class, mappedBy="username", orphanRemoval=true)
      */
-    private $mediaPath;
+    private $contents;
 
     public function __construct()
     {
-        $this->mediaPath = new ArrayCollection();
+        $this->contents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -147,28 +147,28 @@ class User implements UserInterface
     /**
      * @return Collection|Content[]
      */
-    public function getMediaPath(): Collection
+    public function getContents(): Collection
     {
-        return $this->mediaPath;
+        return $this->contents;
     }
 
-    public function addMediaPath(Content $mediaPath): self
+    public function addContent(Content $content): self
     {
-        if (!$this->mediaPath->contains($mediaPath)) {
-            $this->mediaPath[] = $mediaPath;
-            $mediaPath->setUser($this);
+        if (!$this->contents->contains($content)) {
+            $this->contents[] = $content;
+            $content->setUsername($this);
         }
 
         return $this;
     }
 
-    public function removeMediaPath(Content $mediaPath): self
+    public function removeContent(Content $content): self
     {
-        if ($this->mediaPath->contains($mediaPath)) {
-            $this->mediaPath->removeElement($mediaPath);
+        if ($this->contents->contains($content)) {
+            $this->contents->removeElement($content);
             // set the owning side to null (unless already changed)
-            if ($mediaPath->getUser() === $this) {
-                $mediaPath->setUser(null);
+            if ($content->getUsername() === $this) {
+                $content->setUsername(null);
             }
         }
 

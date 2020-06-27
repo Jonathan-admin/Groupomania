@@ -21,6 +21,7 @@ class ContentController extends AbstractController
         $form = $this->createForm(ContentType::class, $content);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
+            dump($content);
             $content->setCreatedAt( new \DateTime())
                     ->setUser($this->getUser())
                     ->setMediaPath(null)

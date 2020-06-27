@@ -14,11 +14,11 @@ const displayMediaPathControl = value => {
             break;
         case 'Musique':
             result += "<label for='music'>Veuillez indiquer une URL ciblant la musique à insérer</label>"
-                   +"<input placeholder='Insérer l\'URL ici...' type='text' class='form-control' required />";
+                   +"<input placeholder='Insérer le lien ici...' type='text' class='form-control' required />";
             break;
         case 'Vidéo':
             result += "<label for='video'>Veuillez indiquer une URL ciblant la vidéo à partager</label>"
-                   +"<input placeholder='Insérer l\'URL ici...' type='text' class='form-control' required />";
+                   +"<input placeholder='Insérer le lien ici...' type='text' class='form-control' required />";
             break;
         case 'Image':
             result += "<label for='image'>Image à partager</label>"

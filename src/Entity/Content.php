@@ -30,12 +30,6 @@ class Content
     private $message;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="mediaPath")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $mediaPath;
@@ -57,6 +51,7 @@ class Content
 
     /**
      * @ORM\OneToMany(targetEntity=Likes::class, mappedBy="Content")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE") 
      */
     private $likes;
 
@@ -69,6 +64,12 @@ class Content
      * @ORM\Column(type="string", length=100)
      */
     private $status;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="contents")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE") 
+     */
+    private $username;
 
     public function __construct()
     {
@@ -101,18 +102,6 @@ class Content
     public function setMessage(string $message): self
     {
         $this->message = $message;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }
@@ -238,4 +227,17 @@ class Content
 
         return $this;
     }
+
+    public function getUsername(): ?User
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?User $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
 }

@@ -19,6 +19,7 @@ class Likes
 
     /**
      * @ORM\ManyToOne(targetEntity=Content::class, inversedBy="likes")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE") 
      */
     private $Content;
 
