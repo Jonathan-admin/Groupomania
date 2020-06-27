@@ -17,16 +17,35 @@
         {% if admin == 1 %}
             <i class='fas fa-times errorRole'> Les fonctionnalités de cette page ne sont pas accessibles pour les utilisateurs ayant ce type de droit!</i>
         {% else %}
-            <section class="forum__search col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            <section class="forum__search col-sm-12 col-md-6 col-lg-3 col-xl-3">
                 <h2>Rechercher</h2>
                 <p><strong>Vous recherchez un contenu?</strong><br/>
                 Cet outil de recherche vous permettra de retrouver un contenu en fonction de vos critères de recherche (thématique, autheur, etc..).</p>
                 {{ include("partials/searchPanel.html.twig") }}
             </section>
-            <section class="forum__content col-12 col-sm-6 col-md-7 col-lg-8 col-xl-9">
+            <section class="forum__content col-sm-12 col-md-6 col-lg-9 col-xl-9">
                 <h2>Les publications</h2>
-                <div class="row">
-               
+                <section>
+                    <h3>Les contenus les plus populaires</h3> 
+                    {% set barAction = 1 %}
+                    <div class="row">
+                        {% for content in popularContents  %}
+                            {{ include("partials/content.html.twig") }}
+                        {% endfor %}
+                    </div>
+                </section>
+                <section>
+                    <h3>Tous les contenus (validés par les administrateurs)</h3> 
+                    {% set barAction = 0 %}
+                    <div class="row">
+                        {% for content in Allcontents  %}
+                            {{ include("partials/content.html.twig") }}
+                        {% endfor %}
+                    </div>
+                    <div id="pagination">
+                        {{ knp_pagination_render(Allcontents) }}
+                    </div>	   
+                </section>
             </section>
         {% endif %}
     </main> 

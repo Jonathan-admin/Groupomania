@@ -2,17 +2,28 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\ContentRepository;
+use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class GroupomaniaController extends AbstractController
 {
     /**
      * @Route("/", name="groupomania_home")
      */
-    public function home()
+    public function home(ContentRepository $contentRepo, PaginatorInterface $paginator, Request $request)
     {
-        return $this->render('groupomania/home.html.twig');
+        $paginationCollection = $paginator->paginate(         
+            $contentRepo->getAllContentForHome(),
+            $request->query->getInt('page', 1),
+            6
+        );  
+        return $this->render('groupomania/home.html.twig', [
+            'Allcontents' => $paginationCollection,
+            'popularContents' => $contentRepo->getPopularContent()
+        ]);
     }
 
      /**

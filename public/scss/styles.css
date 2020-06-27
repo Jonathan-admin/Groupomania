@@ -74,7 +74,7 @@ h3 {
   font-size: 1.3em;
   border-bottom: 3px solid #d1515a;
   padding-bottom: 10px;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 h4 {
@@ -310,8 +310,82 @@ h4 {
   margin-bottom: 20px;
 }
 
-.forum__search {
-  min-width: 250px;
+.forum__thumbnail > div {
+  overflow: auto;
+  min-height: 275px;
+  min-width: 270px;
+  background-color: white;
+  position: relative;
+  color: #091f43;
+  padding: 20px;
+  margin: 20px 0;
+  z-index: 1;
+  border: 2px solid #091f43;
+  box-shadow: 2px 2px 2px black;
+  transition: transform 0.5s 0s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.forum__thumbnail > div::before {
+  z-index: -1;
+  position: absolute;
+  opacity: 0.5;
+  content: "";
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.forum__thumbnail > div .thumbnail-action {
+  position: absolute;
+  top: 80%;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: #091f43;
+  border-top: 4px solid white;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 25px;
+  color: white;
+  font-size: 1.2em;
+  align-items: center;
+}
+.forum__thumbnail > div .thumbnail-action__likes i:nth-child(1) {
+  margin-right: 5px;
+}
+.forum__thumbnail > div h4 {
+  background-color: white;
+}
+.forum__thumbnail > div p {
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: bold;
+}
+.forum__thumbnail > div:hover {
+  transform: scale(1.05);
+  box-shadow: 2px 2px 30px #091f43;
+}
+.forum__thumbnail--bkg-text > div::before {
+  background-image: url("../../images/text.jpg");
+}
+.forum__thumbnail--bkg-img > div::before {
+  background-image: url("../../images/appareil-photo.jpg");
+}
+.forum__thumbnail--bkg-mus > div::before {
+  background-image: url("../../images/music.jpg");
+}
+.forum__thumbnail--bkg-vid > div::before {
+  background-image: url("../../images/videos.jpg");
+}
+
+span.badge {
+  font-size: 1.2em;
+  position: relative;
+  bottom: 20px;
+  right: 20px;
+  text-shadow: 2px 2px 2px black;
+  box-shadow: 2px 2px 2px white;
 }
 
 .space-member > div {

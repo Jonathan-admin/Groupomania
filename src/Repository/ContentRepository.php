@@ -19,32 +19,23 @@ class ContentRepository extends ServiceEntityRepository
         parent::__construct($registry, Content::class);
     }
 
-    // /**
-    //  * @return Content[] Returns an array of Content objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+    public function getAllContentForHome(){
+        return $this->createQueryBuilder('content')
+        ->select('content.title','content.topic','content.type','content.status')
+        ->where('content.status = :status')
+        ->setParameter('status','Vérifié')
+        ->getQuery();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Content
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+    public function getPopularContent(){
+        $request = "SELECT title, topic, type, status, nbComment, nbLikes, nbDislikes, nbLikes-nbDislikes AS sub
+                   FROM ( SELECT content.title, content.topic, content.type, content.status,
+                   (SELECT COUNT(*) FROM comments WHERE comments.content_id=content.id) AS nbComment,
+                   (SELECT COUNT(*) FROM likes WHERE likes.content_id=content.id AND likes.type='Like') AS nbLikes, 
+                   (SELECT COUNT(*) FROM likes WHERE likes.content_id=content.id AND likes.type='Dislike') AS nbDislikes 
+                   FROM content WHERE content.status='Vérifié') AS vue ORDER BY sub DESC LIMIT 4";
+        $statement =  $this->getEntityManager()->getConnection()->prepare($request);
+        $statement->execute();
+        return $statement->fetchAll();
     }
-    */
 }
