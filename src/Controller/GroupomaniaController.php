@@ -15,14 +15,25 @@ class GroupomaniaController extends AbstractController
      */
     public function home(ContentRepository $contentRepo, PaginatorInterface $paginator, Request $request)
     {
+        $session = $request->getSession();
+        $parameters = $session->get('SearchparametersContent',[]);
+        $parameters = Array(
+            'type' => '',
+            'topic' => '',
+            'author' => '',
+            'title' => '',
+            'sorting' => ''
+        );
+        $session->set('SearchparametersContent',$parameters);
         $paginationCollection = $paginator->paginate(         
             $contentRepo->getAllContentForHome(),
             $request->query->getInt('page', 1),
-            6
+            8
         );  
         return $this->render('groupomania/home.html.twig', [
             'Allcontents' => $paginationCollection,
-            'popularContents' => $contentRepo->getPopularContent()
+            'popularContents' => $contentRepo->getPopularContent(),
+            array('session' => $session)
         ]);
     }
 

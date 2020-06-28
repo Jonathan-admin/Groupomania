@@ -135,11 +135,6 @@ h4 {
   text-align: center;
   font-size: 1em;
   border-radius: 1rem;
-}
-.form-style legend.width-sm {
-  max-width: 160px;
-}
-.form-style legend.width-md {
   max-width: 280px;
 }
 .form-style fieldset {

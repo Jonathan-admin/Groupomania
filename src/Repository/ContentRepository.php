@@ -38,4 +38,55 @@ class ContentRepository extends ServiceEntityRepository
         $statement->execute();
         return $statement->fetchAll();
     }
+
+    function requetefilterBuilder($type,$topic,$author,$title,$sorting)
+    {
+        $qb = $this->createQueryBuilder('content')
+                    ->innerJoin('content.username','user')
+                    ->where('content.status = :status')
+                    ->setParameter('status', 'Vérifié')
+        ;
+        if($type!="") {
+            switch ($type) {
+                case 'img/text':
+                    $qb->andWhere($qb->expr()->in('content.type',array('Image','Texte')));
+                    break;
+                case 'mus/vid':
+                    $qb->andWhere($qb->expr()->in('content.type',array('Musique','Vidéo')));
+                    break;
+                default:
+                    $qb->andWhere('content.type = :type')
+                    ->setParameter('type',$type);
+                    break;
+            }
+        }
+        if($topic!="") {
+            $qb->andWhere('content.topic = :topic')
+                ->setParameter('topic',$topic);
+        }
+        if($author!="") {
+            $qb->andWhere($qb->expr()->like('user.username',':username'))
+                ->setParameter('username','%'.$author.'%');
+        }  
+        if($title!="") {
+            $qb->andWhere($qb->expr()->like('content.title',':title'))
+                ->setParameter('title','%'.$title.'%');
+        }      
+        if($sorting=="new") { 
+            $qb->orderBy('content.createdAt','DESC'); }
+        elseif($sorting=="old") {
+            $qb->orderBy('content.createdAt','ASC'); }
+        elseif($sorting=="topic") {  
+            $qb->orderBy('content.topic'); }
+        elseif($sorting=="type") {
+            $qb->orderBy('content.type'); }
+        elseif($sorting=="alphaOrder"){
+            $qb->orderBy('content.title','ASC'); 
+        }
+        elseif($sorting=="alphaOrderRev"){
+            $qb->orderBy('content.title','DESC'); 
+        }
+        return $qb->getQuery();  
+    }    
 }
+
