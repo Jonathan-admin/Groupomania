@@ -29,9 +29,9 @@
         <div class="row">
             <section class="view__content col-lg-5">
                 <h3>{{ content.title }}</h3>
-                <p>Contenu publié le {{ content.createdAt | date("d/m/Y à h:m:s") }} par {{ content.getUser.username }}</p>
+                <p>Contenu publié le {{ content.createdAt | date("d/m/Y à h:m:s") }} par {{ content.username.username }}</p>
                 <p>Thématique: {{ content.topic }}</p>
-                <p> {{ content.message }} </p>
+                <p> {{ content.message | raw }} </p>
             </section>
             <section class="view__comments col-lg-5">
                  <h3>Commentaires pour ce contenu</h3>

@@ -1,7 +1,7 @@
 $(document).ready(function()
 {
     url = window.location.toString();
-    //setHistorySearchParameters(); 
+    setHistorySearchParameters(); 
 });
 
 function setHistorySearchParameters() { 

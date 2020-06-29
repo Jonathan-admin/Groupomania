@@ -1,6 +1,7 @@
 .forum {
     &__thumbnail {
-        & > div {
+        & > a {
+            display: block;
             overflow: auto;
             min-height: 275px;
             min-width: 270px;
@@ -45,6 +46,16 @@
                     }
                 }
             }
+            &:not(.disabled):hover {
+                text-decoration: none;
+                color: nth($text-colors,2);
+                font-style: normal;
+                transform: scale(1.05);
+                box-shadow: 2px 2px 30px nth($background-colors,2);
+            }
+            &.disabled {
+                opacity: 0.6;
+            }
             h4 {
                 background-color: nth($background-colors,1);
             }
@@ -53,34 +64,30 @@
                 font-size: 1.4em;
                 font-weight: bold;
             }
-            &:hover {
-                transform: scale(1.05);
-                box-shadow: 2px 2px 30px nth($background-colors,2);
-            }
         }
         &--bkg-text {
-            & > div {
+            & > a {
                 &::before {
                     background-image: url("../../images/text.jpg");
                 }
             }
         }
         &--bkg-img {
-            & > div {
+            & > a {
                 &::before {
                     background-image: url("../../images/appareil-photo.jpg");
                 }
             }
         }
         &--bkg-mus {
-            & > div {
+            & > a {
                 &::before {
                     background-image: url("../../images/music.jpg");
                 }
             }
         }
         &--bkg-vid {
-            & > div {
+            & > a {
                 &::before {
                     background-image: url("../../images/videos.jpg");
                 }

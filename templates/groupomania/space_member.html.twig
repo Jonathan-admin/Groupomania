@@ -8,6 +8,7 @@
         {{ include("partials/navbar.html.twig") }}
     </div>
     <main class="space-member">
+        {% set homePage = 0 %}
         {% set admin = 0 %}
         {% for role in app.user.roles %} 
             {% if role == "ROLE_DEL_ADMIN" %}

@@ -20,11 +20,10 @@ class ContentRepository extends ServiceEntityRepository
     }
 
     public function getAllContentForHome(){
-        return $this->createQueryBuilder('content')
-        ->select('content.title','content.topic','content.type','content.status')
-        ->where('content.status = :status')
-        ->setParameter('status','Vérifié')
-        ->getQuery();
+        $qb = $this->createQueryBuilder('content')
+            ->select('content.id','content.title','content.topic','content.type','content.status');
+        $qb->where($qb->expr()->in('content.status',array('Vérifié','Bloqué')));
+        return $qb->getQuery();
     }
 
     public function getAllMyContents($user){
@@ -37,8 +36,8 @@ class ContentRepository extends ServiceEntityRepository
     }
 
     public function getPopularContent(){
-        $request = "SELECT title, topic, type, status, nbComment, nbLikes, nbDislikes, nbLikes-nbDislikes AS sub
-                   FROM ( SELECT content.title, content.topic, content.type, content.status,
+        $request = "SELECT id, title, topic, type, status, nbComment, nbLikes, nbDislikes, nbLikes-nbDislikes AS sub
+                   FROM ( SELECT content.id, content.title, content.topic, content.type, content.status,
                    (SELECT COUNT(*) FROM comments WHERE comments.content_id=content.id) AS nbComment,
                    (SELECT COUNT(*) FROM likes WHERE likes.content_id=content.id AND likes.type='Like') AS nbLikes, 
                    (SELECT COUNT(*) FROM likes WHERE likes.content_id=content.id AND likes.type='Dislike') AS nbDislikes 
@@ -51,10 +50,8 @@ class ContentRepository extends ServiceEntityRepository
     function requetefilterBuilder($type,$topic,$author,$title,$sorting)
     {
         $qb = $this->createQueryBuilder('content')
-                    ->innerJoin('content.username','user')
-                    ->where('content.status = :status')
-                    ->setParameter('status', 'Vérifié')
-        ;
+                    ->innerJoin('content.username','user');
+        $qb->where($qb->expr()->in('content.status',array('Vérifié','Bloqué')));
         if($type!="") {
             switch ($type) {
                 case 'img/text':

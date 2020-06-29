@@ -305,7 +305,8 @@ h4 {
   margin-bottom: 20px;
 }
 
-.forum__thumbnail > div {
+.forum__thumbnail > a {
+  display: block;
   overflow: auto;
   min-height: 275px;
   min-width: 270px;
@@ -319,7 +320,7 @@ h4 {
   box-shadow: 2px 2px 2px black;
   transition: transform 0.5s 0s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
-.forum__thumbnail > div::before {
+.forum__thumbnail > a::before {
   z-index: -1;
   position: absolute;
   opacity: 0.5;
@@ -331,7 +332,7 @@ h4 {
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
-.forum__thumbnail > div .thumbnail-action {
+.forum__thumbnail > a .thumbnail-action {
   position: absolute;
   top: 80%;
   left: 0;
@@ -346,31 +347,37 @@ h4 {
   font-size: 1.2em;
   align-items: center;
 }
-.forum__thumbnail > div .thumbnail-action__likes i:nth-child(1) {
+.forum__thumbnail > a .thumbnail-action__likes i:nth-child(1) {
   margin-right: 5px;
 }
-.forum__thumbnail > div h4 {
+.forum__thumbnail > a:not(.disabled):hover {
+  text-decoration: none;
+  color: #091f43;
+  font-style: normal;
+  transform: scale(1.05);
+  box-shadow: 2px 2px 30px #091f43;
+}
+.forum__thumbnail > a.disabled {
+  opacity: 0.6;
+}
+.forum__thumbnail > a h4 {
   background-color: white;
 }
-.forum__thumbnail > div p {
+.forum__thumbnail > a p {
   text-align: center;
   font-size: 1.4em;
   font-weight: bold;
 }
-.forum__thumbnail > div:hover {
-  transform: scale(1.05);
-  box-shadow: 2px 2px 30px #091f43;
-}
-.forum__thumbnail--bkg-text > div::before {
+.forum__thumbnail--bkg-text > a::before {
   background-image: url("../../images/text.jpg");
 }
-.forum__thumbnail--bkg-img > div::before {
+.forum__thumbnail--bkg-img > a::before {
   background-image: url("../../images/appareil-photo.jpg");
 }
-.forum__thumbnail--bkg-mus > div::before {
+.forum__thumbnail--bkg-mus > a::before {
   background-image: url("../../images/music.jpg");
 }
-.forum__thumbnail--bkg-vid > div::before {
+.forum__thumbnail--bkg-vid > a::before {
   background-image: url("../../images/videos.jpg");
 }
 
