@@ -427,22 +427,28 @@ span.badge {
   width: 50px;
   height: auto;
 }
-.space-admin__usersList {
+.space-admin__usersList, .space-admin__contentsList {
   max-height: 400px;
   overflow-y: scroll;
 }
-.space-admin__usersList table {
+.space-admin__usersList table, .space-admin__contentsList table {
   border-collapse: collapse;
   width: 100%;
   text-align: center;
 }
-.space-admin__usersList table tr > td, .space-admin__usersList table tr > th {
+.space-admin__usersList table tr > td, .space-admin__usersList table tr > th, .space-admin__contentsList table tr > td, .space-admin__contentsList table tr > th {
   border: 2px solid #091f43;
 }
-.space-admin__usersList table tr:nth-child(n+2):hover {
+.space-admin__usersList table tr:nth-child(n+2):hover, .space-admin__contentsList table tr:nth-child(n+2):hover {
   background-color: #d1515a;
   color: white;
   cursor: pointer;
+}
+.space-admin__contentsList td:nth-child(1) {
+  min-width: 120px;
+}
+.space-admin__contentsList td:nth-child(3) {
+  min-width: 140px;
 }
 .space-admin__userInfos table {
   border-collapse: collapse;

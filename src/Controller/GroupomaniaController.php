@@ -40,9 +40,18 @@ class GroupomaniaController extends AbstractController
      /**
      * @Route("/espace_membre", name="groupomania_space_member")
      */
-    public function spaceMember()
+    public function spaceMember(PaginatorInterface $paginator, ContentRepository $contentRepo, Request $request)
     {
-        return $this->render('groupomania/space_member.html.twig');
+        $contentsStatistics = $contentRepo->getMyStatisticContents($this->getUser()->getId());
+        $allMyContents = $paginator->paginate(         
+            $contentRepo->getAllMyContents($this->getUser()->getUsername()),
+            $request->query->getInt('page', 1),
+            8
+        );  
+        return $this->render('groupomania/space_member.html.twig',[
+            'contentsStatistic' => $contentsStatistics,
+            'allMyContents' => $allMyContents
+        ]);
     }
 
      /**

@@ -21,7 +21,61 @@
                 <h2 class="space-member__pub">Mes publications</h2>
                 <a href="{{ path('content_create') }}" class="btn--action">Créer un nouveau contenu</a>
             </div> 
-            <p>Vous trouverez dans cet espace membre, l'ensemble des publications à votre nom actuellement en ligne sur le réseau social Groupomania.</p>
+            <p>Vous trouverez dans cet espace membre, l'ensemble des publications à votre nom actuellement en ligne sur le réseau social Groupomania. <br/>
+            Dans cette section, vous aurez la possibilité de suivre et consulter tous vos contenus, y compris les contenus en cours de vérificaation, actuellement bloqué et même suspendu par l'un des administrateurs. Vous y trouverez également des stattistiques afin de déterminer lesquels sont les plus aimés.</p>
+            <section>
+                <h3>Statistiques de mes contenus</h3>
+                <table>
+                    <tr class="bg-blue-head">
+                        <th>Titre</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Créé le</th>
+                        <th><i class="fas fa-comment-dots"></i></th>
+                        <th><i class="fas fa-thumbs-up"></i></th>
+                        <th><i class="fas fa-thumbs-down"></i></th>
+                    </tr> 
+                    {% for content in contentsStatistic  %}
+                        <tr>
+                            <td>{{ content.title }}</td>
+                            {% if content.type == "Musique" %}
+                                <td><i class="fas fa-music"></i></td>
+                            {% elseif content.type == "Texte" %}
+                                <td><i class="fas fa-file-alt"></i></td>
+                            {% elseif content.type == "Image" %}
+                                <td><i class="fas fa-image"></i></td>
+                            {% else %}  
+                                <td><i class="fas fa-film"></i></td>
+                            {% endif %}
+                            {% if content.status == "Vérifié" %} 
+                                <td><i class="fas fa-check-square"></i></td>
+                            {% elseif content.status == "En attente de vérifications" %} 
+                                <td><i class="fas fa-times-circle"></i></td>
+                            {% elseif content.status == "Contenu bloqué" %} 
+                            <td><i class="fas fa-minus-square"></i></td>
+                            {% else %}
+                            <td><i class="fas fa-ban"></i></td>
+                            {% endif %}
+                            <td>{{ content.created_at | date("d/m/Y") }}</td>
+                            <td>{{ content.nbComment }}</td>
+                            <td>{{ content.nbLikes }}</td>
+                            <td>{{ content.nbDislikes }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </section>
+            <section>
+                <h3>Mes contenus</h3>
+                {% set barAction = 0 %}
+                <div class="row">
+                    {% for content in allMyContents  %}
+                        {{ include("partials/content.html.twig") }}
+                    {% endfor %}
+                </div>
+                <div id="pagination">
+                    {{ knp_pagination_render(allMyContents) }}
+                </div>
+            </section>	   
         {% endif %}
     </main> 
     {{ include("partials/footer.html.twig") }}

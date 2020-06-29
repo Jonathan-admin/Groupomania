@@ -14,7 +14,7 @@ $(document).ready(function() {
         $("#messageServer").empty();
         deleteUser($(this).attr("data-url"));
     });
-    $(document).on("click",".fa-sync", function(){
+    $(document).on("click","#refreshUser", function(){
         $("#messageRefresh").empty();
         $("#messageServer").empty(); 
         refreshUserList($(this).attr("data-url"));
@@ -123,7 +123,7 @@ const getUsersToDisplay = data => {
         content += "<tr id='userInfosLink"+data.users[index].id+"'>"
         +"<td> "+data.users[index].id+"</td><td>"+data.users[index].username+"</td><td>"+status+"</td></tr>"; 
     }
-    $("#userCount").html("Utilisateurs actuellement inscrits ("+data.users.length+")   <i class='fas fa-sync' data-url='/admin/gestion_utilisateur/actualisation_liste_utilisateurs'></i>");
+    $("#userCount").html("Utilisateurs actuellement inscrits ("+data.users.length+")   <i id='refreshUser' class='fas fa-sync' data-url='/admin/gestion_utilisateur/actualisation_liste_utilisateurs'></i>");
     content += "</table>";
     return content;
 }

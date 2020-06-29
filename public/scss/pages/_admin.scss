@@ -13,7 +13,7 @@
             height: auto;
         }   
     }
-    &__usersList {
+    &__usersList, &__contentsList {
         max-height: 400px;
         overflow-y: scroll;
         table {
@@ -32,6 +32,14 @@
             }
         }
     }
+    &__contentsList {
+        td:nth-child(1) {
+            min-width: 120px;
+        }
+        td:nth-child(3) {
+            min-width: 140px;
+        }
+    }
     &__userInfos {
         table {
             border-collapse: collapse;
@@ -45,4 +53,6 @@
             }
         }
     }
+
+
 }

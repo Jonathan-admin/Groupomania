@@ -3,7 +3,8 @@
 {% block title %}Groupomania - Espace d'administration{% endblock %}
 
 {% block javascript %}
-    <script src="{{ asset('scripts/admin.js') }}" defer></script>
+    <script src="{{ asset('scripts/admin_users.js') }}" defer></script>
+    <script src="{{ asset('scripts/admin_contents.js') }}" defer></script>
 {% endblock %}
 
 {% block body %}
@@ -24,7 +25,7 @@
             </ul>
             <div class="row justify-content-center">
                 <section class="col-lg-4">
-                    <h4 id="userCount">Utilisateurs actuellement inscrits ({{ allUsers | length }}) <i class="fas fa-sync" data-url="{{ path('admin_refresh') }}"></i></h4>
+                    <h4 id="userCount">Utilisateurs actuellement inscrits ({{ allUsers | length }}) <i id="refreshUser" class="fas fa-sync" data-url="{{ path('admin_refreshUsers') }}"></i></h4>
                     <div id="usersList" class="space-admin__usersList">
                         <table>
                             <tr class="bg-blue-head">
@@ -72,7 +73,53 @@
         </section>
         <section class="space-admin__contents"> 
             <h3>Gestion des contenus</h3>
-            
+            <p>Cette rubrique est dédiée à la gestion des contenus de l'application web. Les fonctionnalités mises en oeuvre permettront à tout administrateur de:</p>
+            <ul>
+                <li>De repérer rapidement les contenus publiés à contrôler afin qu'ils soient visibles par les utilisateurs</li>
+                <li>De supprimer un contenu particulier ou de changer son status en fonction de ce qu'il diffuse et du respect de chacun à la reglementation en vigueur.</li>
+            </ul>
+            <div class="row justify-content-center">
+                <section class="col-lg-4">
+                    <h4 id="contentCount">Contenus actuellement enregistrés ({{ allContents | length }}) <i id="refreshContent" class="fas fa-sync" data-url="{{ path('admin_refreshContents') }}"></i></h4>
+                    <div id="contentsList" class="space-admin__contentsList">
+                        <table>
+                            <tr class="bg-blue-head">
+                                <th>Référence</th>
+                                <th>Titre</th>
+                                <th>Status</th>
+                            </tr> 
+                            {% for content in allContents %} 
+                                <tr id="contentInfosLink{{content.id}}" data-url="{{ path('admin_contentView',{'id':content.id}) }}">
+                                    <td> {{ content.id }} </td>
+                                    <td> {{ content.title }} </td>
+                                    {% if content.status == "Vérifié" %} 
+                                        <td><i class="fas fa-check-square"> {{ content.status }}</i></td>
+                                    {% elseif content.status == "Vérification en attente" %} 
+                                        <td><i class="fas fa-times-circle"> En attente</i></td>
+                                    {% elseif content.status == "Suspendu" %} 
+                                        <td><i class="fas fa-minus-square"> {{ content.status }}</i></td>
+                                    {% else %}
+                                        <td><i class="fas fa-ban"> {{ content.status }}</i></td>
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <div id="messageRefreshContent" class="">
+
+                    </div>
+                </section>
+                <section class="col-lg-4">
+                    <h4>Informations du contenu</h4>
+                    <div id="contentInfos" class="space-admin__contentInfos">
+                        <p>Veuillez sélectionner un contenu dans le tableau des entrées enregistrées pour afficher leurs informations.</p>
+                    </div>
+                    <div id="messageServerContent" class="">
+
+                    </div>
+                </section>
+            </div>
+        </section>
         </section>
 
     </main> 

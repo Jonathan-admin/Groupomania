@@ -17,7 +17,7 @@
                 <span>Statut: <i class="fas fa-check-square">{{ content.status }}</i></span>
             {% elseif content.status == "En attente de vérifications" %} 
                 <span>Statut: <i class="fas fa-times-circle">{{ content.status }}</i></span>
-            {% elseif content.status == "Contenu illicite" %} 
+            {% elseif content.status == "Bloqué" %} 
                 <span>Statut: <i class="fas fa-minus-square">{{ content.status }}</i></span>
             {% else %}
                 <span>Statut: <i class="fas fa-ban">{{ content.status }}</i></span>

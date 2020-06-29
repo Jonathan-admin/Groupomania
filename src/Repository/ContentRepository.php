@@ -27,6 +27,15 @@ class ContentRepository extends ServiceEntityRepository
         ->getQuery();
     }
 
+    public function getAllMyContents($user){
+        return $this->createQueryBuilder('content')
+                    ->innerJoin('content.username','user')
+                    ->where('user.username = :user')
+                    ->setParameter('user', $user)
+                    ->orderBy('content.createdAt','DESC')
+                    ->getQuery();
+    }
+
     public function getPopularContent(){
         $request = "SELECT title, topic, type, status, nbComment, nbLikes, nbDislikes, nbLikes-nbDislikes AS sub
                    FROM ( SELECT content.title, content.topic, content.type, content.status,
@@ -87,6 +96,62 @@ class ContentRepository extends ServiceEntityRepository
             $qb->orderBy('content.title','DESC'); 
         }
         return $qb->getQuery();  
-    }    
+    }
+    
+    public function getMyStatisticContents($user){
+        $request = "SELECT content.title, content.status, content.type, content.created_at,
+                    (SELECT COUNT(*) FROM comments WHERE comments.content_id=content.id) AS nbComment,
+                    (SELECT COUNT(*) FROM likes WHERE likes.content_id=content.id AND likes.type='Like') AS nbLikes,
+                    (SELECT COUNT(*) FROM likes WHERE likes.content_id=content.id AND likes.type='Dislike') AS nbDislikes 
+                    FROM content WHERE content.username_id='".$user."' ORDER BY content.created_at;";
+        $statement =  $this->getEntityManager()->getConnection()->prepare($request);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    public function getInfosContentUser($id){
+        return $this->createQueryBuilder('content')
+                    ->innerJoin('content.username','user')
+                    ->where('content.id = :id')
+                    ->setParameter('id', $id)
+                    ->getQuery()
+                    ->getOneOrNullResult();
+    }
+
+    public function updateStatus($id,$status)
+    {
+        switch ($status) {
+            case "checked":
+                $status = "Vérifié";
+                break;
+            case "pending":
+                $status = "Vérification en attente";
+                break;
+            case "suspended":
+                $status = "Suspendu";
+                break;
+            case "blocked":
+                $status = "Bloqué";
+                break;
+        }
+        $request = "UPDATE content SET content.status = '".$status."' WHERE id = '".$id."'";
+        $statement =  $this->getEntityManager()->getConnection()->prepare($request);
+        $statement->execute();
+    }
+
+    public function deleteContent($id)
+    {
+        $request = "DELETE FROM content WHERE id = '".$id."'";
+        $statement =  $this->getEntityManager()->getConnection()->prepare($request);
+        $statement->execute();
+    }
+
+    public function getAllContentsWidthIdTitleStatus()
+    {
+        return $this->createQueryBuilder('content')
+            ->select('content.id','content.title','content.status')
+            ->getQuery()
+            ->getArrayResult();
+    }
 }
 
