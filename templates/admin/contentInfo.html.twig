@@ -17,10 +17,13 @@
     <tr>
         <td>Type / Fichier joint</td>
         <td>
-            {% if content.mediaPath == null %} 
+            {% if content.mediaPathFile == null and content.mediaPathUrl == null %} 
                 {{ content.type ~ " / Aucun fichier joint "}}
+            {% elseif content.mediaPathFile == null %} 
+                {{ content.type ~ " / " ~  content.mediaPathUrl }}
             {% else %}
-                {{ content.type ~ " / " ~  content.mediaPath }}
+                {% set arrayPath = content.mediaPathFile | split("_") %}
+                {{ content.type ~ " / " ~  arrayPath[arrayPath | length-1 ] }}
             {% endif %}
         </td>
     </tr>

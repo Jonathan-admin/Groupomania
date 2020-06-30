@@ -48,6 +48,7 @@ class GroupomaniaController extends AbstractController
             $request->query->getInt('page', 1),
             8
         );  
+        dump($contentsStatistics);
         return $this->render('groupomania/space_member.html.twig',[
             'contentsStatistic' => $contentsStatistics,
             'allMyContents' => $allMyContents

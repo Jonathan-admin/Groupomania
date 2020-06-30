@@ -21,7 +21,7 @@ class ContentRepository extends ServiceEntityRepository
 
     public function getAllContentForHome(){
         $qb = $this->createQueryBuilder('content')
-            ->select('content.id','content.title','content.topic','content.type','content.status');
+            ->select('content.id, content.title','content.topic','content.type','content.status');
         $qb->where($qb->expr()->in('content.status',array('Vérifié','Bloqué')));
         return $qb->getQuery();
     }
@@ -149,6 +149,21 @@ class ContentRepository extends ServiceEntityRepository
             ->select('content.id','content.title','content.status')
             ->getQuery()
             ->getArrayResult();
+    }
+
+    public function viewContentLikesComments($id,$user)
+    {
+        $request = "SELECT id, status, type, topic, title, message, media_path_url, media_path_file, created_at, username, nbComments, nbLikes, nbDislikes, isLiked, isDisliked
+        FROM ( SELECT content.*, user.username,
+        (SELECT COUNT(*) FROM comments WHERE comments.content_id=content.id) AS nbComments,
+        (SELECT COUNT(*) FROM likes WHERE likes.content_id=content.id AND likes.type='Like') AS nbLikes, 
+        (SELECT COUNT(*) FROM likes WHERE likes.content_id=content.id AND likes.type='Dislike') AS nbDislikes, 
+        (SELECT COUNT(*) FROM likes WHERE likes.content_id=content.id AND likes.type='Like' AND likes.author='".$user."') AS isLiked,
+        (SELECT COUNT(*) FROM likes WHERE likes.content_id=content.id AND likes.type='Dislike' AND likes.author='".$user."') AS isDisliked
+        FROM content INNER JOIN user ON user.id=content.username_id )AS vue WHERE id=".$id.";";
+        $statement =  $this->getEntityManager()->getConnection()->prepare($request);
+        $statement->execute();
+        return $statement->fetch();
     }
 }
 

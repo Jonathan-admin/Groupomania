@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Content;
+use App\Entity\Likes;
 use App\Form\ContentType;
 use App\Repository\ContentRepository;
+use App\Repository\CommentsRepository;
+use App\Repository\LikesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,20 +19,34 @@ class ContentController extends AbstractController
     /**
      * @Route("/espace_membre/nouveau_contenu", name="content_create")
      */
-    public function create(Request $request, EntityManagerInterface $manager, ContentRepository $contentRepo)
-    {
-        $content = new Content();
+    public function create(Request $request, Content $content = null, EntityManagerInterface $manager)
+    {  
+        if(!$content) { 
+            $content = new Content();
+            $mediaPathFile = null;
+        } else {
+            $mediaPathFile = $content->getMediaPathFile();
+        }
         $form = $this->createForm(ContentType::class, $content);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
-            dump($content);
-            $content->setCreatedAt( new \DateTime())
-                    ->setUsername($this->getUser())
-                    ->setMediaPath(null)
-                    ->setStatus("En attente de vérifications");
+            $type = $request->request->get('content')['type'];
+            if($type=="Image"||$type=="Musique") {
+                $file = $form['mediaPathFile']->getData();
+                $content->setFiles($file)
+                        ->setMediaPathFile($content->uploadMediaFile($mediaPathFile,$type))
+                        ->setMediaPathUrl(null);
+            } else if($type=="Vidéo") {
+                $content->setMediaPathFile(null);
+            } 
+            $content->setUsername($this->getUser())
+                    ->setStatus("En attente de vérifications") ;      
+            if(!$content->getId()) {
+                $content->setCreatedAt(new \DateTime());
+            }
             $manager->persist($content);
             $manager->flush();
-            return $this->redirectToRoute('content_view', [
+            return $this->redirectToRoute('content_view',[
                 'id' => $content->getId()
             ]);
         }
@@ -39,12 +56,13 @@ class ContentController extends AbstractController
     }
 
      /**
-     * @Route("/espace_membre/contenus/{id}", name="content_view")
+     * @Route("/forum/contenu/{id}", name="content_view")
      */
-    public function view(Request $request, ContentRepository $contentRepo, $id)
-    {
+    public function view(ContentRepository $contentRepo, CommentsRepository $commentRepo, $id)
+    {       
         return $this->render('content/view.html.twig',[
-            'content' => $contentRepo->find($id)
+            'content' => $contentRepo->viewContentLikesComments($id,$this->getUser()->getUsername()),
+            'allComments' => $commentRepo->findByContentId($id)
         ]);
     }
 
@@ -88,5 +106,21 @@ class ContentController extends AbstractController
         $session->set('SearchparametersContent',$parameters);
 
         return $this->redirectToRoute('filterContentsView');
+    }
+
+      /**
+     * Like le contenu visualisé
+     * @Route("/forum/contenu/{id}/like", name="content_like")
+     */
+    public function contentLike($id, EntityManagerInterface $manager, LikesRepository $likesRepo, ContentRepository $contentRepo) 
+    {
+        $like = new Likes();
+        $like->setLikedAt( new \DateTime())
+             ->setType("Like")
+             ->setAuthor($this->getUser()->getUsername())
+             ->setContent($contentRepo->find($id));
+        $manager->persist($like);
+        $manager->flush();
+        return $this->json(['nbLikes' => $likesRepo->getNumberLikes($id)]);   
     }
 }

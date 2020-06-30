@@ -2,7 +2,7 @@
 
 {% block title %}Groupomania - Créer un nouveau contenu{% endblock %}
 {% block javascript %}
-    <script src="{{ asset('scripts/create_content.js') }}" defer></script>
+    <script src="{{ asset('scripts/content_manager.js') }}" defer></script>
 {% endblock %}
 
 {% block body %}
@@ -11,30 +11,100 @@
         {{ include("partials/navbar.html.twig") }}
     </div>
     <main class="view">
-        <div>
-            <h2 class="view__status">Contenu partagé n°{{ content.id}}</h2>
+        <div class="view__head">
+            <h2 class="view__status no-bar">Contenu partagé n°{{ content.id}}</h2>
             {% if content.status == "Vérifié" %} 
-                <span>Statut: <i class="fas fa-check-square">{{ content.status }}</i></span>
+                <span class="badge badge-success">Statut: <i class="fas fa-check-square">  {{ content.status }}</i></span>
             {% elseif content.status == "En attente de vérifications" %} 
-                <span>Statut: <i class="fas fa-times-circle">{{ content.status }}</i></span>
+                <span class="badge badge-light">Statut: <i class="fas fa-times-circle">  {{ content.status }}</i></span>
             {% elseif content.status == "Bloqué" %} 
-                <span>Statut: <i class="fas fa-minus-square">{{ content.status }}</i></span>
+                <span class="badge badge-danger">Statut: <i class="fas fa-minus-square">  {{ content.status }}</i></span>
             {% else %}
-                <span>Statut: <i class="fas fa-ban">{{ content.status }}</i></span>
+                <span class="badge badge-dark">Statut: <i class="fas fa-ban">  {{ content.status }}</i></span>
             {% endif %}
         </div> 
-        {% if content.status == "blocked" %}
-            <p><i class="fas fa-exclamation-triangle"></i> Pour des raisons de sécurité, ce contenu a été verrouillé par les administrateurs. Il sera visible sur le forum mais ne sera pas consultable par la plupart des utilisateurs.</span>
+        {% if content.status == "bloqué" %}
+            <p class="warning"><i class="fas fa-exclamation-triangle"></i> Pour des raisons de sécurité, ce contenu a été verrouillé par les administrateurs. Il sera visible sur le forum mais ne sera pas consultable par la plupart des utilisateurs.</span>
+        {% elseif content.status == "En attente de vérifications" %}
+            <p class="warning"><i class="fas fa-exclamation-triangle"></i> Ce contenu n'a pas encore été contrôlé par l'un des administrateurs. Il ne sera pas visible sur le forum tant que celui-ci ne sera pas approuvé par les opérations de contrôles.</span>
+        {% elseif content.status == "Suspendu" %}
+            <p class="warning"><i class="fas fa-exclamation-triangle"></i> Ce contenu est probablement considéré comme néfaste par l'un des administrateurs. Il n'est pas visible et encore moins consultable par les utilisateurs. De ce fait, merci de bien vouloir modifier son contenu pour qu'il soit à nouveau contrôlé et visible par tous.</span>
         {% endif %}
         <div class="row">
-            <section class="view__content col-lg-5">
-                <h3>{{ content.title }}</h3>
-                <p>Contenu publié le {{ content.createdAt | date("d/m/Y à h:m:s") }} par {{ content.username.username }}</p>
-                <p>Thématique: {{ content.topic }}</p>
-                <p> {{ content.message | raw }} </p>
+            <section class="view__content col-lg-6">
+                <h3><strong>{{ content.title }}</strong></h3>
+                <ul>
+                    <li><strong>Type de contenu: </strong> {{ content.type }}</li>
+                    <li><strong>Contenu publié le: </strong> {{ content.created_at | date("d/m/Y à h:m:s") }} par {{ content.username }} </li>
+                    <li><strong>Thématique: </strong> {{ content.topic }}</li>
+                    <li>{{ content.message | raw }} </li>
+                    {% if content.type == "Image" %}
+                        <div class="view__content--img">
+                            <img src="{{ asset('uploadFile/images') }}{{ content.media_path_file }}" alt="Image du contenu {{ content.title }}" />
+                        </div>
+                    {% elseif content.type == "Musique" %}
+                        <div class="view__content--mus">
+                            <figure>
+                                {% set arrayPath = content.media_path_file | split("_") %}
+                                <figcaption>{{ arrayPath[arrayPath | length-1] }}</figcaption>
+                                <audio
+                                    controls src="{{ asset('uploadFile/musics/') }}{{ content.media_path_file }}">
+                                </audio>
+                            </figure>
+                        </div>
+                    {% else %}
+                        <div class="view__content--vid">
+                            <iframe src="{{ content.media_path_url }}" width="680" height="360" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+                        </div>
+                    {% endif %}
+                </ul>
+                <div class="view__actionsButtons">
+                    <div class="form-style__buttons">
+                        {% if app.user.username == content.username %}
+                            <a id="modifyContent_button" class="btn btn--valid" href="#">Modifier</a>
+                        {% endif %}
+                        <button type="button" class="btn btn--cancel" onclick="window.history.back();">Retour</button> 
+                    </div>
+                    <div class="view__likes">
+                        {% set isLiked = 0 %}
+                        {% if content.isLiked or app.user.id == content.username %}
+                            <i class="fas fa-thumbs-up"> {{ content.nbLikes }}</i>
+                        {% else %} 
+                            {% set isLiked = 0 %}
+                            <i id="likeButton" class="far fa-thumbs-up" data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbLikes }}</i> 
+                        {% endif %}
+                        {% if content.isDisliked or app.user.id == content.username %}
+                            <i class="fas fa-thumbs-down"> {{ content.nbDislikes }}</i>
+                        {% else %}
+                            <i class="far fa-thumbs-down"> {{ content.nbDislikes }} </i>
+                        {% endif %}
+                    </div>
+                    <div id="messageServer">
+                    </div>
+                </div>
             </section>
-            <section class="view__comments col-lg-5">
-                 <h3>Commentaires pour ce contenu</h3>
+            <section class=" col-lg-6">
+                <h3>Commentaires pour ce contenu ({{ content.nbComments }})</h3>
+                {% if content.nbComments == 0 %}
+                    <i class='fas fa-times errorRole'> Ce contenu n'a pas encore été commenté pour le moment.</i>
+                {% else %}
+                    <div class="view__comments">
+                        {% for comment in allComments %}
+                            <div class="view__comments-head">
+                                <span>{{ "N°"~loop.index }}</span>
+                                <span>Posté par {{ comment.author ~" le "~ comment.createdAt | date("d/m/Y à h:m:s") }}</span>
+                            </div>
+                            <div class="view__comments-mess">
+                                {{ comment.message | raw }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="view__writing">
+                    </div>
+                    <div class="form-style__buttons">
+                        <button class="btn btn--valid" type="button">Ecrire un commentaire</button>
+                    </div>
+                {% endif %}
             </section>
         </div>
     </main> 

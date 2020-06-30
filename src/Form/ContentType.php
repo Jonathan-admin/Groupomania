@@ -43,6 +43,13 @@ class ContentType extends AbstractType
                         'Vidéo' => 'Vidéo',
                         'Image' => 'Image'),
                 'multiple'=>false,'expanded'=>true))
+            ->add('mediaPathUrl', TextType::class,[
+                'attr' => ['placeholder' => 'Indiquez le lien url de la vidéo ici ...'], 'required'=> false
+            ])
+            ->add('mediaPathFile', FileType::class,[
+                'required'   => false,
+                'data_class' => null
+            ])
         ;
     }
 

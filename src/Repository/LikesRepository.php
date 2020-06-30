@@ -19,32 +19,11 @@ class LikesRepository extends ServiceEntityRepository
         parent::__construct($registry, Likes::class);
     }
 
-    // /**
-    //  * @return Likes[] Returns an array of Likes objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getNumberLikes($id)
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $request = "SELECT COUNT(*) AS nbLikes FROM likes where content_id='".$id."' and likes.type='Like';"; 
+        $statement =  $this->getEntityManager()->getConnection()->prepare($request);
+        $statement->execute();
+        return $statement->fetch();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Likes
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
