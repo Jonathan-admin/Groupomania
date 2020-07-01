@@ -21,9 +21,17 @@ class LikesRepository extends ServiceEntityRepository
 
     public function getNumberLikes($id)
     {
-        $request = "SELECT COUNT(*) AS nbLikes FROM likes where content_id='".$id."' and likes.type='Like';"; 
+        $request = "SELECT (SELECT COUNT(*) FROM likes WHERE likes.content_id=".$id." AND likes.type='Like') AS nbLikes, 
+        (SELECT COUNT(*) FROM likes WHERE likes.content_id=".$id." AND likes.type='Dislike') AS nbDislikes
+        FROM likes LIMIT 1;";
         $statement =  $this->getEntityManager()->getConnection()->prepare($request);
         $statement->execute();
         return $statement->fetch();
+    }
+
+    public function deleteLike($id, $author) {
+        $request = "DELETE FROM likes where likes.content_id=".$id." and likes.author='".$author."';";
+        $statement =  $this->getEntityManager()->getConnection()->prepare($request);
+        $statement->execute();
     }
 }

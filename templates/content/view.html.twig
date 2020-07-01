@@ -65,18 +65,19 @@
                         {% endif %}
                         <button type="button" class="btn btn--cancel" onclick="window.history.back();">Retour</button> 
                     </div>
-                    <div class="view__likes">
-                        {% set isLiked = 0 %}
-                        {% if content.isLiked or app.user.id == content.username %}
-                            <i class="fas fa-thumbs-up"> {{ content.nbLikes }}</i>
+                    <div class="view__likes" id="sys-like" data-user="{{ content.username }}"> 
+                        {% if app.user.username == content.username %}
+                            <i class="fas fa-thumbs-up disabled"> {{ content.nbLikes }}</i> 
+                            <i class="fas fa-thumbs-down disabled"> {{ content.nbDislikes }}</i> 
+                        {% elseif content.isLiked %}
+                            <i class="fas fa-thumbs-up" data-role=0 data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbLikes }}</i> 
+                            <i class="fas fa-thumbs-down disabled"> {{ content.nbDislikes }}</i> 
+                        {% elseif content.isDisliked %}
+                            <i class="fas fa-thumbs-up disabled"> {{ content.nbLikes }}</i> 
+                            <i class="fas fa-thumbs-down" data-role=0 data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbDislikes }}</i> 
                         {% else %} 
-                            {% set isLiked = 0 %}
-                            <i id="likeButton" class="far fa-thumbs-up" data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbLikes }}</i> 
-                        {% endif %}
-                        {% if content.isDisliked or app.user.id == content.username %}
-                            <i class="fas fa-thumbs-down"> {{ content.nbDislikes }}</i>
-                        {% else %}
-                            <i class="far fa-thumbs-down"> {{ content.nbDislikes }} </i>
+                            <i class="far fa-thumbs-up" data-role=1 data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbLikes }}</i> 
+                            <i class="far fa-thumbs-down" data-role=-1 data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbDislikes }}</i> 
                         {% endif %}
                     </div>
                     <div id="messageServer">

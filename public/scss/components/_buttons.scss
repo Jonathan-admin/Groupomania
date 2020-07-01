@@ -1,4 +1,4 @@
-a, button {
+a, button, i {
     &:not(.disabled).btn {
         color: nth($text-colors,1);
         &:hover {
@@ -19,8 +19,8 @@ a, button {
             }
         }
     }
-    &:disabled {
-        cursor: none;
+    &.disabled {
+        color: gray;
     }
     &.btn--action {
         background-color: nth($button-bkg-valid,1);
@@ -38,4 +38,7 @@ a, button {
 i.fa-sync {
     cursor: pointer;
     color: nth($text-colors,2);
+}
+i[class*=thumbs] {
+    font-size: 1.2em;
 }

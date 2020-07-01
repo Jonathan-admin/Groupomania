@@ -112,15 +112,33 @@ class ContentController extends AbstractController
      * Like le contenu visualisé
      * @Route("/forum/contenu/{id}/like", name="content_like")
      */
-    public function contentLike($id, EntityManagerInterface $manager, LikesRepository $likesRepo, ContentRepository $contentRepo) 
+    public function contentLike($id, Request $request, EntityManagerInterface $manager, LikesRepository $likesRepo, ContentRepository $contentRepo) 
     {
-        $like = new Likes();
-        $like->setLikedAt( new \DateTime())
-             ->setType("Like")
-             ->setAuthor($this->getUser()->getUsername())
-             ->setContent($contentRepo->find($id));
-        $manager->persist($like);
-        $manager->flush();
-        return $this->json(['nbLikes' => $likesRepo->getNumberLikes($id)]);   
+        $role = $request->request->get('role');
+        if($role!=0) {
+            $like = new Likes();
+            if($role == 1) {
+                $role = "Like";
+                $isLikeAction = "isLiked";
+            } else {
+                $role = "Dislike";
+                $isLikeAction = "isDisliked";
+            }
+            $like->setLikedAt( new \DateTime())
+                 ->setType($role)
+                 ->setAuthor($this->getUser()->getUsername())
+                 ->setContent($contentRepo->find($id));
+            $manager->persist($like);
+            $manager->flush();
+        } else {
+            $isLikeAction = "canceledLike";
+            $likesRepo->deleteLike($id,$this->getUser()->getUsername());
+        }
+        return $this->render('content/likesArea.html.twig', [
+            'IsLikeAction' => $isLikeAction,
+            'nbDislikesLikes' => $likesRepo->getNumberLikes($id),
+            'contentUser' => $request->request->get('contentUser'),
+            'id' => $id
+        ]);
     }
 }

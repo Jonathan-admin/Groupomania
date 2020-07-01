@@ -46,7 +46,8 @@ class AppFixtures extends Fixture
                         ->setTopic($topic[array_rand($topic, 1)])
                         ->setType($type[array_rand($type, 1)])
                         ->setCreatedAt($faker->dateTimeBetween('- 6 months'))
-                        ->setMediaPath(null)
+                        ->setMediaPathUrl(null)
+                        ->setMediaPathFile(null)
                         ->setStatus($status[array_rand($status, 1)]);
                 $manager->persist($content);
 
