@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    $("#content_type_0").prop("checked", true);
     $(document).on("change","#content_type", function(){ 
         let value = $("input[name='content[type]']:checked").val();
         $("#mediaPath").css("display","none");

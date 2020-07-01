@@ -2,16 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Content;
 use App\Entity\Likes;
+use App\Entity\Content;
 use App\Form\ContentType;
+use App\Repository\LikesRepository;
 use App\Repository\ContentRepository;
 use App\Repository\CommentsRepository;
-use App\Repository\LikesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ContentController extends AbstractController
@@ -53,6 +54,20 @@ class ContentController extends AbstractController
         return $this->render('content/create.html.twig',[
             'form' => $form->createView()
         ]);
+    }
+
+    /**
+     * @Route("/espace_membre/supprimer_contenu/{id}", name="content_delete")
+     */
+    public function delete(ContentRepository $contentRepo, $id, EntityManagerInterface $manager)
+    {     
+        $contentObjet = $contentRepo->find($id);
+        if($mediaPathFile = $contentObjet->getMediaPathFile()) {
+            $contentObjet->deleteFile($mediaPathFile,$contentObjet->getType());
+        }
+        $manager->remove($contentObjet);
+        $manager->flush();
+        return $this->redirectToRoute('groupomania_space_member');
     }
 
      /**

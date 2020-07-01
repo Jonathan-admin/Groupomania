@@ -165,5 +165,10 @@ class ContentRepository extends ServiceEntityRepository
         $statement->execute();
         return $statement->fetch();
     }
+
+    public function findDeletingContent($id) 
+    {
+
+    }
 }
 
