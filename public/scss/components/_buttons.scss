@@ -3,6 +3,7 @@ a, button, i {
         color: nth($text-colors,1);
         &:hover {
             box-shadow: 2px 2px 10px black;
+            font-style: unset;
         }
         &--valid {
             background: nth($button-bkg-valid,1);

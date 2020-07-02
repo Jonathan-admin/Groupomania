@@ -1,4 +1,12 @@
 .forum {
+    &__search {
+        .form-style {
+            @media screen and (min-width: 750px) and (max-width: 1198px) {
+                width: 50%;
+                margin: auto;
+            }
+        }
+    }
     &__thumbnail {
         & > a {
             display: block;

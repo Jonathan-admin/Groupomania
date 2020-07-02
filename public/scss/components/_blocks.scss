@@ -86,3 +86,27 @@ h4 {
     text-shadow: 2px 2px 2px black;
     font-weight: bold;
 }
+
+.pagination {
+    justify-content: center;
+    .current {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: nth($text-colors,3);
+    }
+    .page a,
+    .next a, 
+    .previous a,
+    .last a,
+    .first a {
+        font-size: 1.5em;
+        color: nth($text-colors,2);
+        padding: 0 3px;
+        position: relative;
+        top: 3px;
+    }
+}
+
+div.col-xl-3.forum__thumbnail {
+    max-width: unset;
+}

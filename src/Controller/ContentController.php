@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Likes;
 use App\Entity\Content;
+use App\Entity\Comments;
 use App\Form\ContentType;
 use App\Repository\LikesRepository;
 use App\Repository\ContentRepository;
@@ -154,6 +155,24 @@ class ContentController extends AbstractController
             'nbDislikesLikes' => $likesRepo->getNumberLikes($id),
             'contentUser' => $request->request->get('contentUser'),
             'id' => $id
+        ]);
+    }
+
+      /**
+     * Créer un nouveau commentaire
+     * @Route("/forum/contenu/{id}/creation_commentaire", name="content_comment")
+     */
+    public function comment($id, EntityManagerInterface $manager, Request $request, ContentRepository $contentRepo, CommentsRepository $commentRepo) 
+    {
+        $comment = new Comments();
+        $comment->setAuthor($this->getUser()->getUsername())
+                ->setMessage($request->request->get('message'))
+                ->setCreatedAt(new \DateTime())
+                ->setContent($contentRepo->find($id));
+        $manager->persist($comment);
+        $manager->flush();
+        return $this->render('content/comments.html.twig', [
+            'allComments' => $commentRepo->findAll()
         ]);
     }
 }

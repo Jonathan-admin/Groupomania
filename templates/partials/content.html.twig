@@ -1,12 +1,12 @@
 
     {% if content.type == "Texte" %}
-        <div class="col-sm-6 col-lg-4 col-xl-3 forum__thumbnail forum__thumbnail--bkg-text">
+        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 forum__thumbnail forum__thumbnail--bkg-text">
     {% elseif content.type == "Image" %}
-        <div class="col-sm-6 col-lg-4 col-xl-3 forum__thumbnail forum__thumbnail--bkg-img">
+        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 forum__thumbnail forum__thumbnail--bkg-img">
     {% elseif content.type == "Vidéo" %}
-        <div class="col-sm-6 col-lg-4 col-xl-3 forum__thumbnail forum__thumbnail--bkg-vid">
+        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 forum__thumbnail forum__thumbnail--bkg-vid">
     {% else %}
-        <div class="col-sm-6 col-lg-4 col-xl-3 forum__thumbnail forum__thumbnail--bkg-mus">
+        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 forum__thumbnail forum__thumbnail--bkg-mus">
     {% endif %} 
     {% if content.status == "Bloqué" and homePage == 1 %}
         <a class="disabled">

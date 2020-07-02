@@ -29,7 +29,7 @@ class GroupomaniaController extends AbstractController
             $contentRepo->getAllContentForHome(),
             $request->query->getInt('page', 1),
             8
-        );  
+        ); 
         return $this->render('groupomania/home.html.twig', [
             'Allcontents' => $paginationCollection,
             'popularContents' => $contentRepo->getPopularContent(),

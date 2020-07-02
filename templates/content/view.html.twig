@@ -86,11 +86,11 @@
                 </div>
             </section>
             <section class=" col-lg-6">
-                <h3>Commentaires pour ce contenu ({{ content.nbComments }})</h3>
-                {% if content.nbComments == 0 %}
-                    <i class='fas fa-times errorRole'> Ce contenu n'a pas encore été commenté pour le moment.</i>
-                {% else %}
-                    <div class="view__comments">
+                <div class="view__comments" id="viewComments">
+                    <h3>Commentaires pour ce contenu ({{ allComments | length }})</h3>
+                    {% if allComments | length == 0 %}
+                        <i class='fas fa-times errorRole'> Ce contenu n'a pas encore été commenté pour le moment.</i>
+                    {% else %}
                         {% for comment in allComments %}
                             <div class="view__comments-head">
                                 <span>{{ "N°"~loop.index }}</span>
@@ -100,13 +100,21 @@
                                 {{ comment.message | raw }}
                             </div>
                         {% endfor %}
+                        <div id="messageServerComment">
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="view__writing form-group" id="viewWriting">
+                    <label for='comment'>Vote commentaire</label>"
+                    <textarea id='comment' name='comment' rows='5' cols='33' placeholder='Commentez ici ...'></textarea>
+                    <div>
+                        <button class='btn btn--valid' data-url="{{ path('content_comment',{'id':content.id}) }}" type='button' id='sendComment-button' >Envoyer</button>
+                        <button class='btn btn--cancel' type='button' id='cancelComment-button'>Annuler</button>
                     </div>
-                    <div class="view__writing">
-                    </div>
-                    <div class="form-style__buttons">
-                        <button class="btn btn--valid" type="button">Ecrire un commentaire</button>
-                    </div>
-                {% endif %}
+                </div>
+                <div class="form-style__buttons">
+                    <button class="btn btn--valid" type="button" id="createComment-button">Ecrire un commentaire</button>
+                </div>
             </section>
         </div>
     </main> 
