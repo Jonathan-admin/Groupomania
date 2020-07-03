@@ -1,5 +1,5 @@
 .form-style {
-    input, select {
+    input, select, textarea {
         cursor: pointer;
         border: 1px solid nth($border-input-colors,1);
         &:hover, &:focus {
@@ -12,8 +12,8 @@
         padding: 5px 10px;
         text-align: center;
         font-size: 1em;
-        max-width: 160px;
         border-radius: 1rem;
+        max-width: 280px;
     }
     fieldset {
         padding: 10px 10px 10px 20px;	
@@ -22,7 +22,7 @@
         margin-bottom: 15px;
     }
     &__buttons {
-        margin-top: 30px;
+        margin: 30px 0;
         &--left {
             text-align: left;
         }
@@ -31,3 +31,5 @@
         }
     }
 }
+
+

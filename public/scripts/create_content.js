@@ -1,33 +1,30 @@
 $(document).ready(function() {
+    $("#content_type_0").prop("checked", true);
     $(document).on("change","#content_type", function(){ 
         let value = $("input[name='content[type]']:checked").val();
-        $("#mediaPath").empty();
-        $("#mediaPath").append(displayMediaPathControl(value));
+        $("#mediaPath").css("display","none");
+        displayMediaPathControl(value);
     });
 });
 
-const displayMediaPathControl = value => {
-    let result = '<div class="form-group">';
-    switch (value) {
-        case 'text':
-            result = "";
-            break;
-        case 'music':
-            result += "<label for='music'>Veuillez indiquer une URL ciblant la musique à insérer</label>"
-                   +"<input placeholder='Insérer l'URL ici...' type='text' class='form-control' required />";
-            break;
-        case 'video':
-            result += "<label for='video'>Veuillez indiquer une URL ciblant la vidéo à partager</label>"
-                   +"<input placeholder='Insérer l'URL ici...' type='text' class='form-control' required />";
-            break;
-        case 'image':
-            result += "<label for='image'>Image à partager</label>"
-            +"<input type='file' id='picture' name='picture_file' accept='image/png, image/jpeg, image/jpg'>";
-    break;
-        default:
-            result = "";
-            break;
+const displayMediaPathControl = (value) => { 
+    if(value=="Image" || value=="Musique") {
+        value = "imgMus";
     }
-    result += "</div>";
-    return result;
+    switch (value) {
+        case "Texte":
+            $("#mediaPath").css("display","none");
+            break;
+        case "imgMus":
+            $("#mediaPath").css("display","block");
+            $("#mediaPathFile").css("display","block");
+            $("#mediaPathUrl").css("display","none");
+            break;
+        case "Vidéo":  
+            $("#mediaPath").css("display","block");
+            $("#mediaPathFile").css("display","none");
+            $("#mediaPathUrl").css("display","block");
+    }
 }
+
+

@@ -18,27 +18,38 @@ class ContentType extends AbstractType
         $builder
             ->add('topic',ChoiceType::class, [
                 'choices'  => [
-                    'Général' => 'general',
-                    'Voyages' => 'travels',
-                    'Techonologies' => 'technologies',
-                    'Sports' => 'sports',
-                    'Loisirs' => 'leisure',
-                    'Monde professionnel' => 'work',
-                    'Economie' => 'economy',
-                    'Groupomania' => 'groupomania',
-                    'Science' => 'science',
-                    'Actualité' => 'news',
-                    'Divers' => 'others'
+                    'Général' => 'Général',
+                    'Voyages' => 'Voyages',
+                    'Techonologies' => 'Technologies',
+                    'Sports' => 'Sports',
+                    'Loisirs' => 'Loisirs',
+                    'Monde professionnel' => 'Le monde professionnel',
+                    'Economie' => 'Economie',
+                    'Groupomania' => 'Groupomania',
+                    'Science' => 'Science',
+                    'Actualité' => 'Actualité',
+                    'Divers' => 'Autres'
                 ]])
-            ->add('title',TextType::class)
-            ->add('message',TextareaType::class)
+            ->add('title',TextType::class, [
+                'attr' => ['placeholder' => 'Résumez en quelque mots ...'],
+            ])
+            ->add('message',TextareaType::class, [
+                'attr' => ['placeholder' => 'Indiquez votre message ici ...'],
+            ])
             ->add('type',ChoiceType::class,
                 array('choices' => array(
-                        'Texte' => 'text',
-                        'Musique' => 'music',
-                        'Vidéo' => 'video',
-                        'Image' => 'image'),
+                        'Texte' => 'Texte',
+                        'Musique' => 'Musique',
+                        'Vidéo' => 'Vidéo',
+                        'Image' => 'Image'),
                 'multiple'=>false,'expanded'=>true))
+            ->add('mediaPathUrl', TextType::class,[
+                'attr' => ['placeholder' => 'Indiquez le lien url de la vidéo ici ...'], 'required'=> false
+            ])
+            ->add('mediaPathFile', FileType::class,[
+                'required'   => false,
+                'data_class' => null
+            ])
         ;
     }
 

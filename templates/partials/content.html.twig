@@ -1,0 +1,37 @@
+
+    {% if content.type == "Texte" %}
+        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 forum__thumbnail forum__thumbnail--bkg-text">
+    {% elseif content.type == "Image" %}
+        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 forum__thumbnail forum__thumbnail--bkg-img">
+    {% elseif content.type == "Vidéo" %}
+        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 forum__thumbnail forum__thumbnail--bkg-vid">
+    {% else %}
+        <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 forum__thumbnail forum__thumbnail--bkg-mus">
+    {% endif %} 
+    {% if content.status == "Bloqué" and homePage == 1 %}
+        <a class="disabled">
+    {% else %}
+        <a href="{{ path('content_view',{'id':content.id}) }}">
+    {% endif %}
+        {% if content.status == "Vérifié" %} 
+            <span class="badge badge-success"><i class="fas fa-check-square"> {{ content.status }}</i></span>
+        {% elseif content.status == "En attente de vérifications" %} 
+            <span><i class="badge badge-light"> {{ content.status }}</i></span>
+        {% elseif content.status == "Suspendu" %} 
+            <span class="badge badge-danger"><i class="fas fa-minus-square"> {{ content.status }}</i></span>
+        {% else %}
+            <span class="badge badge-dark"><i class="fas fa-ban"> {{ content.status }}</i></span>
+        {% endif %}
+        <h4>{{ content.title }}</h4>
+        <p>{{ content.topic }}</p>
+        {% if barAction == 1 %}
+            <div class="thumbnail-action">
+                <i class="fas fa-comment-dots"> {{ content.nbComment }} </i>
+                <div class="thumbnail-action__likes">
+                    <i class="fas fa-thumbs-up"> {{ content.nbLikes }} </i>
+                    <i class="fas fa-thumbs-down"> {{ content.nbDislikes }} </i>
+                </div>
+            </div>
+        {% endif %}
+    </a>
+</div>

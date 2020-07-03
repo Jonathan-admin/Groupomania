@@ -22,7 +22,7 @@ i.errorRole {
     color: nth($text-colors,4);
 }
 
-h2:not(.space-member__pub) {
+h2:not(.no-bar) {
     border-bottom: 6px solid nth($border-colors,2);
     padding-bottom: 15px;
     margin-bottom: 20px;
@@ -33,7 +33,7 @@ h3 {
     font-size: 1.3em;
     border-bottom: 3px solid nth($border-colors,2);
     padding-bottom: 10px;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 h4 {
@@ -48,7 +48,9 @@ h4 {
 .space-member,
 .space-admin,
 .space-infos,
-.forum {
+.view,
+.forum,
+.create {
     min-height: 500px;
     background-color: nth($background-colors,1);
     position: relative;
@@ -73,4 +75,38 @@ h4 {
 .bg-blue-head {
     background-color: nth($background-colors,2);
     color: nth($text-colors,1);
+}
+
+.warning {
+    border: 2px solid nth($border-colors,1);
+    padding: 5px 15px;
+    font-size: 1.2em;
+    color: nth($text-colors,1);
+    background-color: nth($background-colors,3);
+    text-shadow: 2px 2px 2px black;
+    font-weight: bold;
+}
+
+.pagination {
+    justify-content: center;
+    .current {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: nth($text-colors,3);
+    }
+    .page a,
+    .next a, 
+    .previous a,
+    .last a,
+    .first a {
+        font-size: 1.5em;
+        color: nth($text-colors,2);
+        padding: 0 3px;
+        position: relative;
+        top: 3px;
+    }
+}
+
+div.col-xl-3.forum__thumbnail {
+    max-width: unset;
 }

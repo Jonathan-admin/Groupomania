@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\ContentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ContentRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ContentRepository::class)
@@ -30,17 +32,6 @@ class Content
     private $message;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="mediaPath")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $user;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $mediaPath;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
@@ -57,6 +48,7 @@ class Content
 
     /**
      * @ORM\OneToMany(targetEntity=Likes::class, mappedBy="Content")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE") 
      */
     private $likes;
 
@@ -64,6 +56,30 @@ class Content
      * @ORM\OneToMany(targetEntity=Comments::class, mappedBy="Content")
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $status;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="contents")
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE") 
+     */
+    private $username;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $mediaPathUrl;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $mediaPathFile;
+
+    private $file;
+
 
     public function __construct()
     {
@@ -96,42 +112,6 @@ class Content
     public function setMessage(string $message): self
     {
         $this->message = $message;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    public function getMediaPath(): ?string
-    {
-        return $this->mediaPath;
-    }
-
-    public function setMediaPath(?string $mediaPath): self
-    {
-        $this->mediaPath = $mediaPath;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
 
         return $this;
     }
@@ -220,5 +200,115 @@ class Content
         }
 
         return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getUsername(): ?User
+    {
+        return $this->username;
+    }
+
+    public function setUsername(?User $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getMediaPathUrl(): ?string
+    {
+        return $this->mediaPathUrl;
+    }
+
+    public function setMediaPathUrl(?string $mediaPathUrl): self
+    {
+        $this->mediaPathUrl = $mediaPathUrl;
+
+        return $this;
+    }
+
+    public function getMediaPathFile(): ?string
+    {
+        return $this->mediaPathFile;
+    }
+
+    public function setMediaPathFile(?string $mediaPathFile): self
+    {
+        $this->mediaPathFile = $mediaPathFile;
+
+        return $this;
+    }
+
+    public function setFiles(UploadedFile $file = null)
+    {
+        $this->file = $file;
+        return $this;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function uploadMediaFile(String $media = null,$type)
+    { 
+        if ($this->file == null) { 
+            if($media == null) { 
+                $path = null;
+            } else {
+                $path = $media;
+            }
+        } else { 
+            if($media != null) {
+                $this->deleteFile($this->getPath($media),$type);
+            }
+            $path = date('His')."_".$this->file->getClientOriginalName();
+            $this->file->move($this->getUploadRootDir($type),$path);
+        } 
+        return $path;
+    }
+
+    public function deleteFile(String $path, String $type) { 
+        $deleted = true; 
+        if(file_exists($this->getUploadRootDir($type).$path)) {
+            $deleted = unlink($this->getUploadRootDir($type).$path);
+        }
+        return $deleted;
+    }
+
+    protected function getPath(String $mediaPathFile) {
+        $arrayMediaPathFile = explode("/",$mediaPathFile);
+        return $arrayMediaPathFile[count($arrayMediaPathFile)-1];
+    }
+
+    protected function getUploadRootDir(String $type) {
+        if($type=="Image") {
+            return __DIR__.'/../../public/uploadFile/images/';
+        } else {
+            return __DIR__.'/../../public/uploadFile/musics/';   
+        }
     }
 }

@@ -1,0 +1,74 @@
+<table class="form-style">
+
+    {% set AdminDel = 0 %}
+    {% for role in app.user.roles %} 
+        {% if role == "ROLE_DEL_ADMIN" %}
+            {% set AdminDel = 1 %}
+        {% endif %}
+    {% endfor %}
+
+    <tr>
+        <th colspan="2" class="bg-blue-head">Référence contenu {{ content.id }}</th>
+    </tr>
+    <tr>
+        <td>Titre</td>
+        <td>{{ content.title }}</td>
+    </tr>
+    <tr>
+        <td>Type / Fichier joint</td>
+        <td>
+            {% if content.mediaPathFile == null and content.mediaPathUrl == null %} 
+                {{ content.type ~ " / Aucun fichier joint "}}
+            {% elseif content.mediaPathFile == null %} 
+                {{ content.type ~ " / " ~  content.mediaPathUrl }}
+            {% else %}
+                {% set arrayPath = content.mediaPathFile | split("_") %}
+                {{ content.type ~ " / " ~  arrayPath[arrayPath | length-1 ] }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>Date de publication</td>
+        <td>{{ content.createdAt | date("d/m/Y à h:m:s") }}</td>
+    </tr>
+    <tr>
+        <td>Propriétaire / Date d'inscription</td>
+        <td>{{ content.username.username ~" / "~ content.username.subscribeAt | date("d/m/Y à h:m:s") }}</td>
+    </tr>
+    <tr>
+        <td colspan="2" class="bg-blue-head">
+            {% if AdminDel == 0 %}
+                <a id="viewContent_button" class="btn btn--view" href="{{ path('content_view',{'id':content.id}) }}"><i class="fas fa-eye"> Voir le contenu</i></a>
+            {% endif %}
+            <button id="delContentbutton" class="btn btn--cancel" data-url="{{ path('admin_deleteContent',{'id':content.id}) }}"><i class="fas fa-trash-alt"> Supprimer ce contenu</i></button>
+        </td>
+    </tr>
+    <tr>
+        <td>Status actuel</td>
+        {% if content.status == "Vérifié" %}
+            <td><strong>{{ content.status }} - </strong> Le contenu est conforme et visible par tous.</td>
+        {% elseif content.status == "En cours de vérification" %}
+            <td><strong>{{ content.status }} - </strong>Le contenu n'est pas encore visible sur le site! Merci de le contrôler et changer son status suivant les résultats de l'opération.</td>
+        {% elseif content.status == "Suspendu" %}
+            <td><strong>{{ content.status }} - </strong>Aucun utilisateur ne peut voir ce contenu en ligne!</td>
+        {% else %}
+            <td><strong>{{ content.status }} - </strong>Le contenu est actuellement visible mais n'est pas consultable.</td>
+        {% endif %}
+    </tr>       
+    <tr> 
+        <td colspan="2" class="bg-blue-head">
+            {% if AdminDel == 0 %}
+                <div class="form-group">
+                    <label for="status"><i class="fas fa-tools"></i> Modifier le status</label>
+                    <select name="status" id="status" class="form-control" data-url="{{ path('admin_modifyStatus',{'id':content.id}) }}">
+                        <option value="">Choisissez un status</option>
+                        <option value="checked">Vérifié</option>
+                        <option value="pending">Vérifications en attente</option>
+                        <option value="suspended">Suspendre le contenu</option>
+                        <option value="blocked">Verrouiller le contenu</option>
+                    </select>
+                </div>
+            {% endif %}
+        </td>
+    </tr>
+</table>

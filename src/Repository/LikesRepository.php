@@ -19,32 +19,19 @@ class LikesRepository extends ServiceEntityRepository
         parent::__construct($registry, Likes::class);
     }
 
-    // /**
-    //  * @return Likes[] Returns an array of Likes objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getNumberLikes($id)
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $request = "SELECT (SELECT COUNT(*) FROM likes WHERE likes.content_id=".$id." AND likes.type='Like') AS nbLikes, 
+        (SELECT COUNT(*) FROM likes WHERE likes.content_id=".$id." AND likes.type='Dislike') AS nbDislikes
+        FROM likes LIMIT 1;";
+        $statement =  $this->getEntityManager()->getConnection()->prepare($request);
+        $statement->execute();
+        return $statement->fetch();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Likes
-    {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+    public function deleteLike($id, $author) {
+        $request = "DELETE FROM likes where likes.content_id=".$id." and likes.author='".$author."';";
+        $statement =  $this->getEntityManager()->getConnection()->prepare($request);
+        $statement->execute();
     }
-    */
 }

@@ -1,5 +1,113 @@
 .forum {
     &__search {
-        min-width: 250px;
+        .form-style {
+            @media screen and (min-width: 750px) and (max-width: 1198px) {
+                width: 50%;
+                margin: auto;
+            }
+        }
     }
+    &__thumbnail {
+        & > a {
+            display: block;
+            overflow: auto;
+            min-height: 275px;
+            min-width: 270px;
+            background-color: nth($background-colors,1);
+            position: relative;
+            color: nth($text-colors,2);
+            padding: 20px;
+            margin: 20px 0;
+            z-index: 1;
+            border: 2px solid nth($border-colors,3);
+            box-shadow: 2px 2px 2px black;
+            transition: transform 0.5s 0s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            &::before {
+                z-index: -1;
+                position: absolute;
+                opacity: 0.5;
+                content: "";
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
+            .thumbnail-action {
+                position: absolute;
+                top: 80%;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                background-color: nth($background-colors,2);
+                border-top: 4px solid nth($border-colors,1);
+                display: flex;
+                justify-content: space-between;
+                padding: 5px 25px;
+                color: nth($text-colors,1);
+                font-size: 1.2em;
+                align-items: center;
+                &__likes {
+                    i:nth-child(1){
+                        margin-right: 5px;
+                    }
+                }
+            }
+            &:not(.disabled):hover {
+                text-decoration: none;
+                color: nth($text-colors,2);
+                font-style: normal;
+                transform: scale(1.05);
+                box-shadow: 2px 2px 30px nth($background-colors,2);
+            }
+            &.disabled {
+                opacity: 0.6;
+            }
+            h4 {
+                background-color: nth($background-colors,1);
+            }
+            p {
+                text-align: center;
+                font-size: 1.4em;
+                font-weight: bold;
+            }
+        }
+        &--bkg-text {
+            & > a {
+                &::before {
+                    background-image: url("../../images/text.jpg");
+                }
+            }
+        }
+        &--bkg-img {
+            & > a {
+                &::before {
+                    background-image: url("../../images/appareil-photo.jpg");
+                }
+            }
+        }
+        &--bkg-mus {
+            & > a {
+                &::before {
+                    background-image: url("../../images/music.jpg");
+                }
+            }
+        }
+        &--bkg-vid {
+            & > a {
+                &::before {
+                    background-image: url("../../images/videos.jpg");
+                }
+            }
+        }
+    } 
+}
+span.badge {
+    font-size: 1.2em;
+    position: relative;
+    bottom: 20px;
+    right: 20px;
+    text-shadow: 2px 2px 2px black;
+    box-shadow: 2px 2px 2px white;
 }
