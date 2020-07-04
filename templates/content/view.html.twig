@@ -69,7 +69,7 @@
                     {% endif %}   
                         <div class="form-style__buttons">
                             {% if app.user.username == content.username %}
-                                <a id="modifyContent_button" class="btn btn--other" href="#">Modifier</a>
+                                <a id="modifyContent_button" class="btn btn--other" href="{{ path('content_modify',{'id':content.id}) }}">Modifier</a>
                                 <a id="deleteContent_button" class="btn btn--valid" href="{{ path('content_delete',{'id':content.id}) }}">Supprimer</a>
                             {% endif %}
                             <button type="button" class="btn btn--cancel" onclick="window.history.back();">Retour</button> 

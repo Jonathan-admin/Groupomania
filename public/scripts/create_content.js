@@ -1,5 +1,9 @@
 $(document).ready(function() {
-    $("#content_type_0").prop("checked", true);
+    if(document.location.href.indexOf("nouveau_contenu")>0) {
+        $("#content_type_0").prop("checked", true);
+    } else { 
+        displayMediaPathControl($("input[name='content[type]']:checked").val());
+    }
     $(document).on("change","#content_type", function(){ 
         let value = $("input[name='content[type]']:checked").val();
         $("#mediaPath").css("display","none");

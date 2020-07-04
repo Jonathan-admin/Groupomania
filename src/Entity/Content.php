@@ -275,19 +275,8 @@ class Content
 
     public function uploadMediaFile(String $media = null,$type)
     { 
-        if ($this->file == null) { 
-            if($media == null) { 
-                $path = null;
-            } else {
-                $path = $media;
-            }
-        } else { 
-            if($media != null) {
-                $this->deleteFile($this->getPath($media),$type);
-            }
-            $path = date('His')."_".$this->file->getClientOriginalName();
-            $this->file->move($this->getUploadRootDir($type),$path);
-        } 
+        $path = date('His')."_".$this->file->getClientOriginalName();
+        $this->file->move($this->getUploadRootDir($type),$path);
         return $path;
     }
 

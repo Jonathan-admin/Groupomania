@@ -26,11 +26,19 @@
                         <legend>Que souhaitez vous partager?</legend>
                         {{ form_widget(form.type) }}
                         <div id="mediaPath">
-                            <div class="row form-group" id="mediaPathFile">
-                                {{ form_row(form.mediaPathFile, {'label': 'Sélectionnez le fichier à transférer'},
-                                    {'attr': {'class': 'form-group'}}
-                                    )}}
-                            </div>
+                            {% if mediaPathFile %}
+                                <div class="row form-group" id="mediaPathFile">
+                                    {{ form_row(form.mediaPathFile, {'label': 'Fichier actuel: '~mediaPathFile },
+                                        {'attr': {'class': 'form-group'}}
+                                        )}}
+                                </div>
+                            {% else %}
+                                <div class="row form-group" id="mediaPathFile">
+                                    {{ form_row(form.mediaPathFile, {'label': 'Sélectionnez le fichier à transférer'},
+                                        {'attr': {'class': 'form-group'}}
+                                        )}}
+                                </div>
+                            {% endif %}
                             <div id="mediaPathUrl">
                                 {{ form_row(form.mediaPathUrl, {'label': 'Indiquez le lien de la vidéo à partager'},
                                     {'attr': {'class': 'form-group'}}

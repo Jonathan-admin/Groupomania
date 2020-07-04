@@ -20,27 +20,41 @@ class ContentController extends AbstractController
 {
     /**
      * @Route("/espace_membre/nouveau_contenu", name="content_create")
+     * @Route("/espace_membre/modification_contenu/{id}", name="content_modify")
      */
     public function create(Request $request, Content $content = null, EntityManagerInterface $manager)
     {  
         if(!$content) { 
             $content = new Content();
             $mediaPathFile = null;
+            $mediaPathUrl = null;
         } else {
             $mediaPathFile = $content->getMediaPathFile();
+            $mediaPathUrl = $content->getMediaPathUrl();
+            $oldType = $content->getType();
         }
         $form = $this->createForm(ContentType::class, $content);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
             $type = $request->request->get('content')['type'];
+            $file = $form['mediaPathFile']->getData();
             if($type=="Image"||$type=="Musique") {
-                $file = $form['mediaPathFile']->getData();
-                $content->setFiles($file)
-                        ->setMediaPathFile($content->uploadMediaFile($mediaPathFile,$type))
-                        ->setMediaPathUrl(null);
-            } else if($type=="Vidéo") {
-                $content->setMediaPathFile(null);
-            } 
+                $content->setMediaPathUrl(null);
+                if($file) {
+                    if($mediaPathFile != "") {
+                        $content->deleteFile($mediaPathFile,$oldType);
+                    }
+                    $content->setFiles($file)
+                            ->setMediaPathFile($content->uploadMediaFile($mediaPathFile,$type));
+                } else {
+                    $content->setMediaPathFile($mediaPathFile);
+                }
+            } else {
+                if($mediaPathFile) {
+                    $content->deleteFile($mediaPathFile,$oldType);
+                    $content->setMediaPathFile(null);
+                }
+            }
             $content->setUsername($this->getUser())
                     ->setStatus("En attente de vérifications") ;      
             if(!$content->getId()) {
@@ -53,7 +67,9 @@ class ContentController extends AbstractController
             ]);
         }
         return $this->render('content/create.html.twig',[
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'mediaPathFile' => $mediaPathFile,
+            'mediaPathUrl' => $mediaPathUrl
         ]);
     }
 
