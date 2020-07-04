@@ -4,6 +4,7 @@ $(document).ready(function() {
         let value = $("input[name='content[type]']:checked").val();
         $("#mediaPath").css("display","none");
         displayMediaPathControl(value);
+        $("#content_mediaPathFile").val("");
     });
 });
 

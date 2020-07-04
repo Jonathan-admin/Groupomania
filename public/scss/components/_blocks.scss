@@ -40,7 +40,7 @@ h4 {
     font-size: 1.15em;
     text-align: center;
     border: 2px solid nth($border-colors,3);
-    padding: 10px 0;
+    padding: 10px 10px;
     margin: 10px 0;
     font-weight: bold;
 }
@@ -69,6 +69,9 @@ h4 {
         background-image: url("../../images/arc-triomphe.jpg");
         background-repeat: no-repeat;
         background-size: 100% 100%;
+    }
+    @media screen and (max-width: 500px) {
+        padding: 25px 10px;
     }
 }
 
@@ -109,4 +112,34 @@ h4 {
 
 div.col-xl-3.forum__thumbnail {
     max-width: unset;
+}
+
+.space-member,
+.space-admin__usersList,
+.space-admin__contentsList {
+    overflow-y: scroll;
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+        tr {
+            & >td, & >th {
+                border: 2px solid nth($border-colors,3);
+            }
+            &:nth-child(n+2):hover {
+                background-color: nth($background-colors,3);
+                color: nth($text-colors,1);
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.reduce {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    i {
+        font-size: 1.3em;
+    }
 }

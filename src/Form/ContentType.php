@@ -39,9 +39,9 @@ class ContentType extends AbstractType
             ->add('type',ChoiceType::class,
                 array('choices' => array(
                         'Texte' => 'Texte',
-                        'Musique' => 'Musique',
-                        'Vidéo' => 'Vidéo',
-                        'Image' => 'Image'),
+                        'Musique (MP3 uniquement)' => 'Musique',
+                        'Vidéo (Url vidéos youtube)' => 'Vidéo',
+                        'Image (PNG, JPEG, GIF)' => 'Image'),
                 'multiple'=>false,'expanded'=>true))
             ->add('mediaPathUrl', TextType::class,[
                 'attr' => ['placeholder' => 'Indiquez le lien url de la vidéo ici ...'], 'required'=> false

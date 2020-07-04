@@ -19,6 +19,13 @@ a, button, i {
                 color: nth($text-colors,1);
             }
         }
+        &--other {
+            background: nth($button-bkg-other,1);
+            &:hover {
+                background: nth($button-bkg-other,2);
+                color: nth($text-colors,1);
+            }
+        }
     }
     &.disabled {
         color: gray;

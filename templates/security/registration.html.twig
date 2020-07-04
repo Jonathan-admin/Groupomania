@@ -15,12 +15,12 @@
         <title>Groupomania - Inscription au réseau social entreprise</title>
     </head>
     <body>
-        <main class="signin row form-style">
+        <main class="accountUser row form-style">
             <div class="col-12 col-sm-9 col-md-8 col-lg-4">
-                <header class="signin__logo">
+                <header class="accountUser__logo">
                     <img src="{{ asset('images/icon-left-font-white.png') }}">
                 </header>
-                <section class="signin__form" id="app">
+                <section class="accountUser__form" id="app">
                     <h1>Inscription au réseau social</h1>
                     {{ form_start(form) }}
                     {{ form_row(form.username, {'label': 'Nom d\'utilisateur', 'attr':{'placeholder':'Votre nom d\'utilisateur...'}}) }} 

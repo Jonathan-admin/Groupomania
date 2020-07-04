@@ -30,7 +30,7 @@
         <td>{{ user.subscribeAt | date("d/m/Y à h:m:s") }}</td>
     </tr>
     <tr>
-        <td colspan="2" class="bg-blue-head">
+        <td colspan="2" class="bg-blue-head space-admin__userInfos--buttons">
             {% if app.user.username == user.username %}
                 <i class="fas fa-exclamation-triangle"> Vous ne pouvez pas supprimer ce compte car il est actuellement utilisé!</i>
             {% elseif profilLock == 1 %}

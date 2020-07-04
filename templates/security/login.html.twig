@@ -3,12 +3,12 @@
 {% block title %}Groupomania - Authentification au réseau social{% endblock %}
 
 {% block body %}
-    <main class="signin row form-style">
+    <main class="accountUser row form-style">
         <div class="col-12 col-sm-9 col-md-8 col-lg-4">
-            <header class="signin__logo">
+            <header class="accountUser__logo">
                 <img src="{{ asset('images/icon-left-font-white.png') }}">
             </header>
-            <section class="signin__form">
+            <section class="accountUser__form">
                 <h1>Connexion au réseau social</h1>
                 <form action="{{ path('security_login') }}" method="post" class="form-style">
                     {% if error %}

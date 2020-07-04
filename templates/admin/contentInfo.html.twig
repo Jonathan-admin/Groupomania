@@ -32,13 +32,17 @@
         <td>{{ content.createdAt | date("d/m/Y à h:m:s") }}</td>
     </tr>
     <tr>
-        <td>Propriétaire / Date d'inscription</td>
-        <td>{{ content.username.username ~" / "~ content.username.subscribeAt | date("d/m/Y à h:m:s") }}</td>
+        <td>Propriétaire</td>
+        <td>{{ content.username.username }}</td>
+    </tr>
+     <tr>
+        <td>Date d'inscription</td>
+        <td>{{ content.username.subscribeAt | date("d/m/Y à h:m:s") }}</td>
     </tr>
     <tr>
-        <td colspan="2" class="bg-blue-head">
+        <td colspan="2" class="bg-blue-head space-admin__contentInfos--buttons">
             {% if AdminDel == 0 %}
-                <a id="viewContent_button" class="btn btn--view" href="{{ path('content_view',{'id':content.id}) }}"><i class="fas fa-eye"> Voir le contenu</i></a>
+                <a id="viewContent_button" class="btn btn--other" href="{{ path('content_view',{'id':content.id}) }}"><i class="fas fa-eye"> Voir le contenu</i></a>
             {% endif %}
             <button id="delContentbutton" class="btn btn--cancel" data-url="{{ path('admin_deleteContent',{'id':content.id}) }}"><i class="fas fa-trash-alt"> Supprimer ce contenu</i></button>
         </td>

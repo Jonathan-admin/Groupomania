@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Groupomania - Espace d'administration{% endblock %}
+{% block title %} Groupomania - Espace d'administration {% endblock %}
 
 {% block javascript %}
     <script src="{{ asset('scripts/admin_users.js') }}" defer></script>
@@ -17,111 +17,119 @@
         <p>Bienvenue dans l'espace d'administration du réseau social Groupomania!</p>
         <p>Vous pourrez ici gérer tous les contenus enregistrés en base de données et tous les comptes utilisateurs.</p>
         <section class="space-admin__users">
-            <h3>Gestion des utilisateurs</h3>
-            <p>Dans cette section, vous pourrez:</p>
-            <ul>
-                <li>Consulter les informations utilisateurs telles que la date de son inscription ainsi que son adresse email afin de le contacter rapidemment en cas de besoin.</li>
-                <li>Gérer ses droits afin de garantir un contrôle d'utilisation de l'application.</li>
-            </ul>
-            <div class="row justify-content-center">
-                <section class="col-lg-4">
-                    <h4 id="userCount">Utilisateurs actuellement inscrits ({{ allUsers | length }}) <i id="refreshUser" class="fas fa-sync" data-url="{{ path('admin_refreshUsers') }}"></i></h4>
-                    <div id="usersList" class="space-admin__usersList">
-                        <table>
-                            <tr class="bg-blue-head">
-                                <th>Matricule</th>
-                                <th>Pseudo</th>
-                                <th>Status</th>
-                            </tr> 
-                            {% for user in allUsers %} 
-                                <tr id="userInfosLink{{user.id}}" data-url="{{ path('admin_userView',{'id':user.id}) }}">
-                                    <td> {{ user.id }} </td>
-                                    <td> {{ user.username }} </td>
-                                    <td>
-                                        {% if user.roles | length == 0 %}
-                                            <i class="fas fa-user-alt-slash"></i>
-                                        {% else %}   
-                                            {% for role in user.roles %} 
-                                                {% if role == "ROLE_USER" %}
-                                                    <i class="fas fa-user-check"> </i>
-                                                {% elseif role == "ROLE_ADMIN" %}
-                                                    <i class="fas fa-user-nurse"> </i>
-                                                {% elseif role == "ROLE_DEL_ADMIN" %}
-                                                    <i class="fas fa-user-times"> </i>
-                                                {% endif %}
-                                            {% endfor %}
-                                        {% endif %} 
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </table>
-                    </div>
-                    <div id="messageRefresh" class="">
+            <h3 class="reduce">
+                <span>Gestion des utilisateurs</span>
+                <i class="fas fa-chevron-down" data-display="block"></i>
+            </h3>
+            <div>
+                <p>Dans cette section, vous pourrez:</p>
+                <ul>
+                    <li>Consulter les informations utilisateurs telles que la date de son inscription ainsi que son adresse email afin de le contacter rapidemment en cas de besoin.</li>
+                    <li>Gérer ses droits afin de garantir un contrôle d'utilisation de l'application.</li>
+                </ul>
+                <div class="row justify-content-center">
+                    <section class="col-lg-6">
+                        <h4 id="userCount">Utilisateurs actuellement inscrits ({{ allUsers | length }}) <i id="refreshUser" class="fas fa-sync" data-url="{{ path('admin_refreshUsers') }}"></i></h4>
+                        <div id="usersList" class="space-admin__usersList">
+                            <table>
+                                <tr class="bg-blue-head">
+                                    <th>Matricule</th>
+                                    <th>Pseudo</th>
+                                    <th>Status</th>
+                                </tr> 
+                                {% for user in allUsers %} 
+                                    <tr id="userInfosLink{{user.id}}" data-url="{{ path('admin_userView',{'id':user.id}) }}">
+                                        <td> {{ user.id }} </td>
+                                        <td> {{ user.username }} </td>
+                                        <td>
+                                            {% if user.roles | length == 0 %}
+                                                <i class="fas fa-user-alt-slash"></i>
+                                            {% else %}   
+                                                {% for role in user.roles %} 
+                                                    {% if role == "ROLE_USER" %}
+                                                        <i class="fas fa-user-check"> </i>
+                                                    {% elseif role == "ROLE_ADMIN" %}
+                                                        <i class="fas fa-user-nurse"> </i>
+                                                    {% elseif role == "ROLE_DEL_ADMIN" %}
+                                                        <i class="fas fa-user-times"> </i>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endif %} 
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        <div id="messageRefresh" class="">
 
-                    </div>
-                </section>
-                <section class="col-lg-4">
-                    <h4>Informations utilisateur</h4>
-                    <div id="userInfos" class="space-admin__userInfos">
-                        <p>Veuillez sélectionner un utilisateur dans le tableau des inscrits pour afficher ces informations.</p>
-                    </div>
-                    <div id="messageServer" class="">
+                        </div>
+                    </section>
+                    <section class="col-lg-6">
+                        <h4>Informations utilisateur</h4>
+                        <div id="userInfos" class="space-admin__userInfos">
+                            <p>Veuillez sélectionner un utilisateur dans le tableau des inscrits pour afficher ces informations.</p>
+                        </div>
+                        <div id="messageServer" class="">
 
-                    </div>
-                </section>
+                        </div>
+                    </section>
+                </div>
             </div>
         </section>
         <section class="space-admin__contents"> 
-            <h3>Gestion des contenus</h3>
-            <p>Cette rubrique est dédiée à la gestion des contenus de l'application web. Les fonctionnalités mises en oeuvre permettront à tout administrateur de:</p>
-            <ul>
-                <li>De repérer rapidement les contenus publiés à contrôler afin qu'ils soient visibles par les utilisateurs</li>
-                <li>De supprimer un contenu particulier ou de changer son status en fonction de ce qu'il diffuse et du respect de chacun à la reglementation en vigueur.</li>
-            </ul>
-            <div class="row justify-content-center">
-                <section class="col-lg-4">
-                    <h4 id="contentCount">Contenus actuellement enregistrés ({{ allContents | length }}) <i id="refreshContent" class="fas fa-sync" data-url="{{ path('admin_refreshContents') }}"></i></h4>
-                    <div id="contentsList" class="space-admin__contentsList">
-                        <table>
-                            <tr class="bg-blue-head">
-                                <th>Référence</th>
-                                <th>Titre</th>
-                                <th>Status</th>
-                            </tr> 
-                            {% for content in allContents %} 
-                                <tr id="contentInfosLink{{content.id}}" data-url="{{ path('admin_contentView',{'id':content.id}) }}">
-                                    <td> {{ content.id }} </td>
-                                    <td> {{ content.title }} </td>
-                                    {% if content.status == "Vérifié" %} 
-                                        <td><i class="fas fa-check-square"> {{ content.status }}</i></td>
-                                    {% elseif content.status == "Vérification en attente" %} 
-                                        <td><i class="fas fa-times-circle"> En attente</i></td>
-                                    {% elseif content.status == "Suspendu" %} 
-                                        <td><i class="fas fa-minus-square"> {{ content.status }}</i></td>
-                                    {% else %}
-                                        <td><i class="fas fa-ban"> {{ content.status }}</i></td>
-                                    {% endif %}
-                                </tr>
-                            {% endfor %}
-                        </table>
-                    </div>
-                    <div id="messageRefreshContent" class="">
+            <h3 class="reduce">
+                <span>Gestion des contenus</span>
+                <i class="fas fa-chevron-down" data-display="block"></i>
+            </h3>
+            <div>
+                <p>Cette rubrique est dédiée à la gestion des contenus de l'application web. Les fonctionnalités mises en oeuvre permettront à tout administrateur de:</p>
+                <ul>
+                    <li>De repérer rapidement les contenus publiés à contrôler afin qu'ils soient visibles par les utilisateurs</li>
+                    <li>De supprimer un contenu particulier ou de changer son status en fonction de ce qu'il diffuse et du respect de chacun à la reglementation en vigueur.</li>
+                </ul>
+                <div class="row justify-content-center">
+                    <section class="col-lg-6">
+                        <h4 id="contentCount">Contenus actuellement enregistrés ({{ allContents | length }}) <i id="refreshContent" class="fas fa-sync" data-url="{{ path('admin_refreshContents') }}"></i></h4>
+                        <div id="contentsList" class="space-admin__contentsList">
+                            <table>
+                                <tr class="bg-blue-head">
+                                    <th>Référence</th>
+                                    <th>Titre</th>
+                                    <th>Status</th>
+                                </tr> 
+                                {% for content in allContents %} 
+                                    <tr id="contentInfosLink{{content.id}}" data-url="{{ path('admin_contentView',{'id':content.id}) }}">
+                                        <td> {{ content.id }} </td>
+                                        <td> {{ content.title }} </td>
+                                        {% if content.status == "Vérifié" %} 
+                                            <td><i class="fas fa-check-square"> {{ content.status }}</i></td>
+                                        {% elseif content.status == "Vérification en attente" %} 
+                                            <td><i class="fas fa-times-circle"> En attente</i></td>
+                                        {% elseif content.status == "Suspendu" %} 
+                                            <td><i class="fas fa-minus-square"> {{ content.status }}</i></td>
+                                        {% else %}
+                                            <td><i class="fas fa-ban"> {{ content.status }}</i></td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+                        <div id="messageRefreshContent">
 
-                    </div>
-                </section>
-                <section class="col-lg-4">
-                    <h4>Informations du contenu</h4>
-                    <div id="contentInfos" class="space-admin__contentInfos">
-                        <p>Veuillez sélectionner un contenu dans le tableau des entrées enregistrées pour afficher leurs informations.</p>
-                    </div>
-                    <div id="messageServerContent" class="">
+                        </div>
+                    </section>
+                    <section class="col-lg-6">
+                        <h4>Informations du contenu</h4>
+                        <div id="contentInfos" class="space-admin__contentInfos">
+                            <p>Veuillez sélectionner un contenu dans le tableau des entrées enregistrées pour afficher leurs informations.</p>
+                        </div>
+                        <div id="messageServerContent">
 
-                    </div>
-                </section>
+                        </div>
+                    </section>
+                </div>
             </div>
         </section>
-        </section>
-
     </main> 
     {{ include("partials/footer.html.twig") }}
 {% endblock %}

@@ -27,7 +27,10 @@
             <section class="forum__content col-lg-12 col-xl-9">
                 <h2>Les publications</h2>
                 <section>
-                    <h3>Les contenus les plus populaires</h3> 
+                    <h3 class="reduce">
+                        <span>Les contenus les plus populaires</span>
+                        <i class="fas fa-chevron-down" data-display="flex"></i>
+                    </h3>
                     {% set barAction = 1 %}
                     <div class="row">
                         {% for content in popularContents  %}
@@ -36,7 +39,10 @@
                     </div>
                 </section>
                 <section>
-                    <h3>Tous les contenus visibles ({{ Allcontents.getTotalItemCount }})</h3> 
+                    <h3 class="reduce">
+                        <span>Tous les contenus visibles ({{ Allcontents.getTotalItemCount }})</span>
+                        <i class="fas fa-chevron-down" data-display="flex"></i>
+                    </h3>
                     {% set barAction = 0 %}
                     <div class="row">
                         {% for content in Allcontents  %}
@@ -45,7 +51,7 @@
                     </div>
                     <div id="pagination">
                         {{ knp_pagination_render(Allcontents) }}
-                    </div>	   
+                    </div>	    
                 </section>
             </section>
         {% endif %}

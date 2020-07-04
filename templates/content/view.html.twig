@@ -32,41 +32,49 @@
         {% endif %}
         <div class="row">
             <section class="view__content col-lg-6">
-                <h3><strong>{{ content.title }}</strong></h3>
-                <ul>
-                    <li><strong>Type de contenu: </strong> {{ content.type }}</li>
-                    <li><strong>Contenu publié le: </strong> {{ content.created_at | date("d/m/Y à h:m:s") }} par {{ content.username }} </li>
-                    <li><strong>Thématique: </strong> {{ content.topic }}</li>
-                    <li>{{ content.message | raw }} </li>
-                    {% if content.type == "Image" %}
-                        <div class="view__content--img">
-                            <img src="{{ asset('uploadFile/images/') }}{{ content.media_path_file }}" alt="Image du contenu {{ content.title }}" />
-                        </div>
-                    {% elseif content.type == "Musique" %}
-                        <div class="view__content--mus">
-                            <figure>
-                                {% set arrayPath = content.media_path_file | split("_") %}
-                                <figcaption>{{ arrayPath[arrayPath | length-1] }}</figcaption>
-                                <audio
-                                    controls src="{{ asset('uploadFile/musics/') }}{{ content.media_path_file }}">
-                                </audio>
-                            </figure>
-                        </div>
-                    {% else %}
-                        <div class="view__content--vid">
-                            <iframe src="{{ content.media_path_url }}" width="680" height="360" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
-                        </div>
-                    {% endif %}
-                </ul>
-                <div class="view__actionsButtons">
-                    <div class="form-style__buttons">
-                        {% if app.user.username == content.username %}
-                            <a id="modifyContent_button" class="btn btn--valid" href="#">Modifier</a>
-                            <a id="deleteContent_button" class="btn btn--valid" href="{{ path('content_delete',{'id':content.id}) }}">Supprimer</a>
+                <h3 class="reduce">
+                    <span><strong>{{ content.title }}</strong></span>
+                    <i class="fas fa-chevron-down" data-display="table"></i>
+                </h3>
+                <div>
+                    <ul>
+                        <li><strong>Type de contenu: </strong> {{ content.type }}</li>
+                        <li><strong>Contenu publié le: </strong> {{ content.created_at | date("d/m/Y à h:m:s") }} par {{ content.username }} </li>
+                        <li><strong>Thématique: </strong> {{ content.topic }}</li>
+                        <li>{{ content.message | raw }} </li>
+                        {% if content.type == "Image" %}
+                            <div class="view__content--img">
+                                <img src="{{ asset('uploadFile/images/') }}{{ content.media_path_file }}" alt="Image du contenu {{ content.title }}" />
+                            </div>
+                        {% elseif content.type == "Musique" %}
+                            <div class="view__content--mus">
+                                <figure>
+                                    {% set arrayPath = content.media_path_file | split("_") %}
+                                    <figcaption>{{ arrayPath[arrayPath | length-1] }}</figcaption>
+                                    <audio
+                                        controls src="{{ asset('uploadFile/musics/') }}{{ content.media_path_file }}">
+                                    </audio>
+                                </figure>
+                            </div>
+                        {% elseif content.type == "Vidéo" %}
+                            <div class="view__content--vid">
+                                <iframe src="{{ content.media_path_url }}" width="680" height="360" frameborder="0" allowfullscreen="allowfullscreen"></iframe>
+                            </div>
                         {% endif %}
-                        <button type="button" class="btn btn--cancel" onclick="window.history.back();">Retour</button> 
-                    </div>
-                    <div class="view__likes" id="sys-like" data-user="{{ content.username }}"> 
+                    </ul>
+                    {% if app.user.username == content.username %}
+                        <div class="view__actionsButtons column">
+                    {% else %}
+                        <div class="view__actionsButtons">
+                    {% endif %}   
+                        <div class="form-style__buttons">
+                            {% if app.user.username == content.username %}
+                                <a id="modifyContent_button" class="btn btn--other" href="#">Modifier</a>
+                                <a id="deleteContent_button" class="btn btn--valid" href="{{ path('content_delete',{'id':content.id}) }}">Supprimer</a>
+                            {% endif %}
+                            <button type="button" class="btn btn--cancel" onclick="window.history.back();">Retour</button> 
+                        </div>
+                        <div class="view__likes" id="sys-like" data-user="{{ content.username }}">  
                         {% if app.user.username == content.username %}
                             <i class="fas fa-thumbs-up disabled"> {{ content.nbLikes }}</i> 
                             <i class="fas fa-thumbs-down disabled"> {{ content.nbDislikes }}</i> 
@@ -80,40 +88,50 @@
                             <i class="far fa-thumbs-up" data-role=1 data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbLikes }}</i> 
                             <i class="far fa-thumbs-down" data-role=-1 data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbDislikes }}</i> 
                         {% endif %}
+                        </div>
                     </div>
                     <div id="messageServer">
                     </div>
                 </div>
             </section>
-            <section class=" col-lg-6">
-                <div class="view__comments" id="viewComments">
-                    <h3>Commentaires pour ce contenu ({{ allComments | length }})</h3>
-                    {% if allComments | length == 0 %}
-                        <i class='fas fa-times errorRole'> Ce contenu n'a pas encore été commenté pour le moment.</i>
-                    {% else %}
-                        {% for comment in allComments %}
-                            <div class="view__comments-head">
-                                <span>{{ "N°"~loop.index }}</span>
-                                <span>Posté par {{ comment.author ~" le "~ comment.createdAt | date("d/m/Y à h:m:s") }}</span>
-                            </div>
-                            <div class="view__comments-mess">
-                                {{ comment.message | raw }}
-                            </div>
-                        {% endfor %}
-                        <div id="messageServerComment">
-                        </div>
-                    {% endif %}
-                </div>
-                <div class="view__writing form-group" id="viewWriting">
-                    <label for='comment'>Vote commentaire</label>"
-                    <textarea id='comment' name='comment' rows='5' cols='33' placeholder='Commentez ici ...'></textarea>
+            <section class="view__comments col-lg-6">
+                <div id="viewComments">
+                    <h3 class="reduce">
+                        <span>Commentaires pour ce contenu ({{ allComments | length }})</span>
+                        <i class="fas fa-chevron-down" data-display="table"></i>
+                    </h3>
                     <div>
-                        <button class='btn btn--valid' data-url="{{ path('content_comment',{'id':content.id}) }}" type='button' id='sendComment-button' >Envoyer</button>
-                        <button class='btn btn--cancel' type='button' id='cancelComment-button'>Annuler</button>
+                        {% if allComments | length == 0 %}
+                            <i class='fas fa-times errorRole'> Ce contenu n'a pas encore été commenté pour le moment.</i>
+                        {% else %}
+                            <div class="view__comments-list">
+                                {% for comment in allComments %}
+                                    <div class="view__comments-head">
+                                        <span>{{ "N°"~loop.index }}</span>
+                                        <span>Posté par {{ comment.author ~" le "~ comment.createdAt | date("d/m/Y à h:m:s") }}</span>
+                                    </div>
+                                    <div class="view__comments-mess">
+                                        {{ comment.message | raw }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div id="messageServerComment">
+                            </div>
+                        {% endif %}
+                        <div class="view__writing form-group" id="viewWriting">
+                            <div class="form-group form-style">
+                                <label for='comment'>Votre commentaire</label>
+                                <textarea class="form-control" id='comment' name='comment' placeholder='Commentez ici ...'></textarea>
+                            </div>
+                            <div>
+                                <button class='btn btn--valid' data-url="{{ path('content_comment',{'id':content.id}) }}" type='button' id='sendComment-button' >Envoyer</button>
+                                <button class='btn btn--cancel' type='button' id='cancelComment-button'>Annuler</button>
+                            </div>
+                        </div>
+                        <div class="form-style__buttons">
+                            <button class="btn btn--valid" type="button" id="createComment-button">Ecrire un commentaire</button>
+                        </div>
                     </div>
-                </div>
-                <div class="form-style__buttons">
-                    <button class="btn btn--valid" type="button" id="createComment-button">Ecrire un commentaire</button>
                 </div>
             </section>
         </div>

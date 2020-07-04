@@ -24,7 +24,7 @@ const likingContent = (url,role) => {
             role: role
         },
         success: function (data) { 
-            $("#sys-like").html(data);
+            $("#sys-like").html(data).attr("data-user", data.contentUser);
         },       
         error:function (jqXHR, exception) {
             $("#messageServer").html("<i class='fas fa-times'> En raison d\'une erreur survenue, le like n'a pas été enregistré!.</i>");

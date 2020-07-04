@@ -15,7 +15,7 @@
         <p>Afin de mettre en ligne du contenu sur le réseau, merci de renseigner le formulaire ci-dessous.</p>
         {{ form_start(form, {'attr': {'class': 'form-style'}}) }}
             <div class="create__form row">  
-			    <div class="col-md-6">
+			    <div class="col-md-12 col-lg-6 col-xl-4">
                     {{ form_row(form.topic, {'label': 'Quel est le sujet de votre contenu?'}, 
                         {'attr': {'class': 'form-group'}}
                     )}}
@@ -27,9 +27,9 @@
                         {{ form_widget(form.type) }}
                         <div id="mediaPath">
                             <div class="row form-group" id="mediaPathFile">
-                                {{ form_row(form.mediaPathFile, {'label': 'Sélectionner le fichier à transférer'},
+                                {{ form_row(form.mediaPathFile, {'label': 'Sélectionnez le fichier à transférer'},
                                     {'attr': {'class': 'form-group'}}
-                                )}}
+                                    )}}
                             </div>
                             <div id="mediaPathUrl">
                                 {{ form_row(form.mediaPathUrl, {'label': 'Indiquez le lien de la vidéo à partager'},
@@ -39,7 +39,7 @@
                         </div>
                     </fieldset>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-12 col-lg-6 col-xl-8">
                     {{ form_row(form.message, {'label': 'Votre contenu'}, 
                         {'attr': {'class': 'form-group'}}
                     )}}

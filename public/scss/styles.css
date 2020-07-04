@@ -19,6 +19,13 @@ a:not(.disabled).btn--cancel:hover, button:not(.disabled).btn--cancel:hover, i:n
   background: #993f45;
   color: white;
 }
+a:not(.disabled).btn--other, button:not(.disabled).btn--other, i:not(.disabled).btn--other {
+  background: #014b01;
+}
+a:not(.disabled).btn--other:hover, button:not(.disabled).btn--other:hover, i:not(.disabled).btn--other:hover {
+  background: #016301;
+  color: white;
+}
 a.disabled, button.disabled, i.disabled {
   color: gray;
 }
@@ -86,7 +93,7 @@ h4 {
   font-size: 1.15em;
   text-align: center;
   border: 2px solid #091f43;
-  padding: 10px 0;
+  padding: 10px 10px;
   margin: 10px 0;
   font-weight: bold;
 }
@@ -121,6 +128,16 @@ h4 {
   background-image: url("../../images/arc-triomphe.jpg");
   background-repeat: no-repeat;
   background-size: 100% 100%;
+}
+@media screen and (max-width: 500px) {
+  .space-member,
+.space-admin,
+.space-infos,
+.view,
+.forum,
+.create {
+    padding: 25px 10px;
+  }
 }
 
 .bg-blue-head {
@@ -160,6 +177,42 @@ h4 {
 
 div.col-xl-3.forum__thumbnail {
   max-width: unset;
+}
+
+.space-member,
+.space-admin__usersList,
+.space-admin__contentsList {
+  overflow-y: scroll;
+}
+.space-member table,
+.space-admin__usersList table,
+.space-admin__contentsList table {
+  border-collapse: collapse;
+  width: 100%;
+  text-align: center;
+}
+.space-member table tr > td, .space-member table tr > th,
+.space-admin__usersList table tr > td,
+.space-admin__usersList table tr > th,
+.space-admin__contentsList table tr > td,
+.space-admin__contentsList table tr > th {
+  border: 2px solid #091f43;
+}
+.space-member table tr:nth-child(n+2):hover,
+.space-admin__usersList table tr:nth-child(n+2):hover,
+.space-admin__contentsList table tr:nth-child(n+2):hover {
+  background-color: #d1515a;
+  color: white;
+  cursor: pointer;
+}
+
+.reduce {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+}
+.reduce i {
+  font-size: 1.3em;
 }
 
 .form-style input, .form-style select, .form-style textarea {
@@ -324,20 +377,20 @@ div.col-xl-3.forum__thumbnail {
   padding-left: 20px;
 }
 
-.signin {
+.accountUser {
   justify-content: center;
   background-image: url("../../images/background_signin.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
 }
-.signin p > a {
+.accountUser p > a {
   color: #091f43;
 }
-.signin > div {
+.accountUser > div {
   margin-top: 100px;
 }
-.signin__logo {
+.accountUser__logo {
   border: 2px solid black;
   box-shadow: 2px 2px 20px black;
   border-bottom: none;
@@ -347,10 +400,10 @@ div.col-xl-3.forum__thumbnail {
   justify-content: center;
   background-color: rgba(9, 31, 67, 0.808);
 }
-.signin__logo img {
+.accountUser__logo img {
   width: 60%;
 }
-.signin__form {
+.accountUser__form {
   border: 2px solid black;
   box-shadow: 2px 2px 20px black;
   border-top: none;
@@ -358,11 +411,16 @@ div.col-xl-3.forum__thumbnail {
   color: #091f43;
   padding: 20px;
 }
-.signin__form h1 {
+.accountUser__form h1 {
   border-bottom: 4px solid #d1515a;
   font-size: 2em;
   padding: 10px 0;
   margin-bottom: 20px;
+}
+@media screen and (max-width: 485px) {
+  .accountUser__form h1 {
+    font-size: 23px;
+  }
 }
 
 @media screen and (min-width: 750px) and (max-width: 1198px) {
@@ -467,10 +525,57 @@ span.badge {
 .space-member > div h2 {
   font-size: 1.5em;
 }
+@media screen and (max-width: 600px) {
+  .space-member > div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .space-member > div a {
+    padding: 10px 15px;
+    max-width: 250px;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .space-member {
+    padding: 25px 10px;
+  }
+}
+@media screen and (min-width: 1300px) {
+  .space-member table {
+    margin: auto;
+    max-width: 75%;
+  }
+}
 
+@media screen and (max-width: 380px) {
+  .create h2 {
+    font-size: 21px;
+  }
+}
 .create form {
-  width: 50%;
   margin: auto;
+}
+@media screen and (max-width: 990px) {
+  .create form textarea {
+    min-height: 400px;
+  }
+}
+@media screen and (max-width: 520px) {
+  .create form .form-style__buttons {
+    display: flex;
+    flex-direction: column;
+  }
+  .create form .form-style__buttons .btn--valid {
+    margin-bottom: 15px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .create__form > div {
+    padding: 0 0px;
+  }
 }
 .create__form div:nth-child(2) {
   height: auto;
@@ -481,6 +586,13 @@ span.badge {
 }
 .create__form div:nth-child(1) #content_type {
   margin-bottom: 15px;
+}
+.create__form #content_mediaPathFile {
+  opacity: 1;
+  height: 30px;
+}
+.create__form .custom-file .custom-file-label {
+  opacity: 0;
 }
 
 #mediaPath {
@@ -497,41 +609,52 @@ span.badge {
 .space-admin__users section[class*=col-lg]:nth-child(1), .space-admin__contents section[class*=col-lg]:nth-child(1) {
   border-right: 3px solid #d1515a;
 }
+@media screen and (max-width: 991px) {
+  .space-admin__users section[class*=col-lg]:nth-child(1), .space-admin__contents section[class*=col-lg]:nth-child(1) {
+    border-right: none;
+  }
+}
+@media screen and (max-width: 500px) {
+  .space-admin__users section[class*=col-lg], .space-admin__contents section[class*=col-lg] {
+    padding: 25px 5px;
+  }
+}
 .space-admin__users img, .space-admin__contents img {
   width: 50px;
   height: auto;
 }
-.space-admin__usersList, .space-admin__contentsList {
+.space-admin__usersList {
   max-height: 400px;
-  overflow-y: scroll;
 }
-.space-admin__usersList table, .space-admin__contentsList table {
-  border-collapse: collapse;
-  width: 100%;
-  text-align: center;
-}
-.space-admin__usersList table tr > td, .space-admin__usersList table tr > th, .space-admin__contentsList table tr > td, .space-admin__contentsList table tr > th {
-  border: 2px solid #091f43;
-}
-.space-admin__usersList table tr:nth-child(n+2):hover, .space-admin__contentsList table tr:nth-child(n+2):hover {
-  background-color: #d1515a;
-  color: white;
-  cursor: pointer;
+.space-admin__contentsList {
+  max-height: 500px;
 }
 .space-admin__contentsList td:nth-child(1) {
-  min-width: 120px;
+  min-width: 80px;
 }
 .space-admin__contentsList td:nth-child(3) {
-  min-width: 140px;
+  min-width: 130px;
 }
-.space-admin__userInfos table {
+.space-admin__userInfos table, .space-admin__contentInfos table {
   border-collapse: collapse;
   width: 100%;
   text-align: center;
 }
-.space-admin__userInfos table tr > td, .space-admin__userInfos table tr > th {
+.space-admin__userInfos table tr > td, .space-admin__userInfos table tr > th, .space-admin__contentInfos table tr > td, .space-admin__contentInfos table tr > th {
   border: 2px solid #091f43;
-  padding: 5px 20px;
+  padding: 5px;
+  word-wrap: break-word;
+}
+.space-admin__contentInfos--buttons, .space-admin__userInfos--buttons {
+  text-align: center;
+}
+.space-admin__contentInfos--buttons a.btn, .space-admin__contentInfos--buttons button.btn, .space-admin__userInfos--buttons a.btn, .space-admin__userInfos--buttons button.btn {
+  margin: 10px 0;
+  min-width: 200px;
+  border: 1px solid white;
+}
+.space-admin__contentInfos--buttons a.btn:hover, .space-admin__contentInfos--buttons button.btn:hover, .space-admin__userInfos--buttons a.btn:hover, .space-admin__userInfos--buttons button.btn:hover {
+  box-shadow: 2px 2px 10px white;
 }
 
 .view__head {
@@ -552,10 +675,25 @@ span.badge {
   margin-top: auto;
   margin-bottom: auto;
   max-height: 150px;
+  border: 2px solid black;
 }
 .view__head .badge.badge-light {
   text-shadow: unset;
-  border: 2px solid black;
+}
+@media screen and (max-width: 600px) {
+  .view__head {
+    display: flex;
+    flex-direction: column;
+  }
+  .view__head h2 {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 991px) {
+  .view__content {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
 }
 .view__content ul {
   padding-left: 0;
@@ -568,6 +706,8 @@ span.badge {
 }
 .view__content div[class*=content--] {
   margin: auto;
+}
+.view__content div[class*=content--]:not(.view__content--img) {
   border: 2px solid white;
   box-shadow: 2px 2px 40px #091f43;
 }
@@ -576,8 +716,20 @@ span.badge {
   text-align: center;
 }
 .view__content--img img {
-  width: 50%;
+  border: 2px solid white;
+  box-shadow: 2px 2px 40px #091f43;
+  width: 75%;
   height: auto;
+}
+@media screen and (max-width: 600px) {
+  .view__content--img img {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) and (max-width: 1350px) {
+  .view__content--img img {
+    width: 100%;
+  }
 }
 .view__content--mus {
   width: 80%;
@@ -589,6 +741,11 @@ span.badge {
   background-image: url("../../images/music.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+@media screen and (max-width: 500px) {
+  .view__content--mus {
+    width: 100%;
+  }
 }
 .view__content--mus figure {
   background-color: black;
@@ -606,10 +763,30 @@ span.badge {
   text-align: center;
   background-color: black;
 }
+@media screen and (max-width: 600px) {
+  .view__content--vid {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 992px) and (max-width: 1350px) {
+  .view__content--vid {
+    width: 100%;
+  }
+}
 .view__actionsButtons {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+@media screen and (max-width: 450px) {
+  .view__actionsButtons.column {
+    flex-direction: column;
+    align-items: center;
+  }
+  .view__actionsButtons.column .view__likes {
+    margin-top: 0px;
+    align-items: center;
+  }
 }
 .view__likes {
   margin-top: 30px;
@@ -623,32 +800,20 @@ span.badge {
 .view__likes a:nth-child(1) {
   margin-right: 20px;
 }
-.view__likes a:nth-child(1) i {
-  color: green;
-}
-.view__likes a:nth-child(2) i {
-  color: red;
-}
-.view__comments {
+.view__comments-list {
   max-height: 500px;
   overflow-y: auto;
+  padding-right: 5px;
 }
 .view__comments-head {
   font-weight: bold;
   margin: 10px 0;
-  font-size: 1.1em;
 }
 .view__comments-head > span:nth-child(1) {
   padding: 5px;
   background-color: #091f43;
   color: white;
   border-radius: 50%;
-}
-.view__comments-head > span:nth-child(2) {
-  padding: 0 0 1px 20px;
-  border-bottom: 4px solid #091f43;
-  position: relative;
-  right: 21px;
 }
 .view__comments-mess {
   padding-bottom: 20px;
@@ -657,6 +822,20 @@ span.badge {
 }
 .view__writing {
   display: none;
+  margin-top: 20px;
+}
+.view__writing textarea {
+  min-height: 200px;
+}
+.view__writing label {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+@media screen and (max-width: 991px) {
+  .view__content, .view__comments {
+    padding-right: 0px;
+    padding-left: 0px;
+  }
 }
 
 body, html {

@@ -25,7 +25,10 @@
             <p>Vous trouverez dans cet espace membre, l'ensemble des publications à votre nom actuellement en ligne sur le réseau social Groupomania. <br/>
             Dans cette section, vous aurez la possibilité de suivre et consulter tous vos contenus, y compris les contenus en cours de vérificaation, actuellement bloqué et même suspendu par l'un des administrateurs. Vous y trouverez également des stattistiques afin de déterminer lesquels sont les plus aimés.</p>
             <section>
-                <h3>Statistiques de mes contenus</h3>
+                <h3 class="reduce">
+                    <span>Statistiques de mes contenus</span>
+                    <i class="fas fa-chevron-down" data-display="table"></i>
+                </h3>
                 <table>
                     <tr class="bg-blue-head">
                         <th>Titre</th>
@@ -66,7 +69,10 @@
                 </table>
             </section>
             <section>
-                <h3>Mes contenus</h3>
+                <h3 class="reduce">
+                    <span>Mes contenus ({{ allMyContents.getTotalItemCount }}) </span>
+                    <i class="fas fa-chevron-down" data-display="flex"></i>
+                </h3>
                 {% set barAction = 0 %}
                 <div class="row">
                     {% for content in allMyContents  %}

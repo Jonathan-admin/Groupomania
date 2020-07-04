@@ -1,4 +1,3 @@
-<div class="view__likes" id="sys-like" data-user="{{ contentUser }}">
     {% if app.user.username == contentUser %}
         <i class="fas fa-thumbs-up disabled"> {{ nbDislikesLikes.nbLikes }}</i>
         <i class="fas fa-thumbs-down disabled"> {{ nbDislikesLikes.nbDislikes }}</i>
@@ -12,4 +11,4 @@
         <i class="far fa-thumbs-up" data-role=1 data-url="{{ path('content_like',{'id':id}) }}"> {{ nbDislikesLikes.nbLikes }}</i> 
         <i class="far fa-thumbs-down" data-role=-1 data-url="{{ path('content_like',{'id':id}) }}"> {{ nbDislikesLikes.nbDislikes }}</i> 
     {% endif %}
-</div>
+
