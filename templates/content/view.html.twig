@@ -34,7 +34,7 @@
             <section class="view__content col-lg-6">
                 <h3 class="reduce">
                     <span><strong>{{ content.title }}</strong></span>
-                    <i class="fas fa-chevron-down" data-display="table"></i>
+                    <i class="fas fa-chevron-down" data-display="block"></i>
                 </h3>
                 <div>
                     <ul>
@@ -96,42 +96,7 @@
             </section>
             <section class="view__comments col-lg-6">
                 <div id="viewComments">
-                    <h3 class="reduce">
-                        <span>Commentaires pour ce contenu ({{ allComments | length }})</span>
-                        <i class="fas fa-chevron-down" data-display="table"></i>
-                    </h3>
-                    <div>
-                        {% if allComments | length == 0 %}
-                            <i class='fas fa-times errorRole'> Ce contenu n'a pas encore été commenté pour le moment.</i>
-                        {% else %}
-                            <div class="view__comments-list">
-                                {% for comment in allComments %}
-                                    <div class="view__comments-head">
-                                        <span>{{ "N°"~loop.index }}</span>
-                                        <span>Posté par {{ comment.author ~" le "~ comment.createdAt | date("d/m/Y à h:m:s") }}</span>
-                                    </div>
-                                    <div class="view__comments-mess">
-                                        {{ comment.message | raw }}
-                                    </div>
-                                {% endfor %}
-                            </div>
-                            <div id="messageServerComment">
-                            </div>
-                        {% endif %}
-                        <div class="view__writing form-group" id="viewWriting">
-                            <div class="form-group form-style">
-                                <label for='comment'>Votre commentaire</label>
-                                <textarea class="form-control" id='comment' name='comment' placeholder='Commentez ici ...'></textarea>
-                            </div>
-                            <div>
-                                <button class='btn btn--valid' data-url="{{ path('content_comment',{'id':content.id}) }}" type='button' id='sendComment-button' >Envoyer</button>
-                                <button class='btn btn--cancel' type='button' id='cancelComment-button'>Annuler</button>
-                            </div>
-                        </div>
-                        <div class="form-style__buttons">
-                            <button class="btn btn--valid" type="button" id="createComment-button">Ecrire un commentaire</button>
-                        </div>
-                    </div>
+                   {{ include("comment/view.html.twig") }}
                 </div>
             </section>
         </div>

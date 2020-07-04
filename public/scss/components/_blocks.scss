@@ -126,7 +126,7 @@ div.col-xl-3.forum__thumbnail {
             & >td, & >th {
                 border: 2px solid nth($border-colors,3);
             }
-            &:nth-child(n+2):hover {
+            &:not(.not-hover):nth-child(n+2):hover {
                 background-color: nth($background-colors,3);
                 color: nth($text-colors,1);
                 cursor: pointer;

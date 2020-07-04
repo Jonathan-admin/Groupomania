@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Likes;
 use App\Entity\Content;
-use App\Entity\Comments;
 use App\Form\ContentType;
 use App\Repository\LikesRepository;
 use App\Repository\ContentRepository;
@@ -13,7 +12,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ContentController extends AbstractController
@@ -94,16 +92,17 @@ class ContentController extends AbstractController
     {       
         return $this->render('content/view.html.twig',[
             'content' => $contentRepo->viewContentLikesComments($id,$this->getUser()->getUsername()),
-            'allComments' => $commentRepo->findByContentId($id)
+            'allComments' => $commentRepo->findByContentId($id),
+            'idContent' => $id
         ]);
     }
 
     /**
      * Retourne les contenus filtrés par l'utilisateur
-     * @Route("/forum/Rechercher_des_contenus", name="filterContentsView")
+     * @Route("/forum/Rechercher_des_contenus", name="content_filterView")
      * @return void
      */
-    public function filterSearchDisplay(Request $request, ContentRepository $contentRepo, PaginatorInterface $paginator)
+    public function filterView(Request $request, ContentRepository $contentRepo, PaginatorInterface $paginator)
     { 
         $session = $request->getSession();
         $valParametersFilterContents = $session->get('SearchparametersContent');
@@ -122,10 +121,10 @@ class ContentController extends AbstractController
 
      /**
      * Retourne les contenus filtrés par l'utilisateur
-     * @Route("/preparation-de-la-recherche", name="filterContentsSet")
+     * @Route("/preparation-de-la-recherche", name="content_filterSession")
      * @return void
      */
-    public function setParametersFilterSearchContents(Request $request) 
+    public function filterSession(Request $request) 
     {
         $session = $request->getSession();
         $parameters = Array(
@@ -137,14 +136,14 @@ class ContentController extends AbstractController
         );
         $session->set('SearchparametersContent',$parameters);
 
-        return $this->redirectToRoute('filterContentsView');
+        return $this->redirectToRoute('content_filterView');
     }
 
       /**
      * Like le contenu visualisé
      * @Route("/forum/contenu/{id}/like", name="content_like")
      */
-    public function contentLike($id, Request $request, EntityManagerInterface $manager, LikesRepository $likesRepo, ContentRepository $contentRepo) 
+    public function like($id, Request $request, EntityManagerInterface $manager, LikesRepository $likesRepo, ContentRepository $contentRepo) 
     {
         $role = $request->request->get('role');
         if($role!=0) {
@@ -171,24 +170,6 @@ class ContentController extends AbstractController
             'nbDislikesLikes' => $likesRepo->getNumberLikes($id),
             'contentUser' => $request->request->get('contentUser'),
             'id' => $id
-        ]);
-    }
-
-      /**
-     * Créer un nouveau commentaire
-     * @Route("/forum/contenu/{id}/creation_commentaire", name="content_comment")
-     */
-    public function comment($id, EntityManagerInterface $manager, Request $request, ContentRepository $contentRepo, CommentsRepository $commentRepo) 
-    {
-        $comment = new Comments();
-        $comment->setAuthor($this->getUser()->getUsername())
-                ->setMessage($request->request->get('message'))
-                ->setCreatedAt(new \DateTime())
-                ->setContent($contentRepo->find($id));
-        $manager->persist($comment);
-        $manager->flush();
-        return $this->render('content/comments.html.twig', [
-            'allComments' => $commentRepo->findAll()
         ]);
     }
 }

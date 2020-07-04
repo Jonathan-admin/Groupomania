@@ -198,9 +198,9 @@ div.col-xl-3.forum__thumbnail {
 .space-admin__contentsList table tr > th {
   border: 2px solid #091f43;
 }
-.space-member table tr:nth-child(n+2):hover,
-.space-admin__usersList table tr:nth-child(n+2):hover,
-.space-admin__contentsList table tr:nth-child(n+2):hover {
+.space-member table tr:not(.not-hover):nth-child(n+2):hover,
+.space-admin__usersList table tr:not(.not-hover):nth-child(n+2):hover,
+.space-admin__contentsList table tr:not(.not-hover):nth-child(n+2):hover {
   background-color: #d1515a;
   color: white;
   cursor: pointer;
@@ -814,6 +814,14 @@ span.badge {
   background-color: #091f43;
   color: white;
   border-radius: 50%;
+}
+.view__comments-head > span:nth-child(2) .fa-trash-alt {
+  font-size: 1.3em;
+  cursor: pointer;
+}
+.view__comments-head > span:nth-child(2) .fa-trash-alt:hover {
+  scale: 1.03;
+  color: #d1515a;
 }
 .view__comments-mess {
   padding-bottom: 20px;

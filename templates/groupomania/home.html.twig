@@ -33,9 +33,13 @@
                     </h3>
                     {% set barAction = 1 %}
                     <div class="row">
-                        {% for content in popularContents  %}
-                            {{ include("partials/content.html.twig") }}
-                        {% endfor %}
+                        {% if popularContents | length == 0 %}
+                             <i class='fas fa-times errorRole'> Aucun contenu populaire à afficher</i>
+                        {% else %}
+                            {% for content in popularContents  %}
+                                {{ include("partials/content.html.twig") }}
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </section>
                 <section>
@@ -45,9 +49,13 @@
                     </h3>
                     {% set barAction = 0 %}
                     <div class="row">
-                        {% for content in Allcontents  %}
-                            {{ include("partials/content.html.twig") }}
-                        {% endfor %}
+                        {% if Allcontents | length == 0 %}
+                            <i class='fas fa-times errorRole'> Aucun contenu enregistré en base de donnée</i>
+                        {% else %}
+                            {% for content in Allcontents  %}
+                                {{ include("partials/content.html.twig") }}
+                            {% endfor %}
+                        {% endif %}
                     </div>
                     <div id="pagination">
                         {{ knp_pagination_render(Allcontents) }}

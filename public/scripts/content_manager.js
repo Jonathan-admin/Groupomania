@@ -14,6 +14,9 @@ $(document).ready(function() {
     $(document).on("click","#sendComment-button", function(){ 
         createComment($(this).attr('data-url'),$("#comment").val());
     });
+    $(document).on("click",".fa-trash-alt", function(){ 
+        deleteComment($(this).attr('data-url'));
+    });
 });
 
 const likingContent = (url,role) => {  
@@ -43,11 +46,24 @@ const createComment = (url,message) => {
         success: function (data) { 
             $("#viewComments").html(data);
             $("#viewWriting").css("display","none");
-            $("#viewWriting").next().css("display","block");alert(data.allComments.length);
-            $("#nbComments").html(data.allComments.length);
+            $("#viewWriting").next().css("display","block");
         },       
         error:function (jqXHR, exception) {
             $("#messageServerComment").html("<i class='fas fa-times'> En raison d\'une erreur survenue, le commentaire n'a pas été enregistré!.</i>");
+            $("#messageServerComment").attr("class","error");
+        }
+    });
+}
+
+const deleteComment = url => {  
+    $.ajax({ 
+        type: 'POST',       
+        url: url,
+        success: function (data) { 
+            $("#viewComments").html(data);
+        },       
+        error:function (jqXHR, exception) {
+            $("#messageServerComment").html("<i class='fas fa-times'> En raison d\'une erreur survenue, le commentaire n'a pas été supprimé!.</i>");
             $("#messageServerComment").attr("class","error");
         }
     });

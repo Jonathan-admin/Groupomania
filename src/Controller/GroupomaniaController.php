@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\UserRepository;
 use App\Repository\ContentRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +39,7 @@ class GroupomaniaController extends AbstractController
     }
 
      /**
-     * @Route("/espace_membre", name="groupomania_space_member")
+     * @Route("/espace_membre", name="groupomania_spaceMember")
      */
     public function spaceMember(PaginatorInterface $paginator, ContentRepository $contentRepo, Request $request)
     {
@@ -54,10 +55,20 @@ class GroupomaniaController extends AbstractController
         ]);
     }
 
-     /**
-     * @Route("/notes", name="groupomania_infos")
+    /**
+     * @Route("/admin", name="groupomania_admin")
      */
-    public function informationsPage()
+    public function admin(UserRepository $userRepo, ContentRepository $contentRepo) {
+        return $this->render('groupomania/admin.html.twig', [
+            'allUsers' =>  $userRepo->findAll(),
+            'allContents' =>  $contentRepo->findAll()
+        ]);
+    }
+
+     /**
+     * @Route("/notes", name="groupomania_infosManagerDisplay")
+     */
+    public function infosManagerDisplay()
     {
         return $this->render('groupomania/notes.html.twig');
     }

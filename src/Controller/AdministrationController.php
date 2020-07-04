@@ -11,16 +11,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdministrationController extends AbstractController
 {
     /**
-     * @Route("/admin", name="admin_page")
-     */
-    public function admin(UserRepository $userRepo, ContentRepository $contentRepo) {
-        return $this->render('admin/page.html.twig', [
-            'allUsers' =>  $userRepo->findAll(),
-            'allContents' =>  $contentRepo->findAll()
-        ]);
-    }
-
-    /**
      * @Route("/admin/gestion_utilisateur/{id}", name="admin_userView", requirements={"id"="\d+"})
      */
     public function userView(UserRepository $userRepo, $id) {
