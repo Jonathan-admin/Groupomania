@@ -16,16 +16,16 @@
                     {% endif %}
                     <div class="form-group">
                         <label for="login" method="POST">Pseudo</label>
-                        <input placeholder="Votre nom d'utilisateur..." type="text" class="form-control" required name="_username" value=" {{ lastUserName }}">
+                        <input placeholder="Votre nom d'utilisateur..." id="login" type="text" class="form-control" required name="_username" value=" {{ lastUserName }}">
                     </div>
                     <div class="form-group">
                         <label for="mdp">Mot de passe</label>
-                        <input placeholder="Votre mot de passe..." type="password" class="form-control" required name="_password">
+                        <input placeholder="Votre mot de passe..." id="password" type="password" class="form-control" required name="_password">
                     </div>
                     <p></p>
                     <p><a href="{{ path('security_registration') }}">Vous n'avez pas de compte?</p>
                     <div class="form-style__buttons buttons--left">
-                        <button type="submit" class="btn btn--valid">Se connecter</button>
+                        <button type="submit" class="btn btn--valid" id="submit">Se connecter</button>
                     </div>
                 </form>
             </section> 
