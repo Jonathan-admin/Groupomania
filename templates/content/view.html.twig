@@ -48,11 +48,11 @@
                             </div>
                         {% elseif content.type == "Musique" %}
                             <div class="view__content--mus">
-                                <figure>
+                                <figure tabindex="0">
                                     {% set arrayPath = content.media_path_file | split("_") %}
                                     <figcaption>{{ arrayPath[arrayPath | length-1] }}</figcaption>
-                                    <audio
-                                        controls src="{{ asset('uploadFile/musics/') }}{{ content.media_path_file }}">
+                                    <audio 
+                                        controls src="{{ asset('uploadFile/musics/') }}{{ content.media_path_file }}" tabindex="0" controls>
                                     </audio>
                                 </figure>
                             </div>
