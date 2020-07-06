@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CommentsRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -35,6 +36,10 @@ class Comments
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Regex(
+     * pattern     = "/^[^&'\{\[\<\>\]\}#=@$\s]{1}[^&\{\[\<\>\]\}#=@$]{9,1990}$/",
+     * match=false,
+     * message="Vous avez inscrit des caractères non autorisés dans le message ou il est trop long. Il doit être d'au moins 10 caractères et ne pas dépasser 2000 caractères.")
      */
     private $message;
 

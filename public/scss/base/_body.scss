@@ -20,3 +20,11 @@ a {
         font-style: italic;
     }
 }
+
+span.form-error-message, span.form-error-icon {
+    font-size: 1.2em;
+}
+
+span.form-error-message {
+    margin-left: 10px;
+}

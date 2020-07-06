@@ -44,9 +44,9 @@ a, button:enabled, i:enabled {
 }
 a:disabled, button:disabled, i:disabled {
     background-color: rgb(160, 159, 159);
-    color: nth($text-colors,2);
+    color: black;
     &:hover {
-        color: nth($text-colors,2);
+        color: black;
     }
 }
 

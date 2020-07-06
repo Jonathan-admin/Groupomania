@@ -1,6 +1,7 @@
 .form-style {
     input, select, textarea {
         cursor: pointer;
+        color: nth($text-colors,2);
         border: 1px solid nth($border-input-colors,1);
         &:hover, &:focus {
             border: 2px solid nth($border-input-colors,1);

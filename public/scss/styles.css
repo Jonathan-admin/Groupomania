@@ -43,10 +43,10 @@ a.btn--action:hover, button:enabled.btn--action:hover, i:enabled.btn--action:hov
 
 a:disabled, button:disabled, i:disabled {
   background-color: #a09f9f;
-  color: #091f43;
+  color: black;
 }
 a:disabled:hover, button:disabled:hover, i:disabled:hover {
-  color: #091f43;
+  color: black;
 }
 
 i.fa-sync {
@@ -68,6 +68,9 @@ i[class*=thumbs] {
   display: block;
   font-size: 1em;
   margin: 10px 0;
+  color: #091f43;
+  padding: 10px;
+  border: 2px solid #091f43;
 }
 
 i.errorRole {
@@ -76,7 +79,8 @@ i.errorRole {
 }
 
 .error {
-  color: #d1515a;
+  color: white;
+  background: rgba(187, 5, 5, 0.8);
 }
 
 .success {
@@ -225,6 +229,7 @@ div.col-xl-3.forum__thumbnail {
 
 .form-style input, .form-style select, .form-style textarea {
   cursor: pointer;
+  color: #091f43;
   border: 1px solid #091f43;
 }
 .form-style input:hover, .form-style input:focus, .form-style select:hover, .form-style select:focus, .form-style textarea:hover, .form-style textarea:focus {
@@ -512,8 +517,7 @@ div.col-xl-3.forum__thumbnail {
 .forum__thumbnail--bkg-vid > a::before {
   background-image: url("../../images/videos.jpg");
 }
-
-span.badge {
+.forum span.badge {
   font-size: 1.2em;
   position: relative;
   bottom: 20px;
@@ -875,6 +879,14 @@ a:hover {
   color: white;
   text-decoration: none;
   font-style: italic;
+}
+
+span.form-error-message, span.form-error-icon {
+  font-size: 1.2em;
+}
+
+span.form-error-message {
+  margin-left: 10px;
 }
 
 /*# sourceMappingURL=styles.css.map */
