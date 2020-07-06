@@ -35,8 +35,8 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=25)
-     * @Assert\Regex("/^[\wéèàçîôûê]{2}[\w-éèàçîôûê]{0,23}$/",
-     * message="Le format du login est invalide ! Il doit comporter entre 2 et 25 caractères. La ponctuation et les caractères spéciaux sont exclus")
+     * @Assert\Regex("/^[a-zA-Z0-9_.]{3,25}$/",
+     * message="Le format du login est invalide ! Il doit comporter entre 3 et 25 caractères. La ponctuation (sauf le .), les espaces et les caractères spéciaux sont exclus.")
      */
     private $username;
 

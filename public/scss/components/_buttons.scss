@@ -1,4 +1,4 @@
-a, button, i {
+a, button:enabled, i:enabled {
     &:not(.disabled).btn {
         color: nth($text-colors,1);
         &:hover {
@@ -40,6 +40,13 @@ a, button, i {
             border: 1px solid nth($border-colors,2);
             box-shadow: 2px 2px 2px nth($border-colors,2);
         }
+    }
+}
+a:disabled, button:disabled, i:disabled {
+    background-color: rgb(160, 159, 159);
+    color: black;
+    &:hover {
+        color: black;
     }
 }
 

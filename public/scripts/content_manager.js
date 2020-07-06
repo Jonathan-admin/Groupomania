@@ -6,10 +6,12 @@ $(document).ready(function() {
     $(document).on("click","#createComment-button", function(){ 
         $("#viewWriting").css("display","block");
         $("#viewWriting").next().css("display","none");
+        $("#sendComment-button").prop( "disabled", true );
     });
     $(document).on("click","#cancelComment-button", function(){ 
         $("#viewWriting").css("display","none");
         $("#viewWriting").next().css("display","block");
+        $("#comment").val("");
     });
     $(document).on("click","#sendComment-button", function(){ 
         createComment($(this).attr('data-url'),$("#comment").val());

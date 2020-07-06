@@ -8,6 +8,9 @@
     display: block;
     font-size: 1em;
     margin: 10px 0;
+    color: nth($text-colors,2);
+    padding: 10px;
+    border: 2px solid nth($border-colors,3);
 }
 
 i.errorRole {
@@ -16,7 +19,9 @@ i.errorRole {
 }
 
 .error {
-    color: nth($text-colors,3);
+    color: nth($text-colors,1);
+    background: nth($background-message,2);
+    
 }
 .success {
     color: nth($text-colors,4);

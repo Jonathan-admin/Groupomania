@@ -49,50 +49,69 @@ class ContentRepository extends ServiceEntityRepository
 
     function requetefilterBuilder($type,$topic,$author,$title,$sorting)
     {
-        $qb = $this->createQueryBuilder('content')
-                    ->innerJoin('content.username','user');
-        $qb->where($qb->expr()->in('content.status',array('Vérifié','Bloqué')));
-        if($type!="") {
-            switch ($type) {
-                case 'img/text':
-                    $qb->andWhere($qb->expr()->in('content.type',array('Image','Texte')));
-                    break;
-                case 'mus/vid':
-                    $qb->andWhere($qb->expr()->in('content.type',array('Musique','Vidéo')));
-                    break;
-                default:
-                    $qb->andWhere('content.type = :type')
-                    ->setParameter('type',$type);
-                    break;
+        if($this->dataAuthorIsValid($author) && $this->dataTitleIsValid($title)) {
+            $qb = $this->createQueryBuilder('content')
+                        ->innerJoin('content.username','user');
+            $qb->where($qb->expr()->in('content.status',array('Vérifié','Bloqué')));
+            if($type!="") {
+                switch ($type) {
+                    case 'img/text':
+                        $qb->andWhere($qb->expr()->in('content.type',array('Image','Texte')));
+                        break;
+                    case 'mus/vid':
+                        $qb->andWhere($qb->expr()->in('content.type',array('Musique','Vidéo')));
+                        break;
+                    default:
+                        $qb->andWhere('content.type = :type')
+                        ->setParameter('type',$type);
+                        break;
+                }
             }
+            if($topic!="") {
+                $qb->andWhere('content.topic = :topic')
+                    ->setParameter('topic',$topic);
+            }
+            if($author!="") {
+                $qb->andWhere($qb->expr()->like('user.username',':username'))
+                    ->setParameter('username','%'.$author.'%');
+            }  
+            if($title!="") {
+                $qb->andWhere($qb->expr()->like('content.title',':title'))
+                    ->setParameter('title','%'.$title.'%');
+            }      
+            if($sorting=="new") { 
+                $qb->orderBy('content.createdAt','DESC'); }
+            elseif($sorting=="old") {
+                $qb->orderBy('content.createdAt','ASC'); }
+            elseif($sorting=="topic") {  
+                $qb->orderBy('content.topic'); }
+            elseif($sorting=="type") {
+                $qb->orderBy('content.type'); }
+            elseif($sorting=="alphaOrder"){
+                $qb->orderBy('content.title','ASC'); 
+            }
+            elseif($sorting=="alphaOrderRev"){
+                $qb->orderBy('content.title','DESC'); 
+            }
+            return $qb->getQuery();  
         }
-        if($topic!="") {
-            $qb->andWhere('content.topic = :topic')
-                ->setParameter('topic',$topic);
+        return null;
+    }
+
+    function dataAuthorIsValid($author) {
+        $pattern = "/^[\w-.éèàçîôûê]{0,15}$/";
+        if(preg_match($pattern,$author) || $author == "") {
+           return true;
         }
-        if($author!="") {
-            $qb->andWhere($qb->expr()->like('user.username',':username'))
-                ->setParameter('username','%'.$author.'%');
-        }  
-        if($title!="") {
-            $qb->andWhere($qb->expr()->like('content.title',':title'))
-                ->setParameter('title','%'.$title.'%');
-        }      
-        if($sorting=="new") { 
-            $qb->orderBy('content.createdAt','DESC'); }
-        elseif($sorting=="old") {
-            $qb->orderBy('content.createdAt','ASC'); }
-        elseif($sorting=="topic") {  
-            $qb->orderBy('content.topic'); }
-        elseif($sorting=="type") {
-            $qb->orderBy('content.type'); }
-        elseif($sorting=="alphaOrder"){
-            $qb->orderBy('content.title','ASC'); 
+        return false;
+    }
+
+    function dataTitleIsValid($title) {
+        $pattern = "/^[\w\s,?!;:()-.éèàçîôûê]{0,15}$/";
+        if(preg_match($pattern,$title) || $title == "") {
+           return true;
         }
-        elseif($sorting=="alphaOrderRev"){
-            $qb->orderBy('content.title','DESC'); 
-        }
-        return $qb->getQuery();  
+        return false;
     }
     
     public function getMyStatisticContents($user){
@@ -166,9 +185,6 @@ class ContentRepository extends ServiceEntityRepository
         return $statement->fetch();
     }
 
-    public function findDeletingContent($id) 
-    {
-
-    }
+    
 }
 

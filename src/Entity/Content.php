@@ -23,11 +23,15 @@ class Content
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Regex("/^[^&'\{\[\<\>\]\}#=@$%\s]{1}[^&'\{\[\<\>\]\}#=@$%]{2,253}$/",
+     * message="Les caractères que vous avez saisi ne sont pas tous autorisés!")
      */
     private $title;
 
     /**
-     * @ORM\Column(type="string", length=1000)
+     * @ORM\Column(type="string", length=5000)
+     * @Assert\Regex("/^[^&'\{\[\<\>\]\}#=@$\s]{1}[^&\{\[\<\>\]\}#=@$]{9,4990}$/",
+     * message="Vous avez inscrit des caractères non autorisés dans le message ou il est trop long. Il doit être d'au moins 10 caractères et ne pas dépasser 5000 caractères.")
      */
     private $message;
 
@@ -70,11 +74,15 @@ class Content
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Regex("/^(https:\/\/www.youtube\/embed\/\w+)$/",
+     * message="Il doit s'agir d'une vidéo provenant de youtube!")
      */
     private $mediaPathUrl;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+    
+     * 
      */
     private $mediaPathFile;
 
