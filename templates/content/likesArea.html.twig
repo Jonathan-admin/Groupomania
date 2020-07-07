@@ -1,0 +1,14 @@
+    {% if app.user.username == contentUser %}
+        <i class="fas fa-thumbs-up disabled"> {{ nbDislikesLikes.nbLikes }}</i>
+        <i class="fas fa-thumbs-down disabled"> {{ nbDislikesLikes.nbDislikes }}</i>
+    {% elseif IsLikeAction == "isLiked" %}
+        <i class="fas fa-thumbs-up" data-role=0 data-url="{{ path('content_like',{'id':id}) }}"></i> {{ nbDislikesLikes.nbLikes }}
+        <i class="fas fa-thumbs-down disabled"> {{ nbDislikesLikes.nbDislikes }}</i> 
+    {% elseif IsLikeAction == "isDisliked" %}
+        <i class="fas fa-thumbs-up disabled"> {{ nbDislikesLikes.nbLikes }}</i>  
+        <i class="fas fa-thumbs-down" data-role=0 data-url="{{ path('content_like',{'id':id}) }}"> {{ nbDislikesLikes.nbDislikes }}</i> 
+    {% else %} 
+        <i class="far fa-thumbs-up" data-role=1 data-url="{{ path('content_like',{'id':id}) }}"> {{ nbDislikesLikes.nbLikes }}</i> 
+        <i class="far fa-thumbs-down" data-role=-1 data-url="{{ path('content_like',{'id':id}) }}"> {{ nbDislikesLikes.nbDislikes }}</i> 
+    {% endif %}
+

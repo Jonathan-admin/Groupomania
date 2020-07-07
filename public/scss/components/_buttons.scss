@@ -1,0 +1,60 @@
+a, button:enabled, i:enabled {
+    &:not(.disabled).btn {
+        color: nth($text-colors,1);
+        &:hover, &:focus {
+            box-shadow: 2px 2px 10px black;
+            font-style: unset;
+        }
+        &--valid {
+            background: nth($button-bkg-valid,1);
+            &:hover, &:focus {
+                background: nth($button-bkg-valid,2);
+                color: nth($text-colors,1);
+            }
+        }
+        &--cancel {
+            background: nth($button-bkg-cancel,1);
+            &:hover {
+                background: nth($button-bkg-cancel,2);
+                color: nth($text-colors,1);
+            }
+        }
+        &--other {
+            background: nth($button-bkg-other,1);
+            &:hover, &:focus {
+                background: nth($button-bkg-other,2);
+                color: nth($text-colors,1);
+            }
+        }
+    }
+    &.btn--action {
+        background-color: nth($button-bkg-valid,1);
+        opacity: .85;
+        color: nth($text-colors,1);
+        padding: 5px 15px;
+        border-radius: 2rem;
+        &:hover, &:focus {
+            border: 1px solid nth($border-colors,2);
+            box-shadow: 2px 2px 2px nth($border-colors,2);
+        }
+    }
+}
+a:disabled, button:disabled, i:disabled {
+    background-color: rgb(160, 159, 159);
+    color: black;
+    &:hover {
+        color: black;
+    }
+}
+
+i[class*=fa-thumb].disabled {
+    color: gray;
+}
+
+i.fa-sync {
+    cursor: pointer;
+    color: nth($text-colors,2);
+}
+i[class*=thumbs] {
+    font-size: 1.2em;
+}

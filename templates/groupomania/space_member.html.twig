@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Groupomania - Espace membre{% endblock %}
+
+{% block body %}
+    <div class="header-nav">
+        {{ include("partials/header.html.twig") }}
+        {{ include("partials/navbar.html.twig") }}
+    </div>
+    <main class="space-member">
+        {% set homePage = 0 %}
+        {% set admin = 0 %}
+        {% for role in app.user.roles %} 
+            {% if role == "ROLE_DEL_ADMIN" %}
+                 {% set admin = 1 %} 
+            {% endif %}
+        {% endfor %}
+        {% if admin == 1 %}
+            <i class='fas fa-times errorRole'> Les fonctionnalités de cette page ne sont pas accessibles pour les utilisateurs ayant ce type de droit!</i>
+        {% else %}
+            <div>
+                <h2 class="space-member__pub no-bar">Mes publications</h2>
+                <a href="{{ path('content_create') }}" class="btn--action">Créer un nouveau contenu</a>
+            </div> 
+            <p>Vous trouverez dans cet espace membre, l'ensemble des publications à votre nom actuellement en ligne sur le réseau social Groupomania. <br/>
+            Dans cette section, vous aurez la possibilité de suivre et consulter tous vos contenus, y compris les contenus en cours de vérificaation, actuellement bloqué et même suspendu par l'un des administrateurs. Vous y trouverez également des stattistiques afin de déterminer lesquels sont les plus aimés.</p>
+            <section>
+                <h3 class="reduce">
+                    <span>Statistiques de mes contenus</span>
+                    <i class="fas fa-chevron-down" data-display="table"></i>
+                </h3>
+                <table>
+                    <tr class="bg-blue-head">
+                        <th>Titre</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                        <th>Créé le</th>
+                        <th><i class="fas fa-comment-dots" title="Nombre de commentaires"></i></th>
+                        <th><i class="fas fa-thumbs-up" title="Nombre de likes"></i></th>
+                        <th><i class="fas fa-thumbs-down" title="Nombre de dislikes"></i></th>
+                    </tr> 
+                    {% if contentsStatistic | length == 0 %}
+                        <tr class="not-hover">
+                            <td colspan="7"><i class='fas fa-times errorRole'> Aucun contenu à afficher</i></td>
+                        </tr>
+                    {% else %}
+                        {% for content in contentsStatistic  %}
+                            <tr class="not-hover">
+                                <td>{{ content.title }}</td>
+                                {% if content.type == "Musique" %}
+                                    <td><i class="fas fa-music"></i></td>
+                                {% elseif content.type == "Texte" %}
+                                    <td><i class="fas fa-file-alt"></i></td>
+                                {% elseif content.type == "Image" %}
+                                    <td><i class="fas fa-image"></i></td>
+                                {% else %}  
+                                    <td><i class="fas fa-film"></i></td>
+                                {% endif %}
+                                {% if content.status == "Vérifié" %} 
+                                    <td><i class="fas fa-check-square"></i></td>
+                                {% elseif content.status == "En attente de vérifications" %} 
+                                    <td><i class="fas fa-times-circle"></i></td>
+                                {% elseif content.status == "Bloqué" %} 
+                                <td><i class="fas fa-minus-square"></i></td>
+                                {% else %}
+                                <td><i class="fas fa-ban"></i></td>
+                                {% endif %}
+                                <td>{{ content.created_at | date("d/m/Y") }}</td>
+                                <td>{{ content.nbComment }}</td>
+                                <td>{{ content.nbLikes }}</td>
+                                <td>{{ content.nbDislikes }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </table>
+            </section>
+            <section>
+                <h3 class="reduce">
+                    <span>Mes contenus ({{ allMyContents.getTotalItemCount }}) </span>
+                    <i class="fas fa-chevron-down" data-display="flex"></i>
+                </h3>
+                {% set barAction = 0 %}
+                <div class="row">
+                    {% if allMyContents | length == 0 %}
+                        <i class='fas fa-times errorRole'> Vous n'avez à ce jour aucun contenu!</i>
+                    {% else %}
+                        {% for content in allMyContents  %}
+                            {{ include("partials/content.html.twig") }}
+                        {% endfor %}
+                    {% endif %}
+                </div>
+                <div id="pagination">
+                    {{ knp_pagination_render(allMyContents) }}
+                </div>
+            </section>	   
+        {% endif %}
+    </main> 
+    {{ include("partials/footer.html.twig") }}
+{% endblock %}

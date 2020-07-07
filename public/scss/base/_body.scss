@@ -1,0 +1,31 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    min-width: 360px;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    color: nth($text-colors,1);
+    &:hover, &:focus {
+        color: nth($text-colors,1);
+        text-decoration: none;
+        font-style: italic;
+    }
+}
+
+span.form-error-message, span.form-error-icon {
+    font-size: 1.2em;
+}
+
+span.form-error-message {
+    margin-left: 10px;
+}
+

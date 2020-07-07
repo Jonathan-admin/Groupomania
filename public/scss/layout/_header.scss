@@ -1,0 +1,48 @@
+.header {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: nth($text-colors,1);
+    border-bottom: 4px solid nth($border-colors,1);
+    position: relative;
+    padding: 20px 0 30px 0;
+    img {
+        margin-top: 50px;
+        width: 25%;  
+        z-index: 1;
+        @media screen and (max-width: 1060px) {
+            width: 300px; 
+        }
+    }
+    &::before {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: nth($background-colors,2);
+        opacity: 0.7;
+    }
+    h1 {
+        font-size: 1.8em;
+        z-index: 1;
+        @media screen and (max-width: 560px) {
+            font-size: 25px;
+            margin: 20px 0 40px 0;
+            text-align: center;
+        }
+    }
+    div:not(.header-nav) {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 20px;
+        width: 100%;
+        z-index: 1;
+    }
+    @media screen and (max-width: 560px) {
+        height: 300px;
+    }
+}

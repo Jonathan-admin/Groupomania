@@ -1,0 +1,86 @@
+<table class="form-style">
+
+    {% set AdminDel = 0 %}
+    {% set profilLock = 0 %}
+    {% for role in app.user.roles %} 
+        {% if role == "ROLE_DEL_ADMIN" %}
+            {% set AdminDel = 1 %}
+        {% endif %}
+    {% endfor %}
+    {% for role in user.roles %} 
+        {% if role == "ROLE_DEL_ADMIN" %}
+            {% set profilLock = 1 %}
+            {% set AdminDel = 2 %}
+        {% endif %}
+    {% endfor %} 
+
+    <tr>
+        <th colspan="2" class="bg-blue-head">Matricule utilisateur {{ user.id }}</th>
+    </tr>
+    <tr>
+        <td>Nom d'utilisateur</td>
+        <td>{{ user.username }}</td>
+    </tr>
+    <tr>
+        <td>Adresse email</td>
+        <td>{{ user.email }}</td>
+    </tr>
+    <tr>
+        <td>Date d'inscription</td>
+        <td>{{ user.subscribeAt | date("d/m/Y à h:m:s") }}</td>
+    </tr>
+    <tr>
+        <td colspan="2" class="bg-blue-head space-admin__userInfos--buttons">
+            {% if app.user.username == user.username %}
+                <i class="fas fa-exclamation-triangle"> Vous ne pouvez pas supprimer ce compte car il est actuellement utilisé!</i>
+            {% elseif profilLock == 1 %}
+                <i class="fas fa-exclamation-triangle"> Ce compte ne peut pas être supprimé!</i>
+            {% else %}
+                <button id="delete_button" class="btn btn--cancel" data-url="{{ path('admin_deleteUser',{'id':user.id}) }}"><i class="fas fa-trash-alt"> Supprimer ce compte</i></button>
+            {% endif %}  
+        </td>
+    </tr>
+    <tr>
+        {% set i = 1 %}
+        {% if user.roles | length == 0 %}
+            <td>Droits accordés</td>
+            <td>L'utilisateur ne dispose d'aucun droit. Il ne peut plus accéder au réseau social de l'entreprise.</td></tr>
+            {% set i = i+1 %}
+        {% else %}
+            <td rowspan="{{user.roles | length}}">Droits accordés</td>
+            {% for role in user.roles %} 
+                {% if i > 1 %} 
+                    <tr> 
+                {% endif %}
+                {% if role == "ROLE_USER" %}
+                    <td>Droit d'utilisation normal</td></tr>
+                {% elseif role == "ROLE_ADMIN" %}
+                    <td>Droit d'administration</td></tr>
+                {% elseif role == "ROLE_DEL_ADMIN" %}
+                    <td>Droit de suppression de compte utilisateur</td></tr>
+                {% endif %}
+                {% set i = i+1 %}
+            {% endfor %}  
+        {% endif %}
+    <tr> 
+        <td colspan="2" class="bg-blue-head">
+            {% if app.user.username == user.username %}
+                <i class="fas fa-exclamation-triangle"> Vous ne pouvez pas modifier vos propres droits!</i>
+            {% elseif AdminDel == 1 %}
+                <i class="fas fa-exclamation-triangle"> Paramétrage indisponible, droits insuffisants!</i>
+            {% elseif AdminDel == 2 %}
+                <i class="fas fa-exclamation-triangle"> La modification pour ce type de compte est impossible!</i>
+            {% else %}
+                <div class="form-group">
+                    <label for="roles"><i class="fas fa-tools"></i> Modifier les droits</label>
+                    <select name="roles" id="roles" class="form-control" data-url="{{ path('admin_modifyRoles',{'id':user.id}) }}">
+                        <option value="">Sélectionner les droits</option>
+                        <option value="admin">Administrateur</option>
+                        <option value="use">Utilisation normale</option>
+                        <option value="block">Compte bloqué</option>
+                    </select>
+                </div>
+            {% endif %}  
+        </td>
+    </tr>
+</table>

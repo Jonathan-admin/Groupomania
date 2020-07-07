@@ -1,0 +1,58 @@
+<form action="{{ path('content_filterSession') }}" method="post" class="form-style">
+    <div class="form-group">
+        <label for="type">Type de contenu</label>
+        <select name="type" id="type" class="form-control">
+            <option value="">Tout type</option>
+            <option value="music">Musique</option>
+            <option value="video">Vidéo</option>
+            <option value="image">Image</option>
+            <option value="text">Texte</option>
+            <option value="img/text">Image et texte</option>
+            <option value="mus/vid">Musique et vidéo</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="topic">Thématique</label>
+        <select name="topic" id="topic" class="form-control">
+            <option value="">Toutes</option>
+            <option value="travels">Voyages</option>
+            <option value="technologies">Technologies</option>
+            <option value="sports">Sports</option>
+            <option value="leisure">Loisirs</option>
+            <option value="work">Monde professionnel</option>
+            <option value="economy">Economie</option>
+            <option value="groupomania">Groupomania</option>
+            <option value="news">Actualité</option>
+            <option value="others">Divers</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="author">Autheur</label>
+        <input placeholder="Rechercher un autheur..." type="text" class="form-control" id="author" name="author">
+    </div>
+    <div class="form-group">
+        <label for="title">Titre</label>
+        <input placeholder="Rechercher un titre..." type="text" class="form-control" id="title" name="title">
+    </div>
+    <div class="form-group">
+        <label for="sorting:">Trier par:</label>
+        <select name="sorting" id="sorting" class="form-control">
+            <option value="">Ordre d'apparition</option>
+            <option value="new">Nouveauté</option>
+            <option value="old">Ancienneté</option>
+            <option value="topic">Thématique</option>
+            <option value="type">Type de contenu</option>
+            <option value="alphaOrder">Ordre alphabétique</option>
+            <option value="alphaOrderRev">Ordre alphabétique inversé</option>
+        </select>
+    </div>
+    <div class="form-style__buttons">
+        <button id="searchContent_button" type="submit" class="btn btn--valid" 
+                    data-type = "{{ app.session.get('SearchparametersContent').type }}"
+                    data-topic = "{{ app.session.get('SearchparametersContent').topic }}"
+                    data-author = "{{ app.session.get('SearchparametersContent').author }}"
+                    data-title = "{{ app.session.get('SearchparametersContent').title }}"
+                    data-sorting = "{{ app.session.get('SearchparametersContent').sorting }}">Rechercher</button>
+        <a href="{{ path('groupomania_home') }}" id="restore_button" type="button" class="btn btn--cancel">Rétablir</a>
+    </div>
+</form>

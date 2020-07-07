@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Groupomania - Authentification au réseau social{% endblock %}
+
+{% block body %}
+    <main class="accountUser row form-style">
+        <div class="col-12 col-sm-9 col-md-8 col-lg-4">
+            <header class="accountUser__logo">
+                <img src="{{ asset('images/icon-left-font-white.png') }}" alt="Le logo groupomania">
+            </header>
+            <section class="accountUser__form">
+                <h1>Connexion au réseau social</h1>
+                <form action="{{ path('security_login') }}" method="post" class="form-style">
+                    {% if error %}
+                        <span class="error"><i class="fas fa-times"></i> Les identifiants indiqués sont incorrects !</span>
+                    {% endif %}
+                    <div class="form-group">
+                        <label for="login" method="POST">Pseudo</label>
+                        <input placeholder="Votre nom d'utilisateur..." id="login" type="text" class="form-control" required name="_username" value="{{ lastUserName }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de passe</label>
+                        <input placeholder="Votre mot de passe..." id="password" type="password" class="form-control" required name="_password">
+                    </div>
+                    <p></p>
+                    <p><a href="{{ path('security_registration') }}" aria-label="Accéder au formulaire d\'inscription" title="Formulaire d'inscription">Vous n'avez pas de compte?</p>
+                    <div class="form-style__buttons buttons--left">
+                        <button type="submit" class="btn btn--valid" id="submit">Se connecter</button>
+                    </div>
+                </form>
+            </section> 
+        </div>
+    </main> 
+{% endblock %}

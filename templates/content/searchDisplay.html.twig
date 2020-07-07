@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Groupomania - Recherche de contenus {% endblock %}
+{% block javascript %} <script src="{{ asset('scripts/search_content.js') }}" defer></script> {% endblock %}
+
+{% block body %}
+    <div class="header-nav">
+        {{ include("partials/header.html.twig") }}
+        {{ include("partials/navbar.html.twig") }}
+    </div>
+    <main class="forum row">
+        {% set homePage = 1 %}
+        {% set admin = 0 %}
+        {% for role in app.user.roles %} 
+            {% if role == "ROLE_DEL_ADMIN" %}
+                 {% set admin = 1 %} 
+            {% endif %}
+        {% endfor %}
+        {% if admin == 1 %}
+            <i class='fas fa-times errorRole'> Les fonctionnalités de cette page ne sont pas accessibles pour les utilisateurs ayant ce type de droit!</i>
+        {% else %}
+            <section class="forum__search col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                <h2>Rechercher</h2>
+                <p><strong>Vous recherchez un contenu?</strong><br/>
+                Cet outil de recherche vous permettra de retrouver un contenu en fonction de vos critères de recherche (thématique, autheur, etc..).</p>
+                {{ include("partials/searchPanel.html.twig") }}
+            </section>
+            <section class="forum__content col-sm-12 col-md-6 col-lg-9 col-xl-9">
+                {% if contentsSearchPaginate %}
+                    <h2>Résultat de la recherche ({{ contentsSearchPaginate.getTotalItemCount }})</h2>
+                    {% if contentsSearchPaginate.getTotalItemCount == 0 %}
+                        <i class='fas fa-times errorRole'> Aucun contenu n'a été trouvé avec les critères de recherche sélectionnés!</i>
+                    {% else %}
+                        {% set barAction = 0 %}
+                        <div class="row"> 
+                            {% for content in contentsSearchPaginate %}
+                            {{ include("partials/content.html.twig") }}
+                            {% endfor %}
+                        </div>
+                        <div class="row"> 
+                            <div class="col-lg-12" id="pagination">
+                                {{ knp_pagination_render(contentsSearchPaginate) }}
+                            </div>
+                        </div> 
+                    {% endif %}
+                {% else %}
+                    <h2>Résultat de la recherche </h2>
+                    <i class='fas fa-times errorRole'> La recherche n'a pas abouti! Merci d'effectuer les recherches avec les caractères alpha-numériques et de ponctuation.</i>
+                {% endif %}
+            </section>
+        {% endif %}
+    </main> 
+    {{ include("partials/footer.html.twig") }}
+{% endblock %}

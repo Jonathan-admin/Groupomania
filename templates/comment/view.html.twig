@@ -1,0 +1,40 @@
+<h3 class="reduce">
+    <span>Commentaires pour ce contenu ({{ allComments | length }})</span>
+    <i class="fas fa-chevron-down" data-display="block"></i>
+</h3>
+<div>
+    {% if allComments | length == 0 %}
+        <i class='fas fa-times errorRole'> Ce contenu n'a pas encore été commenté pour le moment.</i>
+    {% else %}
+        <div class="view__comments-list">
+            {% for comment in allComments %}
+                <div class="view__comments-head">
+                    <span>{{ "N°"~loop.index }}</span>
+                    <span>Posté par {{ comment.author ~" le "~ comment.createdAt | date("d/m/Y à h:m:s") }}
+                        {% if app.user.username == comment.author %} 
+                            <i class="fas fa-trash-alt" data-url="{{ path('comment_delete',{'id':comment.content.id, 'idComment': comment.id}) }}"></i>
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="view__comments-mess">
+                    {{ comment.message | nl2br }}  
+                </div>
+            {% endfor %}
+        </div>
+        <div id="messageServerComment">
+        </div>
+    {% endif %}
+    <div class="view__writing form-group" id="viewWriting">
+        <div class="form-group form-style">
+            <label for='comment'>Votre commentaire</label>
+            <textarea class="form-control" id='comment' name='comment' placeholder='Commentez ici ...'></textarea>
+        </div>
+        <div>
+            <button class='btn btn--valid' data-url="{{ path('comment_create',{'id':idContent}) }}" type='button' id='sendComment-button' >Envoyer</button>
+            <button class='btn btn--cancel' type='button' id='cancelComment-button'>Annuler</button>
+        </div>
+    </div>
+    <div class="form-style__buttons">
+        <button class="btn btn--valid" type="button" id="createComment-button">Ecrire un commentaire</button>
+    </div>
+</div>

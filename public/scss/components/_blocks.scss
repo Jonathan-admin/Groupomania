@@ -1,0 +1,166 @@
+.header-nav {
+    background-image: url("../../images/paris-defense.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.error, .success {
+    display: block;
+    font-size: 1em;
+    margin: 10px 0;
+    color: nth($text-colors,2);
+    padding: 10px;
+}
+
+i.errorRole {
+    font-size: 1.5em;
+    padding: 10px 15px;
+}
+
+.error {
+    color: nth($text-colors,1);
+    background: nth($background-message,2);
+    border: 2px solid nth($border-colors,3);
+    
+}
+.success {
+    color: nth($text-colors,4);
+}
+
+h2:not(.no-bar) {
+    border-bottom: 6px solid nth($border-colors,2);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+h3 {
+    font-size: 1.3em;
+    border-bottom: 3px solid nth($border-colors,2);
+    padding-bottom: 10px;
+    margin: 20px 0;
+}
+
+h4 {
+    font-size: 1.15em;
+    text-align: center;
+    border: 2px solid nth($border-colors,3);
+    padding: 10px 10px;
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+.space-member,
+.space-admin,
+.space-infos,
+.view,
+.forum,
+.create {
+    min-height: 500px;
+    background-color: nth($background-colors,1);
+    position: relative;
+    color: nth($text-colors,2);
+    padding: 20px;
+    z-index: 1;
+    &::before {
+        z-index: -1;
+        position: absolute;
+        opacity: 0.15;
+        content: "";
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url("../../images/arc-triomphe.jpg");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+    @media screen and (max-width: 500px) {
+        padding: 25px 10px;
+    }
+}
+
+.bg-blue-head {
+    background-color: nth($background-colors,2);
+    color: nth($text-colors,1);
+}
+
+.warning {
+    border: 2px solid nth($border-colors,1);
+    padding: 5px 15px;
+    font-size: 1.2em;
+    color: nth($text-colors,1);
+    background-color: nth($background-colors,3);
+    text-shadow: 2px 2px 2px black;
+    font-weight: bold;
+}
+
+.pagination {
+    justify-content: center;
+    .current {
+        font-size: 1.8em;
+        font-weight: bold;
+        color: nth($text-colors,3);
+    }
+    .page a,
+    .next a, 
+    .previous a,
+    .last a,
+    .first a {
+        font-size: 1.5em;
+        color: nth($text-colors,2);
+        padding: 0 3px;
+        position: relative;
+        top: 3px;
+    }
+}
+
+div.col-xl-3.forum__thumbnail {
+    max-width: unset;
+}
+
+.space-member,
+.space-admin__usersList,
+.space-admin__contentsList {
+    overflow-y: scroll;
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        text-align: center;
+        tr {
+            & >td, & >th {
+                border: 2px solid nth($border-colors,3);
+            }
+            &:not(.not-hover):nth-child(n+2):hover {
+                background-color: nth($background-colors,3);
+                color: nth($text-colors,1);
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.reduce {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    i {
+        font-size: 1.3em;
+    }
+}
+
+.forum,
+.space-member {
+    span.badge {
+        font-size: 1.4em;
+        position: relative;
+        bottom: 20px;
+        right: 20px;
+    }
+    span:not(.badge-light).badge {
+        text-shadow: 2px 2px 2px black;
+        box-shadow: 2px 2px 2px white;
+    }
+}
+
+
