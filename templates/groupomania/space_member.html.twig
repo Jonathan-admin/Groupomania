@@ -45,7 +45,7 @@
                         </tr>
                     {% else %}
                         {% for content in contentsStatistic  %}
-                            <tr>
+                            <tr class="not-hover">
                                 <td>{{ content.title }}</td>
                                 {% if content.type == "Musique" %}
                                     <td><i class="fas fa-music"></i></td>
@@ -60,7 +60,7 @@
                                     <td><i class="fas fa-check-square"></i></td>
                                 {% elseif content.status == "En attente de vérifications" %} 
                                     <td><i class="fas fa-times-circle"></i></td>
-                                {% elseif content.status == "Contenu bloqué" %} 
+                                {% elseif content.status == "Bloqué" %} 
                                 <td><i class="fas fa-minus-square"></i></td>
                                 {% else %}
                                 <td><i class="fas fa-ban"></i></td>

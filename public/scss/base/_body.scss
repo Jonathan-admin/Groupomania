@@ -14,7 +14,7 @@ body, html {
 a {
     text-decoration: none;
     color: nth($text-colors,1);
-    &:hover {
+    &:hover, &:focus {
         color: nth($text-colors,1);
         text-decoration: none;
         font-style: italic;
@@ -28,3 +28,4 @@ span.form-error-message, span.form-error-icon {
 span.form-error-message {
     margin-left: 10px;
 }
+

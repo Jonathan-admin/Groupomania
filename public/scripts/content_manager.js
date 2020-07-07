@@ -61,6 +61,9 @@ const deleteComment = url => {
     $.ajax({ 
         type: 'POST',       
         url: url,
+        beforeSend: function() { 
+            $(".view__comments-list").html("<img src='../images/loading.gif' alt='spinner de chargement'>").css('text-align','center');
+        },
         success: function (data) { 
             $("#viewComments").html(data);
         },       

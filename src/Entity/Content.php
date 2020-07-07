@@ -23,15 +23,17 @@ class Content
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Regex("/^[^&'\{\[\<\>\]\}#=@$%\s]{1}[^&'\{\[\<\>\]\}#=@$%]{2,253}$/",
+     * @Assert\Regex("/^[^&'\{\[\<\>\]\}#=@$%\s]{1}[^&'\{\[\<\>\]\}#=@$%]+$/",
      * message="Les caractères que vous avez saisi ne sont pas tous autorisés!")
+     * @Assert\Length(min="10",minMessage="Le titre doit comporter entre 10 et 255 caractères.",max="255",maxMessage="Le titre choisi ne doit pas excéder 255 caractères.")
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=5000)
-     * @Assert\Regex("/^[^&'\{\[\<\>\]\}#=@$\s]{1}[^&\{\[\<\>\]\}#=@$]{9,4990}$/",
-     * message="Vous avez inscrit des caractères non autorisés dans le message ou il est trop long. Il doit être d'au moins 10 caractères et ne pas dépasser 5000 caractères.")
+     * @Assert\Regex("/^[^&'\{\[\<\>\]\}#=@$\s]{1}[^&\{\[\<\>\]\}#=@$]+$/",
+     * message="Vous avez inscrit des caractères non autorisés dans le message.")
+     * @Assert\Length(min="10",minMessage="Le message doit comporter entre 10 et 5000 caractères.",max="5000",maxMessage="Le message choisi ne doit pas excéder 5000 caractères.")
      */
     private $message;
 
@@ -74,18 +76,20 @@ class Content
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Regex("/^(https:\/\/www.youtube\/embed\/\w+)$/",
-     * message="Il doit s'agir d'une vidéo provenant de youtube!")
+     * @Assert\Regex("/^(https:\/\/www\.youtube\.com\/embed\/)[\w-]+$/",
+     * message="La vidéo doit provenir de youtube uniquement!")
      */
     private $mediaPathUrl;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-    
-     * 
+
+          * @Assert\File(
+     * maxSize="10m",
+     * maxSizeMessage="Le fichier excède 1000Ko.")
      */
     private $mediaPathFile;
-
+    
     private $file;
 
 
@@ -294,11 +298,6 @@ class Content
             $deleted = unlink($this->getUploadRootDir($type).$path);
         }
         return $deleted;
-    }
-
-    protected function getPath(String $mediaPathFile) {
-        $arrayMediaPathFile = explode("/",$mediaPathFile);
-        return $arrayMediaPathFile[count($arrayMediaPathFile)-1];
     }
 
     protected function getUploadRootDir(String $type) {

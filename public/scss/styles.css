@@ -1,14 +1,14 @@
 a:not(.disabled).btn, button:enabled:not(.disabled).btn, i:enabled:not(.disabled).btn {
   color: white;
 }
-a:not(.disabled).btn:hover, button:enabled:not(.disabled).btn:hover, i:enabled:not(.disabled).btn:hover {
+a:not(.disabled).btn:hover, a:not(.disabled).btn:focus, button:enabled:not(.disabled).btn:hover, button:enabled:not(.disabled).btn:focus, i:enabled:not(.disabled).btn:hover, i:enabled:not(.disabled).btn:focus {
   box-shadow: 2px 2px 10px black;
   font-style: unset;
 }
 a:not(.disabled).btn--valid, button:enabled:not(.disabled).btn--valid, i:enabled:not(.disabled).btn--valid {
   background: #091f43;
 }
-a:not(.disabled).btn--valid:hover, button:enabled:not(.disabled).btn--valid:hover, i:enabled:not(.disabled).btn--valid:hover {
+a:not(.disabled).btn--valid:hover, a:not(.disabled).btn--valid:focus, button:enabled:not(.disabled).btn--valid:hover, button:enabled:not(.disabled).btn--valid:focus, i:enabled:not(.disabled).btn--valid:hover, i:enabled:not(.disabled).btn--valid:focus {
   background: #103877;
   color: white;
 }
@@ -22,12 +22,9 @@ a:not(.disabled).btn--cancel:hover, button:enabled:not(.disabled).btn--cancel:ho
 a:not(.disabled).btn--other, button:enabled:not(.disabled).btn--other, i:enabled:not(.disabled).btn--other {
   background: #014b01;
 }
-a:not(.disabled).btn--other:hover, button:enabled:not(.disabled).btn--other:hover, i:enabled:not(.disabled).btn--other:hover {
+a:not(.disabled).btn--other:hover, a:not(.disabled).btn--other:focus, button:enabled:not(.disabled).btn--other:hover, button:enabled:not(.disabled).btn--other:focus, i:enabled:not(.disabled).btn--other:hover, i:enabled:not(.disabled).btn--other:focus {
   background: #016301;
   color: white;
-}
-a.disabled, button:enabled.disabled, i:enabled.disabled {
-  color: gray;
 }
 a.btn--action, button:enabled.btn--action, i:enabled.btn--action {
   background-color: #091f43;
@@ -36,7 +33,7 @@ a.btn--action, button:enabled.btn--action, i:enabled.btn--action {
   padding: 5px 15px;
   border-radius: 2rem;
 }
-a.btn--action:hover, button:enabled.btn--action:hover, i:enabled.btn--action:hover {
+a.btn--action:hover, a.btn--action:focus, button:enabled.btn--action:hover, button:enabled.btn--action:focus, i:enabled.btn--action:hover, i:enabled.btn--action:focus {
   border: 1px solid #d1515a;
   box-shadow: 2px 2px 2px #d1515a;
 }
@@ -47,6 +44,10 @@ a:disabled, button:disabled, i:disabled {
 }
 a:disabled:hover, button:disabled:hover, i:disabled:hover {
   color: black;
+}
+
+i[class*=fa-thumb].disabled {
+  color: gray;
 }
 
 i.fa-sync {
@@ -70,7 +71,6 @@ i[class*=thumbs] {
   margin: 10px 0;
   color: #091f43;
   padding: 10px;
-  border: 2px solid #091f43;
 }
 
 i.errorRole {
@@ -81,6 +81,7 @@ i.errorRole {
 .error {
   color: white;
   background: rgba(187, 5, 5, 0.8);
+  border: 2px solid #091f43;
 }
 
 .success {
@@ -225,6 +226,19 @@ div.col-xl-3.forum__thumbnail {
 }
 .reduce i {
   font-size: 1.3em;
+}
+
+.forum span.badge,
+.space-member span.badge {
+  font-size: 1.4em;
+  position: relative;
+  bottom: 20px;
+  right: 20px;
+}
+.forum span:not(.badge-light).badge,
+.space-member span:not(.badge-light).badge {
+  text-shadow: 2px 2px 2px black;
+  box-shadow: 2px 2px 2px white;
 }
 
 .form-style input, .form-style select, .form-style textarea {
@@ -388,6 +402,16 @@ div.col-xl-3.forum__thumbnail {
   color: white;
   text-shadow: 2px 2px 2px #091f43;
   padding-left: 20px;
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+.menu a.nav-link i:hover {
+  transform: scale(1.1);
+}
+.menu a.nav-link i.active {
+  font-weight: bold;
+  text-shadow: 2px 2px 2px white;
+  color: #091f43;
+  font-size: 1.15em;
 }
 
 .accountUser {
@@ -516,14 +540,6 @@ div.col-xl-3.forum__thumbnail {
 }
 .forum__thumbnail--bkg-vid > a::before {
   background-image: url("../../images/videos.jpg");
-}
-.forum span.badge {
-  font-size: 1.2em;
-  position: relative;
-  bottom: 20px;
-  right: 20px;
-  text-shadow: 2px 2px 2px black;
-  box-shadow: 2px 2px 2px white;
 }
 
 .space-member > div {
@@ -684,6 +700,7 @@ div.col-xl-3.forum__thumbnail {
   position: relative;
   top: 0;
   left: 0;
+  font-size: 100%;
   margin-top: auto;
   margin-bottom: auto;
   max-height: 150px;
@@ -875,7 +892,7 @@ a {
   text-decoration: none;
   color: white;
 }
-a:hover {
+a:hover, a:focus {
   color: white;
   text-decoration: none;
   font-style: italic;

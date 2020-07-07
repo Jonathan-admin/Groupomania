@@ -1,6 +1,6 @@
 const submitAuth = document.getElementById("submit");  
 const submitSeach = document.getElementById("searchContent_button"); 
-const submitCreate = document.getElementById("create");
+const submitCreate = document.getElementById("editContent");
 const submitComment = document.getElementById("sendComment-button");
 
 var dataControlAuth = [                                  // Tableau multidimentionnel stockant les informations des contrôles du formulaire d'authentification
@@ -45,17 +45,17 @@ $(document).ready(function() {
     $(".form-error-icon").text("ERREUR");
     switch (detectPageUrl()) { 
         case 0:
-            dataValidation(dataControlAuth,false,submitAuth);
+            dataValidation(dataControlAuth,false,submitAuth,true);
             break;
         case 1: 
-            dataValidation(dataControlSub,true,submitAuth);
+            dataValidation(dataControlSub,true,submitAuth,false);
             checkConfirmPassword(dataControlSub);
             break;
         case 2: 
-            dataValidation(dataControlSearch,false,submitSeach);
+            dataValidation(dataControlSearch,false,submitSeach,true);
             break;
         case 3: 
-            dataValidation(dataControlCreate,false,submitCreate);
+            dataValidation(dataControlCreate,false,submitCreate,true);
             $(document).on("change","#content_type", function(){  
                 checkMimeTypeFile(submitCreate,dataControlCreate);
             });
@@ -126,20 +126,22 @@ const detectPageUrl = () => {
     } else if (document.location.href == "http://127.0.0.1:8000/" || document.location.href.indexOf("Rechercher_des_contenus")>0) {
         page = 2; 
     } else if (document.location.href.indexOf("nouveau_contenu")>0 ||  document.location.href.indexOf("modification_contenu")>0) {
-        page = 3; 
+        page = 3;  alert("poi");
     } else if (document.location.href.indexOf("/forum/contenu/")>0 ) {
         page = 4; 
     }
     return page;
 }
 
-const dataValidation = (tabControl,confirmPass,submitButton) => {
+const dataValidation = (tabControl,confirmPass,submitButton,load) => {
     let tabLong = tabControl.length;
     if(confirmPass) {
         tabLong = tabControl.length - 1;
     }
     for (let i = 0; i < tabLong; i++) {
-        tabControl[i][2] = markDataLoad(tabControl[i][0],tabControl[i][1],tabControl[i][3])  
+        if(load) {
+            tabControl[i][2] = markDataLoad(tabControl[i][0],tabControl[i][1],tabControl[i][3]);
+        }
         tabControl[i][0].addEventListener("input", function(event) {               
             tabControl[i][2] = markData(tabControl[i][0],tabControl[i][1],event,tabControl[i][3]);  
             disableButtonSubmit(getNbcheckInput(tabControl),tabControl.length,submitButton);                  
@@ -169,7 +171,7 @@ checkMimeTypeFile = (submitButton,tabControl) => {
         ($("input[name='content[type]']:checked").val() == "Image" && (valueFile.endsWith(".jpg")||valueFile.endsWith(".jpeg")||valueFile.endsWith(".png")||valueFile.endsWith(".gif"))) ||
         ($("input[name='content[type]']:checked").val() == "Musique" && valueFile.endsWith(".mp3")) ||
         ($("input[name='content[type]']:checked").val() == "Vidéo" && valueFile.startsWith("https://www.youtube.com/embed/"))) {
-            dataValidation(tabControl,false,submitButton);       
+            dataValidation(tabControl,false,submitButton,true);       
         } else {
             submitCreate.setAttribute("disabled",true);
         }
@@ -177,13 +179,13 @@ checkMimeTypeFile = (submitButton,tabControl) => {
             const value = $("#content_mediaPathFile").val();
             if( $("input[name='content[type]']:checked").val() != "Musique") {
                 if(value.endsWith(".jpg") || value.endsWith(".jpeg") || value.endsWith(".png") || value.endsWith(".gif")) {
-                    dataValidation(tabControl,false,submitButton);
+                    dataValidation(tabControl,false,submitButton,true);
                 } else {
                     submitCreate.setAttribute("disabled",true);
                 } 
             } else {
                 if(value.endsWith(".mp3")) {
-                    dataValidation(tabControl,false,submitButton);
+                    dataValidation(tabControl,false,submitButton,true);
                 } else {
                     submitCreate.setAttribute("disabled",true);
                 } 
@@ -192,7 +194,7 @@ checkMimeTypeFile = (submitButton,tabControl) => {
         $(document).on("input","#content_mediaPathUrl", function() { 
             let value = $("#content_mediaPathUrl").val(); 
             if(value.startsWith("https://www.youtube.com/embed/")) {
-                dataValidation(tabControl,false,submitButton);
+                dataValidation(tabControl,false,submitButton,true);
             } else {
                 submitCreate.setAttribute("disabled",true);
             }  

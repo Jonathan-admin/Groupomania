@@ -10,7 +10,6 @@
     margin: 10px 0;
     color: nth($text-colors,2);
     padding: 10px;
-    border: 2px solid nth($border-colors,3);
 }
 
 i.errorRole {
@@ -21,6 +20,7 @@ i.errorRole {
 .error {
     color: nth($text-colors,1);
     background: nth($background-message,2);
+    border: 2px solid nth($border-colors,3);
     
 }
 .success {
@@ -148,3 +148,19 @@ div.col-xl-3.forum__thumbnail {
         font-size: 1.3em;
     }
 }
+
+.forum,
+.space-member {
+    span.badge {
+        font-size: 1.4em;
+        position: relative;
+        bottom: 20px;
+        right: 20px;
+    }
+    span:not(.badge-light).badge {
+        text-shadow: 2px 2px 2px black;
+        box-shadow: 2px 2px 2px white;
+    }
+}
+
+

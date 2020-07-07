@@ -114,8 +114,8 @@
                                             <td> {{ content.title }} </td>
                                             {% if content.status == "Vérifié" %} 
                                                 <td><i class="fas fa-check-square"> {{ content.status }}</i></td>
-                                            {% elseif content.status == "Vérification en attente" %} 
-                                                <td><i class="fas fa-times-circle"> En attente</i></td>
+                                            {% elseif content.status == "En attente de vérifications" %} 
+                                                <td><i class="fas fa-times-circle"> En attente de vérifications</i></td>
                                             {% elseif content.status == "Suspendu" %} 
                                                 <td><i class="fas fa-minus-square"> {{ content.status }}</i></td>
                                             {% else %}

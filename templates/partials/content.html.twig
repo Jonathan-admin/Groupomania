@@ -16,7 +16,7 @@
         {% if content.status == "Vérifié" %} 
             <span class="badge badge-success"><i class="fas fa-check-square"> {{ content.status }}</i></span>
         {% elseif content.status == "En attente de vérifications" %} 
-            <span><i class="badge badge-light"> {{ content.status }}</i></span>
+            <span class="badge badge-light"><i class="fas fa-times-circle"> {{ content.status }}</i></span>
         {% elseif content.status == "Suspendu" %} 
             <span class="badge badge-danger"><i class="fas fa-minus-square"> {{ content.status }}</i></span>
         {% else %}

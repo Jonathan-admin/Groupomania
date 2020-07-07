@@ -109,7 +109,7 @@ const getContentsToDisplay = data => {
         let status = "";
         if(data.contents[index].status == "Vérifié" ) {
             status = "<i class='fas fa-check-square'> "+data.contents[index].status+"</i>";
-        } else if(data.contents[index].status == "Vérifications en cours") {
+        } else if(data.contents[index].status == "En attente de vérifications") {
             status = "<i class='fas fa-times-circle'> "+data.contents[index].status+"</i>";
         } else if(data.contents[index].status == "Suspendu") {
             status = "<i class='fas fa-minus-square'> "+data.contents[index].status+"</i>";

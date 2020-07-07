@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Groupomania - Créer un nouveau contenu{% endblock %}
+{% block title %}Groupomania - Créer ou modifier un contenu{% endblock %}
+
 {% block javascript %}
     <script src="{{ asset('scripts/create_content.js') }}" defer></script>
 {% endblock %}
@@ -11,7 +12,11 @@
         {{ include("partials/navbar.html.twig") }}
     </div>
     <main class="create">
-        <h2>Création d'un nouveau contenu</h2>
+        {% if idContent != null %}
+            <h2>Modification d'un contenu</h2>
+        {% else %}
+            <h2>Création d'un nouveau contenu</h2>
+        {% endif %}
         <p>Afin de mettre en ligne du contenu sur le réseau, merci de renseigner le formulaire ci-dessous.</p>
         {{ form_start(form, {'attr': {'class': 'form-style'}}) }}
             <div class="create__form row">  
@@ -54,8 +59,14 @@
                 </div> 
             </div>
             <div class="form-style__buttons form-style__buttons--left">
-                <button id="create" type="submit" class="btn btn--valid" >Créer un nouveau contenu</button>
-                <button id="restore" type="button" class="btn btn--cancel">Revenir à mon espace personnel</button>
+                {% if idContent != null %}
+                    <button id="editContent" type="submit" class="btn btn--valid" >Modifier ce contenu</button>
+                    <a id="cancel" href="{{ path('content_view',{'id':idContent}) }}" type="button" class="btn btn--cancel">Revenir à mon contenu</a>
+                {% else %}
+                    <button id="editContent" type="submit" class="btn btn--valid" >Créer un nouveau contenu</button>
+                    <a id="cancel" href="{{ path('groupomania_spaceMember') }}" type="button" class="btn btn--cancel">Revenir à mon espace personnel</a>
+                {% endif %}
+                
             </div>  
         {{ form_end(form) }}
     </main> 

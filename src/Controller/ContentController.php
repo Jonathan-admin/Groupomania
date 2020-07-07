@@ -20,7 +20,7 @@ class ContentController extends AbstractController
      * @Route("/espace_membre/nouveau_contenu", name="content_create")
      * @Route("/espace_membre/modification_contenu/{id}", name="content_modify")
      */
-    public function create(Request $request, Content $content = null, EntityManagerInterface $manager)
+    public function edit(Request $request, Content $content = null, EntityManagerInterface $manager)
     {  
         if(!$content) { 
             $content = new Content();
@@ -54,7 +54,7 @@ class ContentController extends AbstractController
                 }
             }
             $content->setUsername($this->getUser())
-                    ->setStatus("En attente de vérifications") ;      
+                    ->setStatus("En attente de vérifications");           
             if(!$content->getId()) {
                 $content->setCreatedAt(new \DateTime());
             }
@@ -67,7 +67,8 @@ class ContentController extends AbstractController
         return $this->render('content/create.html.twig',[
             'form' => $form->createView(),
             'mediaPathFile' => $mediaPathFile,
-            'mediaPathUrl' => $mediaPathUrl
+            'mediaPathUrl' => $mediaPathUrl,
+            'idContent' => $content->getId()
         ]);
     }
 
@@ -82,7 +83,7 @@ class ContentController extends AbstractController
         }
         $manager->remove($contentObjet);
         $manager->flush();
-        return $this->redirectToRoute('groupomania_space_member');
+        return $this->redirectToRoute('groupomania_spaceMember');
     }
 
      /**
@@ -108,11 +109,15 @@ class ContentController extends AbstractController
         $valParametersFilterContents = $session->get('SearchparametersContent');
         $searchContentRequest = $contentRepo->requetefilterBuilder($valParametersFilterContents['type'],$valParametersFilterContents['topic'],
         $valParametersFilterContents['author'],$valParametersFilterContents['title'], $valParametersFilterContents['sorting']);
-        $contentsSearchPagination = $paginator->paginate(
-            $searchContentRequest,
-            $request->query->getInt('page',1),
-            8
-        ); 
+        if($searchContentRequest != null) {
+            $contentsSearchPagination = $paginator->paginate(
+                $searchContentRequest,
+                $request->query->getInt('page',1),
+                8
+            ); 
+        } else {
+            $contentsSearchPagination = null;
+        }
         return $this->render('content/searchDisplay.html.twig', [
             array('session' => $session),
             'contentsSearchPaginate' => $contentsSearchPagination

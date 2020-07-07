@@ -29,7 +29,7 @@ class AppFixtures extends Fixture
         $status = array("En attente de vérifications", "Bloqué", "Vérifié", "Suspendu");
         $likesType = array("Like", "Dislike");
 
-        for($i=1;$i<=100;$i++) {
+        for($i=1;$i<=10;$i++) {
             $user = new User();
             $hash = $this->encoder->encodePassword($user,$i."Km@pieds");
             $user->setUsername($faker->userName())
@@ -38,20 +38,38 @@ class AppFixtures extends Fixture
                  ->setSubscribeAt($faker->dateTimeBetween('- 6 months'));
             $manager->persist($user);
 
-            for($j=1;$j<=mt_rand(0,25);$j++) {
+            for($j=1;$j<=mt_rand(0,5);$j++) {
                 $content = new Content();
                 $content->setUsername($user)
                         ->setTitle($faker->sentence(8))
-                        ->setMessage("<p>".join($faker->paragraphs(5),"</p><p>")."<\p>")
-                        ->setTopic($topic[array_rand($topic, 1)])
-                        ->setType($type[array_rand($type, 1)])
-                        ->setCreatedAt($faker->dateTimeBetween('- 6 months'))
-                        ->setMediaPathUrl(null)
-                        ->setMediaPathFile(null)
-                        ->setStatus($status[array_rand($status, 1)]);
+                        ->setMessage("".join($faker->paragraphs(5))."")
+                        ->setTopic($topic[array_rand($topic, 1)]);
+                $typeContent = $type[array_rand($type, 1)];
+                $content->setType($typeContent);
+                if($typeContent == "Texte") {   
+                        $content->setMediaPathUrl(null)
+                            ->setMediaPathFile(null);
+                } else if ($typeContent == "Image") {
+                    $arrayMediaPathFile = explode("/",$faker->image($dir = __DIR__.'/../../public/uploadFile/images/',$width=640,$height=480));
+                    $content->setMediaPathUrl(null)
+                            ->setMediaPathFile($arrayMediaPathFile[count($arrayMediaPathFile)-1]);
+                } else if ($typeContent == "Musique") {
+                    $arrayMediaPathFile = explode("/",$faker->file($sourceDir  = __DIR__.'/../../public/uploadFile/fixtures/',
+                    $targetDir = __DIR__.'/../../public/uploadFile/musics/'));
+                    $content->setMediaPathUrl(null)
+                            ->setMediaPathFile($arrayMediaPathFile[count($arrayMediaPathFile)-1]);
+                } else if ($typeContent == "Vidéo") {
+                    $content->setMediaPathUrl("https://www.youtube.com/embed/bBt4o5zrtJQ")
+                            ->setMediaPathFile(null);
+                } else {
+                    $content->setMediaPathUrl(null)
+                            ->setMediaPathFile(null);
+                }
+                $content->setCreatedAt($faker->dateTimeBetween('- 6 months'))
+                    ->setStatus($status[array_rand($status, 1)]);
                 $manager->persist($content);
 
-                for($k=1;$k<=mt_rand(0,100);$k++){
+                for($k=1;$k<=mt_rand(0,10);$k++){
                     $likes = new Likes();
                     $likes->setContent($content)
                          ->setType($likesType[array_rand($likesType, 1)])
@@ -60,10 +78,10 @@ class AppFixtures extends Fixture
                     $manager->persist($likes);
                 }
 
-                for($k=1;$k<=mt_rand(0,100);$k++){
+                for($k=1;$k<=mt_rand(0,10);$k++){
                     $comments = new Comments();
                     $comments->setContent($content)
-                             ->setMessage("<p>".join($faker->paragraphs(3),"</p><p>")."<\p>")
+                             ->setMessage("".join($faker->paragraphs(2))."")
                              ->setAuthor($faker->userName())
                              ->setCreatedAt($faker->dateTimeBetween('- 6 months'));
                     $manager->persist($comments);

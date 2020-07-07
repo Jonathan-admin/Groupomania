@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -43,12 +44,12 @@ class ContentType extends AbstractType
                         'Vidéo (Url vidéos youtube)' => 'Vidéo',
                         'Image (PNG, JPEG, GIF)' => 'Image'),
                 'multiple'=>false,'expanded'=>true))
-            ->add('mediaPathUrl', TextType::class,[
+            ->add('mediaPathUrl', UrlType::class,[
                 'attr' => ['placeholder' => 'Indiquez le lien url de la vidéo ici ...'], 'required'=> false
             ])
             ->add('mediaPathFile', FileType::class,[
                 'required'   => false,
-                'data_class' => null
+                'data_class' => null,
             ])
         ;
     }
