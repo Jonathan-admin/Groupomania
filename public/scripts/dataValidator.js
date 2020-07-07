@@ -126,7 +126,7 @@ const detectPageUrl = () => {
     } else if (document.location.href == "http://127.0.0.1:8000/" || document.location.href.indexOf("Rechercher_des_contenus")>0) {
         page = 2; 
     } else if (document.location.href.indexOf("nouveau_contenu")>0 ||  document.location.href.indexOf("modification_contenu")>0) {
-        page = 3;  alert("poi");
+        page = 3;  
     } else if (document.location.href.indexOf("/forum/contenu/")>0 ) {
         page = 4; 
     }

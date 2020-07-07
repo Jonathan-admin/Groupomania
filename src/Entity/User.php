@@ -10,6 +10,7 @@ use App\Repository\UserRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Json;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -71,7 +72,7 @@ class User implements UserInterface
      /**
      * @ORM\Column(type="json")
      */
-    private $roles = ['ROLE_USER'];
+    private $roles = [];
 
     /**
      * @ORM\OneToMany(targetEntity=Content::class, mappedBy="username", orphanRemoval=true)
@@ -140,7 +141,12 @@ class User implements UserInterface
 
     public function getSalt() {}
 
-    public function getRoles() {
+    public function setRolesUser(Array $role) {
+        $this->roles = $role;
+        return $this;
+    }
+
+    public function getRoles(): array {
         return $this->roles;
     }
 

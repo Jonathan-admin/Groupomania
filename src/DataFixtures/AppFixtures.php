@@ -10,6 +10,7 @@ use App\Entity\User;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Validator\Constraints\Json;
 
 class AppFixtures extends Fixture
 {
@@ -30,12 +31,20 @@ class AppFixtures extends Fixture
         $likesType = array("Like", "Dislike");
 
         for($i=1;$i<=10;$i++) {
+
             $user = new User();
             $hash = $this->encoder->encodePassword($user,$i."Km@pieds");
             $user->setUsername($faker->userName())
                  ->setPassword($hash)
                  ->setEmail($faker->email())
                  ->setSubscribeAt($faker->dateTimeBetween('- 6 months'));
+            if($i==1) {
+                $user->setRolesUser(array("ROLE_DEL_ADMIN"));
+            } else if ($i%2 == 0) {
+                $user->setRolesUser(array("ROLE_USER","ROLE_ADMIN"));
+            } else {
+                $user->setRolesUser(array("ROLE_USER"));
+            }
             $manager->persist($user);
 
             for($j=1;$j<=mt_rand(0,5);$j++) {
