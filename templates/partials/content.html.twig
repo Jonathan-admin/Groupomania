@@ -9,7 +9,7 @@
         <div class="col-sm-6 col-md-6 col-lg-4 col-xl-3 forum__thumbnail forum__thumbnail--bkg-mus">
     {% endif %} 
     {% if content.status == "Bloqué" and homePage == 1 %}
-        <a class="disabled">
+        <div class="disabled">
     {% else %}
         <a href="{{ path('content_view',{'id':content.id}) }}">
     {% endif %}
@@ -33,5 +33,10 @@
                 </div>
             </div>
         {% endif %}
+    {% if content.status == "Bloqué" and homePage == 1 %}
+        </div>
+    {% else %}
+        </a>
+    {% endif %}
     </a>
 </div>

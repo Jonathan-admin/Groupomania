@@ -9,6 +9,17 @@
         h2 {
             font-size: 1.5em;
         }
+        a {
+            transition: transform 0.3s 0s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+            &:hover {
+                transform: scaleY(1.2);
+                box-shadow: 2px 2px 20px black;
+            }
+            &:focus {
+                border: 3px solid nth($border-colors,2);
+                box-shadow: 2px 2px 20px nth($border-colors,2);
+            }
+        }
         @media screen and (max-width: 600px) {
             display: flex;
             flex-direction: column-reverse;

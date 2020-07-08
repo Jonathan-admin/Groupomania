@@ -101,6 +101,9 @@ h4 {
         font-size: 1.8em;
         font-weight: bold;
         color: nth($text-colors,3);
+        &:hover {
+            border-bottom: 4px solid nth($text-colors,3);
+        }
     }
     .page a,
     .next a, 
@@ -112,6 +115,13 @@ h4 {
         padding: 0 3px;
         position: relative;
         top: 3px;
+        &:hover {
+            border-bottom: 2px solid nth($text-colors,2);
+        }
+        &:focus {
+            border-radius: 50%;
+            border: 2px groove nth($border-colors,3);
+        }
     }
 }
 
@@ -136,6 +146,9 @@ div.col-xl-3.forum__thumbnail {
                 color: nth($text-colors,1);
                 cursor: pointer;
             }
+        }
+        &:focus, &:hover {
+            box-shadow: 2px 2px 35px nth($border-colors,3);
         }
     }
 }

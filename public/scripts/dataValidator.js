@@ -43,6 +43,18 @@ var dataControlComment = [
 
 $(document).ready(function() { 
     $(".form-error-icon").text("ERREUR");
+    $("input").hover(function(){
+            $(this).css("border-width","2px");
+        }, function() {
+            $( this ).css("border-width","1px");
+        }
+    );
+    $("input").focus(function(){
+        $(this).css("border-width","2px");
+    });
+    $("input").focusout(function(){
+        $(this).css("border-width","1px");
+    });
     switch (detectPageUrl()) { 
         case 0:
             dataValidation(dataControlAuth,false,submitAuth,true);
@@ -72,7 +84,7 @@ $(document).ready(function() {
 
 const markData = (elt,regex,event,label) => {  // Valide la saisie suite à un évènement sur le contrôle
     if(regex.test(event.target.value)) {                    // Test le regex de validité de la saisie
-        elt.style.border = "1px solid rgb(196, 186, 196)";  // Affiche le message success dans la balise précédente
+        elt.style.border = "1px solid rgb(9,31,67)";  
         elt.previousElementSibling.innerHTML = label.split("-")[0]+"<i class='fa fa-check-circle'></i>";
         return true;
     } else {
@@ -85,12 +97,12 @@ const markData = (elt,regex,event,label) => {  // Valide la saisie suite à un �
     }
 }
 
-const markDataLoad = (elt,regex,label) => {        // Valide la saisie au chargement de la page
+const markDataLoad = (elt,regex,label) => { 
+    elt.style.border = "1px solid rgb(9,31,67)";           // Valide la saisie au chargement de la page
     if(regex.test(elt.value)) {                                     // Test le regex de validité de la saisie
-        elt.style.border = "1px solid rgb(196, 186, 196)";          // Affiche le message success dans la balise précédente
         elt.previousElementSibling.innerHTML = label.split("-")[0]+"<i class='fa fa-check-circle'></i>";
         return true;
-    } else {      
+    } else {    
         if(elt.value!="") {                   // Affiche le message d'erreur dans la balise précédente
             elt.style.border = "1px solid red";
             elt.previousElementSibling.innerHTML = label.split("-")[0]+"<span class='error'><i class='fa fa-times-circle'></i>"+label.split("-")[1]+"</span>";

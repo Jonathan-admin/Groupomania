@@ -41,6 +41,21 @@
         padding: 0 20px;
         width: 100%;
         z-index: 1;
+        a {
+            color: nth($text-colors,1);
+            &:hover {
+                text-decoration: underline;
+                font-style: italic;
+            }
+            &:focus {
+                padding: 5px;
+                background-color:nth($background-colors,1);
+                position: relative;
+                bottom: 10px;
+                color: nth($text-colors,2);
+                box-shadow: 2px 2px 20px black;
+            }
+        }
     }
     @media screen and (max-width: 560px) {
         height: 300px;

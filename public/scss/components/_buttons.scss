@@ -4,26 +4,24 @@ a, button:enabled, i:enabled {
         &:hover, &:focus {
             box-shadow: 2px 2px 10px black;
             font-style: unset;
+            color: nth($text-colors,1);
         }
         &--valid {
             background: nth($button-bkg-valid,1);
             &:hover, &:focus {
                 background: nth($button-bkg-valid,2);
-                color: nth($text-colors,1);
             }
         }
         &--cancel {
             background: nth($button-bkg-cancel,1);
             &:hover {
                 background: nth($button-bkg-cancel,2);
-                color: nth($text-colors,1);
             }
         }
         &--other {
             background: nth($button-bkg-other,1);
             &:hover, &:focus {
                 background: nth($button-bkg-other,2);
-                color: nth($text-colors,1);
             }
         }
     }

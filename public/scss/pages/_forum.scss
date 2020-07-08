@@ -8,7 +8,7 @@
         }
     }
     &__thumbnail {
-        & > a {
+        & > a, & > div {
             display: block;
             overflow: auto;
             min-height: 275px;
@@ -54,7 +54,7 @@
                     }
                 }
             }
-            &:not(.disabled):hover {
+            &:not(.disabled):hover, &:not(.disabled):focus {
                 text-decoration: none;
                 color: nth($text-colors,2);
                 font-style: normal;
@@ -74,28 +74,28 @@
             }
         }
         &--bkg-text {
-            & > a {
+            & > a, & > div {
                 &::before {
                     background-image: url("../../images/text.jpg");
                 }
             }
         }
         &--bkg-img {
-            & > a {
+            & > a, & > div {
                 &::before {
                     background-image: url("../../images/appareil-photo.jpg");
                 }
             }
         }
         &--bkg-mus {
-            & > a {
+            & > a, & > div {
                 &::before {
                     background-image: url("../../images/music.jpg");
                 }
             }
         }
         &--bkg-vid {
-            & > a {
+            & > a, & > div {
                 &::before {
                     background-image: url("../../images/videos.jpg");
                 }

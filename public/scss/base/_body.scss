@@ -13,11 +13,8 @@ body, html {
 
 a {
     text-decoration: none;
-    color: nth($text-colors,1);
     &:hover, &:focus {
-        color: nth($text-colors,1);
         text-decoration: none;
-        font-style: italic;
     }
 }
 

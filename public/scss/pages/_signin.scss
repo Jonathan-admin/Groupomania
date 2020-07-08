@@ -4,9 +4,6 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 100%;
-    p > a {
-        color: nth($text-colors,2);
-    }
     & > div {
         margin-top: 100px;
     }
@@ -30,6 +27,15 @@
         background-color: rgba(255, 255, 255, 0.856);
         color: nth($text-colors,2);
         padding: 20px;
+        .form-style > a {
+            color: nth($text-colors,2);
+            &:focus {
+                padding: 5px;
+                background-color:nth($background-colors,1);
+                color: nth($text-colors,2);
+                box-shadow: 2px 2px 20px black;
+            }
+        }
         h1 {
             border-bottom: 4px solid nth($border-colors,2);
             font-size: 2.0em;
