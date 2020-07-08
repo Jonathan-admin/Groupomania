@@ -147,8 +147,8 @@ div.col-xl-3.forum__thumbnail {
                 cursor: pointer;
             }
         }
-        &:focus, &:hover {
-            box-shadow: 2px 2px 35px nth($border-colors,3);
+        &:focus {
+            box-shadow: 2px 2px 25px nth($border-colors,3);
         }
     }
 }

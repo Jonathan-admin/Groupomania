@@ -33,6 +33,7 @@ class ContentController extends AbstractController
         }
         $form = $this->createForm(ContentType::class, $content);
         $form->handleRequest($request);
+        dump($request);
         if($form->isSubmitted() && $form->isValid()) {
             $type = $request->request->get('content')['type'];
             $file = $form['mediaPathFile']->getData();
@@ -42,8 +43,16 @@ class ContentController extends AbstractController
                     if($mediaPathFile != "") {
                         $content->deleteFile($mediaPathFile,$oldType);
                     }
-                    $content->setFiles($file)
-                            ->setMediaPathFile($content->uploadMediaFile($mediaPathFile,$type));
+                    $content->setFiles($file);
+                    if(!$content->validMediaFile($type)) {
+                        return $this->render('content/create.html.twig',[
+                            'form' => $form->createView(),
+                            'mediaPathFile' => $mediaPathFile,
+                            'mediaPathUrl' => $mediaPathUrl,
+                            'idContent' => $content->getId()
+                        ]);
+                    }
+                    $content->setMediaPathFile($content->uploadMediaFile($mediaPathFile,$type));
                 } else {
                     $content->setMediaPathFile($mediaPathFile);
                 }

@@ -35,9 +35,7 @@ class Comments
     private $createdAt;
 
     /**
-      @ORM\Column(type="text", length=2000)
-      @Assert\Regex("/^$/",
-     * message="Vous avez inscrit des caractères non autorisés dans le message. Il ne sera donc pas pris en compte.")
+     * @ORM\Column(type="text", length=2000)
      */
     private $message;
 
@@ -92,5 +90,13 @@ class Comments
         $this->message = $message;
 
         return $this;
+    }
+
+    public function checkMessage(string $message)
+    {
+        if(preg_match("/^[^&'\{\[\<\>\]\}#=@$\s]{1}[^&\{\[\<\>\]\}#=@$]{9,1990}+$/", $message)) {
+            return true;
+        }
+        return false;       
     }
 }

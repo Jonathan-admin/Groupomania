@@ -11,7 +11,7 @@
                 <div class="view__comments-head">
                     <span>{{ "N°"~loop.index }}</span>
                     <span>Posté par {{ comment.author ~" le "~ comment.createdAt | date("d/m/Y à h:m:s") }}
-                        {% if app.user.username == comment.author %} 
+                        {% if app.user.username == comment.content.username.username %} 
                             <i class="fas fa-trash-alt" data-url="{{ path('comment_delete',{'id':comment.content.id, 'idComment': comment.id}) }}"></i>
                         {% endif %}
                     </span>

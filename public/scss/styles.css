@@ -194,12 +194,10 @@ div.col-xl-3.forum__thumbnail {
       background-color: #d1515a;
       color: white;
       cursor: pointer; }
-    .space-member table:focus, .space-member table:hover,
+    .space-member table:focus,
     .space-admin__usersList table:focus,
-    .space-admin__usersList table:hover,
-    .space-admin__contentsList table:focus,
-    .space-admin__contentsList table:hover {
-      box-shadow: 2px 2px 35px #091f43; }
+    .space-admin__contentsList table:focus {
+      box-shadow: 2px 2px 25px #091f43; }
 
 .reduce {
   cursor: pointer;

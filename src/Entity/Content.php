@@ -84,7 +84,7 @@ class Content
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
 
-          * @Assert\File(
+     * @Assert\File(
      * maxSize="10m",
      * maxSizeMessage="Le fichier excède 1000Ko.")
      */
@@ -290,6 +290,17 @@ class Content
         $path = date('His')."_".$this->file->getClientOriginalName();
         $this->file->move($this->getUploadRootDir($type),$path);
         return $path;
+    }
+
+    public function validMediaFile(String $type)
+    { 
+        $mimeType = $this->file->getMimeType();
+        dump($mimeType);
+        if($mimeType=="audio/mpeg" && $type=="Musique" || 
+        $mimeType=="image/jpeg" && $type=="Image") {
+            return true;
+        } 
+        return false;
     }
 
     public function deleteFile(String $path, String $type) { 

@@ -31,7 +31,7 @@ const likingContent = (url,role) => {
         success: function (data) { 
             $("#sys-like").html(data).attr("data-user", data.contentUser);
         },       
-        error:function (jqXHR, exception) {
+        error:function () {
             $("#messageServer").html("<i class='fas fa-times'> En raison d\'une erreur survenue, le like n'a pas été enregistré!.</i>");
             $("#messageServer").attr("class","error");
         }
@@ -39,6 +39,8 @@ const likingContent = (url,role) => {
 }
 
 const createComment = (url,message) => {  
+    $("#viewWriting").css("display","none");
+    $("#viewWriting").next().css("display","block");
     $.ajax({ 
         type: 'POST',       
         url: url,
@@ -47,12 +49,10 @@ const createComment = (url,message) => {
         },
         success: function (data) { 
             $("#viewComments").html(data);
-            $("#viewWriting").css("display","none");
-            $("#viewWriting").next().css("display","block");
         },       
-        error:function (jqXHR, exception) {
-            $("#messageServerComment").html("<i class='fas fa-times'> En raison d\'une erreur survenue, le commentaire n'a pas été enregistré!.</i>");
+        error:function () {
             $("#messageServerComment").attr("class","error");
+            $("#messageServerComment").html("<i class='fas fa-times'> En raison d\'une erreur survenue, le commentaire n'a pas été enregistré!.</i>");
         }
     });
 }
@@ -67,7 +67,7 @@ const deleteComment = url => {
         success: function (data) { 
             $("#viewComments").html(data);
         },       
-        error:function (jqXHR, exception) {
+        error:function () {
             $("#messageServerComment").html("<i class='fas fa-times'> En raison d\'une erreur survenue, le commentaire n'a pas été supprimé!.</i>");
             $("#messageServerComment").attr("class","error");
         }

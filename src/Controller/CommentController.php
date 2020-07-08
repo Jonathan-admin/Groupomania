@@ -19,13 +19,15 @@ class CommentController extends AbstractController
     public function create($id, EntityManagerInterface $manager, Request $request, ContentRepository $contentRepo, CommentsRepository $commentRepo) 
     {
         $comment = new Comments();
-        $comment->setAuthor($this->getUser()->getUsername())
-                ->setMessage($request->request->get('message'))
-                ->setCreatedAt(new \DateTime())
-                ->setContent($contentRepo->find($id));
-        $manager->persist($comment);
-        $manager->flush();
-        return $this->redirectToRoute('comment_view',['id' => $id]);
+        if($comment->checkMessage($request->request->get('message'))){
+            $comment->setAuthor($this->getUser()->getUsername())
+                    ->setMessage($request->request->get('message'))
+                    ->setCreatedAt(new \DateTime())
+                    ->setContent($contentRepo->find($id));
+            $manager->persist($comment);
+            $manager->flush();
+        }
+        return $this->redirectToRoute('comment_view',['id' => $id]); 
     }
 
      /**

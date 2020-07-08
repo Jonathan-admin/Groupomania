@@ -31,7 +31,7 @@
                     <section class="col-lg-6">
                         <h4 id="userCount">Utilisateurs actuellement inscrits ({{ allUsers | length }}) <i id="refreshUser" class="fas fa-sync" data-url="{{ path('admin_refreshUsers') }}"></i></h4>
                         <div id="usersList" class="space-admin__usersList">
-                            <table>
+                            <table tabindex="0">
                                 <tr class="bg-blue-head">
                                     <th>Matricule</th>
                                     <th>Pseudo</th>
@@ -97,7 +97,7 @@
                     <section class="col-lg-6">
                         <h4 id="contentCount">Contenus actuellement enregistrés ({{ allContents | length }}) <i id="refreshContent" class="fas fa-sync" data-url="{{ path('admin_refreshContents') }}"></i></h4>
                         <div id="contentsList" class="space-admin__contentsList">
-                            <table>
+                            <table tabindex="0">
                                 <tr class="bg-blue-head">
                                     <th>Référence</th>
                                     <th>Titre</th>

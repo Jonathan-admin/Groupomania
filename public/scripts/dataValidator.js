@@ -36,7 +36,7 @@ var dataControlCreate = [
 ];
 
 var dataControlComment = [                                 
-    [$("#comment"),/^[^&'\{\[\<\>\]\}#=@$%\s]{1}[^&'\{\[\<\>\]\}#=@$%]{1,1990}$/i,true,
+    [$("#comment"),/^[^&'\{\[\<\>\]\}#=@$%\s]{1}[^&'\{\[\<\>\]\}#=@$%]{9,1990}$/i,true,
     "Votre commentaire - Vous avez inscrit des caractères non autorisés dans le message ou il est trop long. Il doit être d'au moins 10 caractères et ne pas dépasser 2000 caractères."],
 ];
 
