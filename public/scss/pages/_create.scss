@@ -46,6 +46,10 @@
         .custom-file {
             .custom-file-label {
                 opacity: 0;
+                display: none;
+                &::after {
+                    display: none;
+                }
             }
         }
     }

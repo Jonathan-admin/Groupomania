@@ -21,6 +21,10 @@
             &.badge-light {
                 text-shadow: unset;
             }
+            &.badge-success {
+                background-color: rgb(0, 119, 0);
+                text-shadow: unset;
+            }
         }
         @media screen and (max-width: 600px) {
             display: flex;
@@ -35,6 +39,12 @@
             padding-right: 0px;
             padding-left: 0px;
         }
+        i.cursor {
+            cursor: pointer;
+            &:focus, &:hover {
+                text-shadow: 2px 2px 10px nth($text-colors,2);
+            }
+        }        
         ul {
             padding-left: 0;
             & > li {

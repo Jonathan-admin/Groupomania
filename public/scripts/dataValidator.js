@@ -126,7 +126,7 @@ const getNbcheckInput = (tabControl) => {
 disableButtonSubmit = (nbInputCheck,tabLength,submitButton) => { 
     if(nbInputCheck==tabLength) {         
         submitButton.removeAttribute("disabled");
-        if(mediaPathButton!=null) {alert(mediaPathButton);
+        if(mediaPathButton!=null) {
             mediaPathButton.removeAttribute("disabled");
         }
     } else {   

@@ -48,7 +48,7 @@
                             </div>
                         {% elseif content.type == "Musique" %}
                             <div class="view__content--mus">
-                                <figure tabindex="0">
+                                <figure>
                                     {% set arrayPath = content.media_path_file | split("_") %}
                                     <figcaption>{{ arrayPath[arrayPath | length-1] }}</figcaption>
                                     <audio 
@@ -79,14 +79,14 @@
                             <i class="fas fa-thumbs-up disabled"> {{ content.nbLikes }}</i> 
                             <i class="fas fa-thumbs-down disabled"> {{ content.nbDislikes }}</i> 
                         {% elseif content.isLiked %}
-                            <i class="fas fa-thumbs-up" data-role=0 data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbLikes }}</i> 
+                            <i class="fas fa-thumbs-up cursor" tabindex="0" aria-label="Annuler mon like" data-role=0 data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbLikes }}</i> 
                             <i class="fas fa-thumbs-down disabled"> {{ content.nbDislikes }}</i> 
                         {% elseif content.isDisliked %}
                             <i class="fas fa-thumbs-up disabled"> {{ content.nbLikes }}</i> 
-                            <i class="fas fa-thumbs-down" data-role=0 data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbDislikes }}</i> 
+                            <i class="fas fa-thumbs-down cursor" tabindex="0" data-role=0 aria-label="Annuler mon like" data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbDislikes }}</i> 
                         {% else %} 
-                            <i class="far fa-thumbs-up" data-role=1 data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbLikes }}</i> 
-                            <i class="far fa-thumbs-down" data-role=-1 data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbDislikes }}</i> 
+                            <i class="far fa-thumbs-up cursor"tabindex="0" aria-label="J'aime ce contenu" data-role=1 data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbLikes }}</i> 
+                            <i class="far fa-thumbs-down cursor" tabindex="0" aria-label="Je n'aime pas ce contenu" data-role=-1 data-url="{{ path('content_like',{'id':content.id}) }}"> {{ content.nbDislikes }}</i> 
                         {% endif %}
                         </div>
                     </div>
