@@ -14,7 +14,9 @@ $(document).ready(function() {
 
 const navbarActiveItems = () => {
     $(".nav-link i").removeClass("active");
-    if (document.location.href == "http://127.0.0.1:8000/" || document.location.href.indexOf("http://127.0.0.1:8000/forum")>=0) { 
+    if (document.location.href == "http://127.0.0.1:8000/" ||
+    document.location.href.indexOf("http://127.0.0.1:8000/forum")>=0 || 
+    document.location.href.indexOf("http://127.0.0.1:8000/?page=")>=0) { 
         $(".navbar .nav-item:nth-child(1) i").addClass("active");
     } else if (document.location.href.indexOf("espace_membre")>0 ) {
         $(".navbar .nav-item:nth-child(2) i").addClass("active");
