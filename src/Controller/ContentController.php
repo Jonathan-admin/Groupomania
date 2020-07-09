@@ -157,7 +157,6 @@ class ContentController extends AbstractController
             'sorting' => $request->request->get('sorting')
         );
         $session->set('SearchparametersContent',$parameters);
-
         return $this->redirectToRoute('content_filterView');
     }
 
