@@ -4,7 +4,7 @@
     background-size: 100% 100%;
 }
 
-.error, .success {
+.error, .success, span.form-error-message {
     display: block;
     font-size: 1em;
     margin: 10px 0;
@@ -17,12 +17,19 @@ i.errorRole {
     padding: 10px 15px;
 }
 
-.error {
+.error, span.form-error-message {
     color: nth($text-colors,1);
     background: nth($background-message,2);
     border: 2px solid nth($border-colors,3);
     
 }
+
+span.form-error-message {
+    i {
+        margin-right: 10px;
+    }
+}
+
 .success {
     color: nth($text-colors,4);
 }

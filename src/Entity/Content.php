@@ -87,6 +87,9 @@ class Content
      * @Assert\File(
      * maxSize="10m",
      * maxSizeMessage="Le fichier excède 1000Ko.")
+     * mimeTypes={"image/png", "image/jpeg","image/gif", "audio/mpeg", "application/octet-stream"},
+     * mimeTypesMessage= "Les formats autorisés sont png, jpeg et gif pour les images et le format mp3 uniquement pour les musiques."
+     * )
      */
     private $mediaPathFile;
     
@@ -296,8 +299,8 @@ class Content
     { 
         $mimeType = $this->file->getMimeType();
         dump($mimeType);
-        if($mimeType=="audio/mpeg" && $type=="Musique" || 
-        $mimeType=="image/jpeg" && $type=="Image") {
+        if(($mimeType=="application/octet-stream"||$mimeType=="audio/mpeg")&&$type=="Musique" || 
+        ($mimeType=="image/jpeg"||$mimeType=="image/png"||$mimeType=="image/gif") && $type=="Image") {
             return true;
         } 
         return false;

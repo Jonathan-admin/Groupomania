@@ -2,6 +2,7 @@ const submitAuth = document.getElementById("submit");
 const submitSeach = document.getElementById("searchContent_button"); 
 const submitCreate = document.getElementById("editContent");
 const submitComment = document.getElementById("sendComment-button");
+var mediaPathButton = null; 
 
 var dataControlAuth = [                                  // Tableau multidimentionnel stockant les informations des contrôles du formulaire d'authentification
     [document.getElementById("login"),/^[a-zA-Z0-9_.]{3,25}$/i,true,
@@ -42,7 +43,7 @@ var dataControlComment = [
 
 
 $(document).ready(function() { 
-    $(".form-error-icon").text("ERREUR");
+    $(".form-error-message").prepend("<i class='fa fa-times-circle'></i>");
     $("input").hover(function(){
             $(this).css("border-width","2px");
         }, function() {
@@ -67,6 +68,7 @@ $(document).ready(function() {
             dataValidation(dataControlSearch,false,submitSeach,true);
             break;
         case 3: 
+            mediaPathButton = document.getElementById("content_mediaPathFile");
             dataValidation(dataControlCreate,false,submitCreate,true);
             $(document).on("change","#content_type", function(){  
                 checkMimeTypeFile(submitCreate,dataControlCreate);
@@ -117,15 +119,21 @@ const getNbcheckInput = (tabControl) => {
         if(tabControl[index][2]) {
             compteur++              
         }  
-    }            // Retourne le nombre de champs validés
+    }            
     return compteur;        
 }
 
-disableButtonSubmit = (nbInputCheck,tabLength,submitButton) => {  
-    if(nbInputCheck==tabLength) {          // Si tous les champs sont OK et au moins 1 produit dans le panier alors on active le bouton
+disableButtonSubmit = (nbInputCheck,tabLength,submitButton) => { 
+    if(nbInputCheck==tabLength) {         
         submitButton.removeAttribute("disabled");
-    } else {                                         // sinon on le désactive
+        if(mediaPathButton!=null) {alert(mediaPathButton);
+            mediaPathButton.removeAttribute("disabled");
+        }
+    } else {   
         submitButton.setAttribute("disabled",true);
+        if(mediaPathButton!=null) {                              
+            mediaPathButton.setAttribute("disabled",true);
+        }
     }
 }
 
