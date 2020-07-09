@@ -1,3 +1,5 @@
+// Fonctions mère
+
 $(document).ready(function() { 
     $(document).on("click","i[class*=thumbs]:not('.disabled')", function(){ 
         $("#messageServer").empty();
@@ -21,6 +23,10 @@ $(document).ready(function() {
     });
 });
 
+
+/**
+ * Gerer le système de like 
+ */
 const likingContent = (url,role) => {  
     $.ajax({ 
         type: 'POST',       
@@ -38,6 +44,9 @@ const likingContent = (url,role) => {
     });
 }
 
+/**
+ * Créer un commentaire
+ */
 const createComment = (url,message) => {  
     $("#viewWriting").css("display","none");
     $("#viewWriting").next().css("display","block");
@@ -57,6 +66,9 @@ const createComment = (url,message) => {
     });
 }
 
+/**
+ * Supprimer un commentaire
+ */
 const deleteComment = url => {  
     $.ajax({ 
         type: 'POST',       

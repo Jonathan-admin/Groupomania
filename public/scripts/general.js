@@ -1,3 +1,5 @@
+// Fonction mère
+
 $(document).ready(function() { 
     navbarActiveItems();
     $(document).on("click",".reduce .fa-chevron-down", function(){ 
@@ -12,6 +14,10 @@ $(document).ready(function() {
     });
 });
 
+
+/**
+ * Mettre en évidence dans le navbar la page courante
+ */
 const navbarActiveItems = () => {
     $(".nav-link i").removeClass("active");
     if (document.location.href == "http://127.0.0.1:8000/" ||

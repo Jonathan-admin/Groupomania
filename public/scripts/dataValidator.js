@@ -1,17 +1,20 @@
+// variables globales
 const submitAuth = document.getElementById("submit");  
 const submitSeach = document.getElementById("searchContent_button"); 
 const submitCreate = document.getElementById("editContent");
 const submitComment = document.getElementById("sendComment-button");
 var mediaPathButton = null; 
 
-var dataControlAuth = [                                  // Tableau multidimentionnel stockant les informations des contrôles du formulaire d'authentification
+ // Tableau multidimentionnel stockant les informations des contrôles du formulaire d'authentification
+var dataControlAuth = [                                 
     [document.getElementById("login"),/^[a-zA-Z0-9_.]{3,25}$/i,true,
     "Nom d'utilisateur - Le format du login est invalide ! Il doit comporter entre 3 et 25 caractères. La ponctuation (sauf le .), les espaces et les caractères spéciaux sont exclus"],
     [document.getElementById("password"),/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{9,}$/i,true,
     "Mot de passe - Le mot de passe doit comporter au moins 10 caractères, posséder au moins un chiffre, une lettre majuscule et minuscule et l'un des caractères spéciaux suivants: @$!%*?&."]
 ];
 
-var dataControlSub = [                                  // Tableau multidimentionnel stockant les informations des contrôles du formulaire d'authentification
+ // Tableau multidimentionnel stockant les informations des contrôles du formulaire d'inscription
+var dataControlSub = [                           
     [document.getElementById("registration_username"),/^[a-zA-Z0-9_.]{3,15}$/i,true,
     "Nom d'utilisateur - Le format du login est invalide ! Il doit comporter entre 3 et 15 caractères. La ponctuation (sauf le .), les espaces et les caractères spéciaux sont exclus"],
     [document.getElementById("registration_email"),/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/i,true,
@@ -22,13 +25,15 @@ var dataControlSub = [                                  // Tableau multidimentio
     "Confirmation du mot de passe - Le mot de passe doit être identique!"]
 ];
 
-var dataControlSearch = [                                 
+// Tableau multidimentionnel stockant les informations des contrôles du formulaire de recherche de contenus
+var dataControlSearch = [                                   
     [document.getElementById("author"),/^[\w-.éèàçîôûê]{0,15}$/i,true,
     "Autheur - Les caractères que vous avez saisi ne sont pas tous autorisés!"],
     [document.getElementById("title"),/^[\w\s,?!;:()-.éèàçîôûê]{0,15}$/i,true,
     "Titre - Les caractères que vous avez saisi ne sont pas tous autorisés!"]
 ];
 
+// Tableau multidimentionnel stockant les informations des contrôles du formulaire de création de contenu
 var dataControlCreate = [                                 
     [document.getElementById("content_title"),/^[^&'\{\[\<\>\]\}#=@$%\s]{1}[^&'\{\[\<\>\]\}#=@$%]{9,253}$/i,true,
     "Titre - Les caractères que vous avez saisi ne sont pas tous autorisés ou le titre est trop long (10-255 caractères)!"],
@@ -36,12 +41,15 @@ var dataControlCreate = [
     "Message - Vous avez inscrit des caractères non autorisés dans le message ou il est trop long. Il doit être d'au moins 10 caractères et ne pas dépasser 5000 caractères."]
 ];
 
+// Tableau multidimentionnel stockant les informations des contrôles du formulaire de création de commentaire
 var dataControlComment = [                                 
     [$("#comment"),/^[^&'\{\[\<\>\]\}#=@$%\s]{1}[^&'\{\[\<\>\]\}#=@$%]{9,1990}$/i,true,
     "Votre commentaire - Vous avez inscrit des caractères non autorisés dans le message ou il est trop long. Il doit être d'au moins 10 caractères et ne pas dépasser 2000 caractères."],
 ];
 
-
+/**
+ * Fonction mère
+ */
 $(document).ready(function() { 
     $(".form-error-message").prepend("<i class='fa fa-times-circle'></i>");
     $("input").hover(function(){
@@ -57,17 +65,17 @@ $(document).ready(function() {
         $(this).css("border-width","1px");
     });
     switch (detectPageUrl()) { 
-        case 0:
+        case 0:     // Page d'authetification
             dataValidation(dataControlAuth,false,submitAuth,true);
             break;
-        case 1: 
+        case 1:      // Page d'inscription
             dataValidation(dataControlSub,true,submitAuth,false);
             checkConfirmPassword(dataControlSub);
             break;
-        case 2: 
+        case 2:     // Page de recherche de contenu
             dataValidation(dataControlSearch,false,submitSeach,true);
             break;
-        case 3: 
+        case 3:    // Page de création de contenu
             mediaPathButton = document.getElementById("content_mediaPathFile");
             dataValidation(dataControlCreate,false,submitCreate,true);
             $(document).on("change","#content_type", function(){  
@@ -75,7 +83,7 @@ $(document).ready(function() {
             });
             checkMimeTypeFile(submitCreate,dataControlCreate);
             break;
-        case 4: 
+        case 4:    // Page du contenu
             $("#comment").val("");
             checkCommentData(dataControlComment);
             break;
@@ -83,7 +91,9 @@ $(document).ready(function() {
 });
 
 
-
+/**
+ * Vérifier les données lors d'un évènement sur ce champ
+ */
 const markData = (elt,regex,event,label) => {  // Valide la saisie suite à un évènement sur le contrôle
     if(regex.test(event.target.value)) {                    // Test le regex de validité de la saisie
         elt.style.border = "1px solid rgb(9,31,67)";  
@@ -99,6 +109,9 @@ const markData = (elt,regex,event,label) => {  // Valide la saisie suite à un �
     }
 }
 
+/**
+ * Vérifier les données sur ce champ au chargement de la page
+ */
 const markDataLoad = (elt,regex,label) => { 
     elt.style.border = "1px solid rgb(9,31,67)";           // Valide la saisie au chargement de la page
     if(regex.test(elt.value)) {                                     // Test le regex de validité de la saisie
@@ -113,6 +126,9 @@ const markDataLoad = (elt,regex,label) => {
     }   
 }
 
+/**
+ * Renvoyer le nombre de champs validés
+ */
 const getNbcheckInput = (tabControl) => {
     let compteur = 0; 
     for (let index = 0; index < tabControl.length; index++) {
@@ -123,6 +139,9 @@ const getNbcheckInput = (tabControl) => {
     return compteur;        
 }
 
+/**
+ * Désactiver ou non les boutons en fonction des champs validés
+ */
 disableButtonSubmit = (nbInputCheck,tabLength,submitButton) => { 
     if(nbInputCheck==tabLength) {         
         submitButton.removeAttribute("disabled");
@@ -137,6 +156,9 @@ disableButtonSubmit = (nbInputCheck,tabLength,submitButton) => {
     }
 }
 
+/**
+ * Retourner la page courante
+ */
 const detectPageUrl = () => {
     let page = null;
     if(document.location.href.indexOf("connexion")>0) { 
@@ -153,12 +175,15 @@ const detectPageUrl = () => {
     return page;
 }
 
+/**
+ * Coordoner la validation de tous les champs au chargement et suite à un évènement
+ */
 const dataValidation = (tabControl,confirmPass,submitButton,load) => {
-    let tabLong = tabControl.length;
+    let tabLength = tabControl.length;
     if(confirmPass) {
-        tabLong = tabControl.length - 1;
+        tabLength = tabControl.length - 1;
     }
-    for (let i = 0; i < tabLong; i++) {
+    for (let i = 0; i < tabLength; i++) {
         if(load) {
             tabControl[i][2] = markDataLoad(tabControl[i][0],tabControl[i][1],tabControl[i][3]);
         }
@@ -170,7 +195,9 @@ const dataValidation = (tabControl,confirmPass,submitButton,load) => {
     disableButtonSubmit(getNbcheckInput(tabControl),tabControl.length,submitButton);
 }
 
-
+/**
+ * Vérifier la correspondance des champs password et confirm_password
+ */
 checkConfirmPassword = (tabControl) => {
     tabControl[3][0].addEventListener("input", function(event) { 
         if(tabControl[2][0].value === tabControl[3][0].value) {
@@ -185,6 +212,9 @@ checkConfirmPassword = (tabControl) => {
     });
 }
 
+/**
+ * Gérer l'activation du bouton de modification/suppresion en fonction du fichier inséré et des champs validés
+ */
 checkMimeTypeFile = (submitButton,tabControl) => {
         const valueFile = $("label[for=content_mediaPathFile]").text();
         if( $("input[name='content[type]']:checked").val() == "Texte" || 
@@ -221,6 +251,9 @@ checkMimeTypeFile = (submitButton,tabControl) => {
     });
 }
 
+/**
+ * Gérer le bouton d'envoi en fonction du commentaire inséré
+ */
 checkCommentData = tabControl => {
     $(document).on("input", "#comment", function(event) {
         if(tabControl[0][1].test($(this).val())) {                              

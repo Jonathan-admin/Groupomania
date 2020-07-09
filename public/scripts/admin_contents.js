@@ -1,10 +1,12 @@
+// Fonction mère
+
 $(document).ready(function() { 
     $(document).on("click","tr[id*='contentInfosLink']", function(){  
         $("#messageRefreshContent").empty();
         $("#messageServerContent").empty();
         displayInfosContent($(this).attr('data-url'));
     });
-    $(document).on("change","#status", function(){ alert("poi");
+    $(document).on("change","#status", function(){ 
         $("#messageRefreshContent").empty();
         $("#messageServerContent").empty();
         modifyStatus($(this).attr("data-url"),$(this).val());
@@ -21,6 +23,9 @@ $(document).ready(function() {
     });
 });
 
+/**
+ * Affiche le tableau contenant les informations du contenu
+ */
 const displayInfosContent = url => {  
     $.ajax({ 
         type: 'POST',       
@@ -38,6 +43,9 @@ const displayInfosContent = url => {
     });
 }
 
+/**
+ * Modifie le status du contenu (vérifié, suspendu,etc...)
+ */
 const modifyStatus = (url,status) => {  
     $.ajax({ 
         type: 'POST',       
@@ -61,6 +69,9 @@ const modifyStatus = (url,status) => {
     });
 }
 
+/**
+ * Supprime un contenu sélectionné puis actualise la liste
+ */
 const deleteContent = (url) => {  
     $.ajax({ 
         type: 'POST',       
@@ -82,6 +93,9 @@ const deleteContent = (url) => {
     });
 }
 
+/**
+ * Actualise la liste des contenus
+ */
 const refreshContentList = (url) => {  
     $.ajax({ 
         type: 'POST',       
@@ -103,6 +117,9 @@ const refreshContentList = (url) => {
     });
 }
 
+/**
+ * Affiche le tableau d'informations de contenu
+ */
 const getContentsToDisplay = data => { 
     content = "<table><tr class='bg-blue-head'><th>Référence</th><th>Titre</th><th>Statut</th></tr>";
     for (let index = 0; index <  data.contents.length; index++) {
@@ -124,7 +141,9 @@ const getContentsToDisplay = data => {
     return content;
 }
 
-
+/**
+ * Défini l'url avec l'ID du contenu qui servira à afficher les informations relatives à la ligne
+ */
 const setAttrUrlPathContent = data => { 
     for (let index = 0; index <  data.contents.length; index++) {
         let url = "/admin/gestion_contenu/"+data.contents[index].id;

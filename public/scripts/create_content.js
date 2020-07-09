@@ -1,3 +1,5 @@
+// Fonction mère
+
 $(document).ready(function() {
     if(document.location.href.indexOf("nouveau_contenu")>0) {
         $("#content_type_0").prop("checked", true);
@@ -12,6 +14,9 @@ $(document).ready(function() {
     });
 });
 
+/**
+ * Gerer l'apparition du bouton d'ajout de fichier en fonction du type de contenu sélectionné 
+ */
 const displayMediaPathControl = (value) => { 
     if(value=="Image" || value=="Musique") {
         value = "imgMus";

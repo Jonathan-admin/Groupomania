@@ -1,3 +1,5 @@
+// Fonction mère
+
 $(document).ready(function() { 
     $(document).on("click","tr[id*='userInfosLink']", function(){ 
         $("#messageRefresh").empty();
@@ -21,6 +23,9 @@ $(document).ready(function() {
     });
 });
 
+/**
+ * Affiche le tableau d'informations de l'utilisateur
+ */
 const displayInfosUser = url => {  
     $.ajax({ 
         type: 'POST',       
@@ -38,6 +43,9 @@ const displayInfosUser = url => {
     });
 }
 
+/**
+ * Modifie le status de l'utilisateur (utilisation normale, administrateur,etc...)
+ */
 const modifyRoles = (url,role) => {  
     $.ajax({ 
         type: 'POST',       
@@ -61,6 +69,9 @@ const modifyRoles = (url,role) => {
     });
 }
 
+/**
+ * Supprime un utilisateur sélectionné puis actualise la liste
+ */
 const deleteUser = (url) => {  
     $.ajax({ 
         type: 'POST',       
@@ -82,6 +93,9 @@ const deleteUser = (url) => {
     });
 }
 
+/**
+ * Rafraîchi la liste des utilisateurs
+ */
 const refreshUserList = (url) => {  
     $.ajax({ 
         type: 'POST',       
@@ -102,7 +116,9 @@ const refreshUserList = (url) => {
         }
     });
 }
-
+/**
+ * Affiche le tableau d'information de l'utilisateur sélectionné
+ */
 const getUsersToDisplay = data => { 
     content = "<table><tr class='bg-blue-head'><th>Matricule</th><th>Pseudo</th><th>Statut</th></tr>";
     for (let index = 0; index <  data.users.length; index++) {
@@ -128,12 +144,12 @@ const getUsersToDisplay = data => {
     return content;
 }
 
+/**
+ * Défini une url avec l'Id de l'utilisateur associé qui servira à afficher le tableau d'information
+ */
 const setAttrUrlPath = data => { 
     for (let index = 0; index <  data.users.length; index++) {
         let url = "/admin/gestion_utilisateur/"+data.users[index].id;
         $("#userInfosLink"+data.users[index].id).attr("data-url",url);
     }  
 }
-
-
-
