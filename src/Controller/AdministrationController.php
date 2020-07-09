@@ -11,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdministrationController extends AbstractController
 {
     /**
+     * Afficher les informations d'un utilisateur
+     * 
      * @Route("/admin/gestion_utilisateur/{id}", name="admin_userView", requirements={"id"="\d+"})
      */
     public function userView(UserRepository $userRepo, $id) {
@@ -20,6 +22,8 @@ class AdministrationController extends AbstractController
     }
 
     /**
+     * Afficher les informations d'un contenu
+     * 
      * @Route("/admin/gestion_contenu/{id}", name="admin_contentView", requirements={"id"="\d+"})
      */
     public function contentView(ContentRepository $contentRepo, $id) {
@@ -30,6 +34,8 @@ class AdministrationController extends AbstractController
 
 
      /**
+     * Modifier le rôle d'un utilisateur
+     *
      * @Route("/admin/gestion_utilisateur/{id}/droits", name="admin_modifyRoles", requirements={"id"="\d+"})
      */
     public function modifyRules(UserRepository $userRepo, $id, Request $request) {
@@ -41,6 +47,8 @@ class AdministrationController extends AbstractController
     }
 
      /**
+     * Modifier le status d'un contenu
+     * 
      * @Route("/admin/gestion_contenu/{id}/status", name="admin_modifyStatus", requirements={"id"="\d+"})
      */
     public function modifyStatus(ContentRepository $contentRepo, $id, Request $request) {
@@ -52,6 +60,8 @@ class AdministrationController extends AbstractController
     }
 
      /**
+     * Supprimer un utilisateur 
+     *
      * @Route("/admin/gestion_utilisateur/{id}/suppression", name="admin_deleteUser", requirements={"id"="\d+"})
      */
     public function deleteUser(UserRepository $userRepo, $id) {
@@ -61,6 +71,8 @@ class AdministrationController extends AbstractController
     }
 
      /**
+     * Supprimer un contenu
+     * 
      * @Route("/admin/gestion_contenu/{id}/suppression", name="admin_deleteContent", requirements={"id"="\d+"})
      */
     public function deleteContent(ContentRepository $contentRepo, $id) {
@@ -70,6 +82,8 @@ class AdministrationController extends AbstractController
     }
 
     /**
+     * Réactualiser la liste des utilisateurs
+     * 
      * @Route("/admin/gestion_utilisateur/actualisation_liste_utilisateurs", name="admin_refreshUsers")
      */
     public function refreshListUsers(UserRepository $userRepo) {
@@ -78,6 +92,8 @@ class AdministrationController extends AbstractController
     }
 
     /**
+     * Réactualiser la liste des contenus
+     * 
      * @Route("/admin/gestion_contenu/actualisation_liste_contenus", name="admin_refreshContents")
      */
     public function refreshListContents(ContentRepository $contentRepo) {

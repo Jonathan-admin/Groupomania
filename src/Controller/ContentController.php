@@ -17,6 +17,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ContentController extends AbstractController
 {
     /**
+     * Créer un nouveau contenu et gérer sa validation
+     * 
      * @Route("/espace_membre/nouveau_contenu", name="content_create")
      * @Route("/espace_membre/modification_contenu/{id}", name="content_modify")
      */
@@ -82,6 +84,8 @@ class ContentController extends AbstractController
     }
 
     /**
+     * Supprimer un contenu
+     * 
      * @Route("/espace_membre/supprimer_contenu/{id}", name="content_delete")
      */
     public function delete(ContentRepository $contentRepo, $id, EntityManagerInterface $manager)
@@ -96,6 +100,8 @@ class ContentController extends AbstractController
     }
 
      /**
+     * Afficher la page d'un contenu
+     *
      * @Route("/forum/contenu/{id}", name="content_view")
      */
     public function view(ContentRepository $contentRepo, CommentsRepository $commentRepo, $id)
@@ -108,7 +114,8 @@ class ContentController extends AbstractController
     }
 
     /**
-     * Retourne les contenus filtrés par l'utilisateur
+     * Retourner les contenus filtrés par l'utilisateur
+     * 
      * @Route("/forum/Rechercher_des_contenus", name="content_filterView")
      * @return void
      */
@@ -116,7 +123,7 @@ class ContentController extends AbstractController
     { 
         $session = $request->getSession();
         $valParametersFilterContents = $session->get('SearchparametersContent');
-        $searchContentRequest = $contentRepo->requetefilterBuilder($valParametersFilterContents['type'],$valParametersFilterContents['topic'],
+        $searchContentRequest = $contentRepo->requestfilterBuilder($valParametersFilterContents['type'],$valParametersFilterContents['topic'],
         $valParametersFilterContents['author'],$valParametersFilterContents['title'], $valParametersFilterContents['sorting']);
         if($searchContentRequest != null) {
             $contentsSearchPagination = $paginator->paginate(
@@ -134,7 +141,8 @@ class ContentController extends AbstractController
     } 
 
      /**
-     * Retourne les contenus filtrés par l'utilisateur
+     * Récupération des critères enregistrés dans les variables de session
+     * 
      * @Route("/preparation-de-la-recherche", name="content_filterSession")
      * @return void
      */
@@ -153,8 +161,9 @@ class ContentController extends AbstractController
         return $this->redirectToRoute('content_filterView');
     }
 
-      /**
-     * Like le contenu visualisé
+     /**
+     * Liker le contenu visualisé
+     * 
      * @Route("/forum/contenu/{id}/like", name="content_like")
      */
     public function like($id, Request $request, EntityManagerInterface $manager, LikesRepository $likesRepo, ContentRepository $contentRepo) 

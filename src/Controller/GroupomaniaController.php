@@ -12,6 +12,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class GroupomaniaController extends AbstractController
 {
     /**
+     * Afficher la page forum/home
+     * 
      * @Route("/", name="groupomania_home")
      */
     public function home(ContentRepository $contentRepo, PaginatorInterface $paginator, Request $request)
@@ -39,6 +41,8 @@ class GroupomaniaController extends AbstractController
     }
 
      /**
+     * Afficher l'espace membre
+     * 
      * @Route("/espace_membre", name="groupomania_spaceMember")
      */
     public function spaceMember(PaginatorInterface $paginator, ContentRepository $contentRepo, Request $request)
@@ -56,6 +60,8 @@ class GroupomaniaController extends AbstractController
     }
 
     /**
+     * Afficher la page d'administration
+     * 
      * @Route("/admin", name="groupomania_admin")
      */
     public function admin(UserRepository $userRepo, ContentRepository $contentRepo) {
@@ -66,6 +72,8 @@ class GroupomaniaController extends AbstractController
     }
 
      /**
+     * Afficher la page d'administration
+     * 
      * @Route("/notes", name="groupomania_infosManagerDisplay")
      */
     public function infosManagerDisplay()

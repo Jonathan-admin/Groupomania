@@ -10,6 +10,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RegistrationType extends AbstractType
 {
+    /**
+    * Création du formulaire pour éditer le profil utilisateur 
+    */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder

@@ -19,6 +19,9 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    /**
+    * Retourner un tableau contenant tous les utilisateurs de l'application
+    */
     public function getAllUsersWidthIdNameRole()
     {
         return $this->createQueryBuilder('user')
@@ -27,6 +30,9 @@ class UserRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    /**
+    * Suppression d'un utilisateur à partir de son id
+    */
     public function deleteUser($id)
     {
         $request = "DELETE FROM user WHERE id = '".$id."'";
@@ -34,6 +40,9 @@ class UserRepository extends ServiceEntityRepository
         $statement->execute();
     }
 
+    /**
+    * Mettre à jour le rôle d'un utilisateur en base de données
+    */
     public function updateRoles($id,$role)
     {
         switch ($role) {

@@ -19,6 +19,9 @@ class LikesRepository extends ServiceEntityRepository
         parent::__construct($registry, Likes::class);
     }
 
+    /**
+    * Retourner le nombre de likes et dislikes d'un contenu particulier
+    */
     public function getNumberLikes($id)
     {
         $request = "SELECT (SELECT COUNT(*) FROM likes WHERE likes.content_id=".$id." AND likes.type='Like') AS nbLikes, 
@@ -29,6 +32,9 @@ class LikesRepository extends ServiceEntityRepository
         return $statement->fetch();
     }
 
+    /**
+    * Suppression d'un like d'un contenu par un utilisateur
+    */
     public function deleteLike($id, $author) {
         $request = "DELETE FROM likes where likes.content_id=".$id." and likes.author='".$author."';";
         $statement =  $this->getEntityManager()->getConnection()->prepare($request);

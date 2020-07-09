@@ -6,6 +6,8 @@ use App\Repository\LikesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * Table likes de la BDD de Groupomania
+ * 
  * @ORM\Entity(repositoryClass=LikesRepository::class)
  */
 class Likes

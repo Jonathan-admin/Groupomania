@@ -19,6 +19,9 @@ class ContentRepository extends ServiceEntityRepository
         parent::__construct($registry, Content::class);
     }
 
+    /**
+    * Retourner tous les contenus pour la page du forum
+    */
     public function getAllContentForHome(){
         $qb = $this->createQueryBuilder('content')
             ->select('content.id, content.title','content.topic','content.type','content.status');
@@ -26,6 +29,9 @@ class ContentRepository extends ServiceEntityRepository
         return $qb->getQuery();
     }
 
+    /**
+    * Retourner tous les contenus de l'utilisateur
+    */
     public function getAllMyContents($user){
         return $this->createQueryBuilder('content')
                     ->innerJoin('content.username','user')
@@ -35,6 +41,9 @@ class ContentRepository extends ServiceEntityRepository
                     ->getQuery();
     }
 
+    /**
+    * Retourner les 4 contenus les plus populaires
+    */
     public function getPopularContent(){
         $request = "SELECT id, title, topic, type, status, nbComment, nbLikes, nbDislikes, nbLikes-nbDislikes AS sub
                    FROM ( SELECT content.id, content.title, content.topic, content.type, content.status,
@@ -47,7 +56,10 @@ class ContentRepository extends ServiceEntityRepository
         return $statement->fetchAll();
     }
 
-    function requetefilterBuilder($type,$topic,$author,$title,$sorting)
+    /**
+    * Retourner une requête DQL utilisée par la pagination en vue d'afficher les résultats de la recherche
+    */
+    function requestfilterBuilder($type,$topic,$author,$title,$sorting)
     {
         if($this->dataAuthorIsValid($author) && $this->dataTitleIsValid($title)) {
             $qb = $this->createQueryBuilder('content')
@@ -98,6 +110,9 @@ class ContentRepository extends ServiceEntityRepository
         return null;
     }
 
+    /**
+    * Vérifier si la valeur author est valide
+    */
     function dataAuthorIsValid($author) {
         $pattern = "/^[\w-.éèàçîôûê]{0,15}$/";
         if(preg_match($pattern,$author) || $author == "") {
@@ -106,6 +121,9 @@ class ContentRepository extends ServiceEntityRepository
         return false;
     }
 
+    /**
+    * Vérifier si la valeur title est valide
+    */
     function dataTitleIsValid($title) {
         $pattern = "/^[\w\s,?!;:()-.éèàçîôûê]{0,15}$/";
         if(preg_match($pattern,$title) || $title == "") {
@@ -114,6 +132,9 @@ class ContentRepository extends ServiceEntityRepository
         return false;
     }
     
+    /**
+    * Retourner pour tous contenus utilisateur le nombre de commentaires, likes, dislikes, son status, titre et son type
+    */
     public function getMyStatisticContents($user){
         $request = "SELECT content.title, content.status, content.type, content.created_at,
                     (SELECT COUNT(*) FROM comments WHERE comments.content_id=content.id) AS nbComment,
@@ -125,6 +146,9 @@ class ContentRepository extends ServiceEntityRepository
         return $statement->fetchAll();
     }
 
+    /**
+    * Retourner les informations d'un contenu et de son propriétaire
+    */
     public function getInfosContentUser($id){
         return $this->createQueryBuilder('content')
                     ->innerJoin('content.username','user')
@@ -134,6 +158,9 @@ class ContentRepository extends ServiceEntityRepository
                     ->getOneOrNullResult();
     }
 
+    /**
+    * Mettre à jour le status d'un contenu
+    */
     public function updateStatus($id,$status)
     {
         switch ($status) {
@@ -155,6 +182,9 @@ class ContentRepository extends ServiceEntityRepository
         $statement->execute();
     }
 
+    /**
+    * Supprimer un contenu à partir de son id
+    */
     public function deleteContent($id)
     {
         $request = "DELETE FROM content WHERE id = '".$id."'";
@@ -162,6 +192,9 @@ class ContentRepository extends ServiceEntityRepository
         $statement->execute();
     }
 
+    /**
+    * Retourner un tableau contenant tous les contenus 
+    */
     public function getAllContentsWidthIdTitleStatus()
     {
         return $this->createQueryBuilder('content')
@@ -170,6 +203,9 @@ class ContentRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    /**
+    * Retourner toutes les informations d'un contenu avec en plus, le nombre de likes, dislikes, commentaires et si le contenu est aimé ou non par l'utilisateur
+    */
     public function viewContentLikesComments($id,$user)
     {
         $request = "SELECT id, status, type, topic, title, message, media_path_url, media_path_file, created_at, username, nbComments, nbLikes, nbDislikes, isLiked, isDisliked

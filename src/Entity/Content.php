@@ -10,6 +10,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ *
+ * Table content de la BDD de Groupomania
+ * 
  * @ORM\Entity(repositoryClass=ContentRepository::class)
  */
 class Content

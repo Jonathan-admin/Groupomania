@@ -23,6 +23,9 @@ class CommentsRepository extends ServiceEntityRepository
       * @return Comments[] Returns an array of Comments objects
      */
     
+    /**
+    * Retourner tous les commentaires d'un contenu
+    */
     public function findByContentId($id)
     {
         return $this->createQueryBuilder('comments')

@@ -14,6 +14,7 @@ class CommentController extends AbstractController
 {
     /**
      * Créer un nouveau commentaire
+     * 
      * @Route("/forum/contenu/{id}/creation_commentaire", name="comment_create")
      */
     public function create($id, EntityManagerInterface $manager, Request $request, ContentRepository $contentRepo, CommentsRepository $commentRepo) 
@@ -32,6 +33,7 @@ class CommentController extends AbstractController
 
      /**
      * Supprimer un commentaire
+     * 
      * @Route("/forum/contenu/{id}/suppression_commentaire/{idComment}", name="comment_delete")
      */
     public function delete($idComment, $id, EntityManagerInterface $manager, CommentsRepository $commentRepo) 
@@ -44,6 +46,7 @@ class CommentController extends AbstractController
 
     /**
      * Afficher les commentaires
+     * 
      * @Route("/forum/contenu/{id}/afficher_commentaires", name="comment_view")
      */
     public function view($id, CommentsRepository $commentRepo) 

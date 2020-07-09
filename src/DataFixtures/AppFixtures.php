@@ -20,6 +20,10 @@ class AppFixtures extends Fixture
         $this->encoder = $encoder;
     }
     
+     /**
+     * Définition et chargemnt du jeu de données
+     * 
+     */
     public function load(ObjectManager $manager)
     {
 

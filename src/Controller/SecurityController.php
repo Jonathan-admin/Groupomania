@@ -15,6 +15,8 @@ class SecurityController extends AbstractController
 { 
     
     /**
+     * Afficher le forumlaire d'inscription et gérer le traitement
+     * 
      * @Route("/inscription", name="security_registration")
      */
     public function registration(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder) {
@@ -36,6 +38,8 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * Afficher la page d'autehtification et de validation
+     * 
      * @Route("/connexion", name="security_login")
      */
     public function login(AuthenticationUtils $utils) {
@@ -48,6 +52,7 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * Déconnexion de l'utilisateur courant
     * @Route("/deconnexion", name="security_logout")
     */
     public function logout() {

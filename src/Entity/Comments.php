@@ -7,6 +7,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
+ * Table comment de la BDD de Groupomania
+ * 
  * @ORM\Entity(repositoryClass=CommentsRepository::class)
  */
 class Comments

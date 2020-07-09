@@ -13,6 +13,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\Json;
 
 /**
+ * Table user de la BDD de Groupomania
+ * 
+ * 
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @UniqueEntity(
  *     fields={"username"},

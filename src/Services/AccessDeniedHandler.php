@@ -9,6 +9,9 @@ use Symfony\Component\Security\Http\Authorization\AccessDeniedHandlerInterface;
 
 class AccessDeniedHandler implements AccessDeniedHandlerInterface
 {
+    /**
+    * Création d'une page d'erreur 403 en cas d'accès refusé à la page d'administration
+    */
     public function handle(Request $request, AccessDeniedException $accessDeniedException)
     {
         return new Response("<h1>HTTP 403:</h1><p>Vous ne disposez pas de droits suffisants pour accéder à cette page!</p><a href='/'>Revenir à l'accueil</a>", 403);

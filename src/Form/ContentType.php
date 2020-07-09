@@ -14,6 +14,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ContentType extends AbstractType
 {
+    /**
+    * Création du formulaire pour éditer le contenu 
+    */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
