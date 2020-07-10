@@ -147,6 +147,10 @@
             max-height: 500px;
             overflow-y: auto;
             padding-right: 5px;
+            img {
+                width: 50px;
+                height: auto;
+            }   
         }
         &-head {
             font-weight: bold;

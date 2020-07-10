@@ -31,7 +31,7 @@ class CommentsRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('comments')
             ->where('comments.Content = :id')
             ->setParameter('id', $id)
-            ->orderBy('comments.createdAt', 'DESC')
+            ->orderBy('comments.createdAt', 'ASC')
             ->getQuery()
             ->getResult()
         ;

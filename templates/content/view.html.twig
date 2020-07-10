@@ -39,7 +39,7 @@
                 <div>
                     <ul>
                         <li><strong>Type de contenu: </strong> {{ content.type }}</li>
-                        <li><strong>Contenu publié le: </strong> {{ content.created_at | date("d/m/Y à h:m:s") }} par {{ content.username }} </li>
+                        <li><strong>Contenu publié le: </strong> {{ content.created_at | date("d/m/Y à h:i:s") }} par {{ content.username }} </li>
                         <li><strong>Thématique: </strong> {{ content.topic }}</li>
                         <li>{{ content.message | nl2br }} </li>
                         {% if content.type == "Image" %}
