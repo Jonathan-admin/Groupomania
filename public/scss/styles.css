@@ -913,6 +913,10 @@ div.col-xl-3.forum__thumbnail {
   overflow-y: auto;
   padding-right: 5px;
 }
+.view__comments-list img {
+  width: 50px;
+  height: auto;
+}
 .view__comments-head {
   font-weight: bold;
   margin: 10px 0;
