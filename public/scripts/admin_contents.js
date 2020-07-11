@@ -37,7 +37,7 @@ const displayInfosContent = url => {
             $("#contentInfos").html(data).css('text-align','left');
         },       
         error:function (jqXHR, exception) {
-            $("#messageServerContent").html("<i class='fas fa-times'> En raison d\'une erreur survenue, il est impossible d'afficher les informations utilisateur.</i>");
+            $("#messageServerContent").html("<i class='fas fa-times'> En raison d\'une erreur survenue, il est impossible d'afficher les informations du contenu.</i>");
             $("#messageServerContent").attr("class","error");
         }
     });
@@ -81,13 +81,13 @@ const deleteContent = (url) => {
         },
         success: function (data) { 
             $("#contentsList").html(getContentsToDisplay(data)).css('text-align','left');
-            $("#messageServerContent").html("<p><i class='fas fa-check-circle'> L'utilisateur a bien été supprimé!</i></p>").css('text-align','left');
+            $("#messageServerContent").html("<p><i class='fas fa-check-circle'> Le contenu a bien été supprimé!</i></p>").css('text-align','left');
             setAttrUrlPathContent(data);
             $("#messageServerContent").attr("class","success");
         },       
         error:function (jqXHR, exception) {
             $("#contentInfos").empty();
-            $("#messageServerContent").html("<i class='fas fa-times'> En raison d'une erreur innatendue, la suppression de l'utilisateur a échouée.</i>");
+            $("#messageServerContent").html("<i class='fas fa-times'> En raison d'une erreur innatendue, la suppression du contenu a échouée.</i>");
             $("#messageServerContent").attr("class","error");
         }
     });
@@ -105,7 +105,7 @@ const refreshContentList = (url) => {
         },
         success: function (data) { 
             $("#contentsList").html(getContentsToDisplay(data)).css('text-align','left');
-            $("#messageRefreshContent").html("<p><i class='fas fa-check-circle'> La liste des utilisateurs a été réactualisée!</i></p>").css('text-align','left');
+            $("#messageRefreshContent").html("<p><i class='fas fa-check-circle'> La liste des contenus a été réactualisée!</i></p>").css('text-align','left');
             setAttrUrlPathContent(data);
             $("#messageRefreshContent").attr("class","success");
         },       

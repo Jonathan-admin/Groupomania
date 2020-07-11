@@ -48,11 +48,11 @@
         </td>
     </tr>
     <tr>
-        <td>Status actuel</td>
+        <td>Statut actuel</td>
         {% if content.status == "Vérifié" %}
             <td><strong>{{ content.status }} - </strong> Le contenu est conforme et visible par tous.</td>
-        {% elseif content.status == "En cours de vérification" %}
-            <td><strong>{{ content.status }} - </strong>Le contenu n'est pas encore visible sur le site! Merci de le contrôler et changer son status suivant les résultats de l'opération.</td>
+        {% elseif content.status == "En attente de vérifications" %}
+            <td><strong>{{ content.status }} - </strong>Le contenu n'est pas encore visible sur le site! Merci de le contrôler et changer son statut suivant les résultats de l'opération.</td>
         {% elseif content.status == "Suspendu" %}
             <td><strong>{{ content.status }} - </strong>Aucun utilisateur ne peut voir ce contenu en ligne!</td>
         {% else %}
@@ -65,9 +65,9 @@
                 <div class="form-group">
                     <label for="status"><i class="fas fa-tools"></i> Modifier le status</label>
                     <select name="status" id="status" class="form-control" data-url="{{ path('admin_modifyStatus',{'id':content.id}) }}">
-                        <option value="">Choisissez un status</option>
+                        <option value="">Choisissez un statut</option>
                         <option value="checked">Vérifié</option>
-                        <option value="pending">Vérifications en attente</option>
+                        <option value="pending">En attente de vérifications</option>
                         <option value="suspended">Suspendre le contenu</option>
                         <option value="blocked">Verrouiller le contenu</option>
                     </select>

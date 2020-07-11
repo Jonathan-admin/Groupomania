@@ -168,7 +168,7 @@ class ContentRepository extends ServiceEntityRepository
                 $status = "Vérifié";
                 break;
             case "pending":
-                $status = "Vérification en attente";
+                $status = "En attente de vérifications";
                 break;
             case "suspended":
                 $status = "Suspendu";
